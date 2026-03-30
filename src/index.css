@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-background: #f9f9f6;
+  --color-surface-container: #eeeeeb;
+  --color-surface-container-low: #f4f4f1;
+  --color-secondary: #904a43;
+  --color-on-tertiary: #ffffff;
+  --color-on-surface: #1a1c1b;
+  --color-on-tertiary-fixed-variant: #01497b;
+  --color-tertiary-container: #00497b;
+  --color-secondary-fixed-dim: #ffb4ab;
+  --color-on-secondary-fixed-variant: #73332d;
+  --color-inverse-primary: #ffb4ab;
+  --color-on-tertiary-container: #86b9f1;
+  --color-on-error-container: #93000a;
+  --color-outline: #8d706d;
+  --color-on-primary-container: #ff998e;
+  --color-surface: #f9f9f6;
+  --color-surface-container-high: #e8e8e5;
+  --color-outline-variant: #e0bfbb;
+  --color-on-secondary: #ffffff;
+  --color-on-background: #1a1c1b;
+  --color-error-container: #ffdad6;
+  --color-primary-fixed-dim: #ffb4ab;
+  --color-on-error: #ffffff;
+  --color-tertiary-fixed-dim: #9dcaff;
+  --color-primary-container: #8c1515;
+  --color-primary: #680006;
+  --color-surface-container-highest: #e2e3e0;
+  --color-surface-container-lowest: #ffffff;
+  --color-secondary-container: #fea49a;
+  --color-on-surface-variant: #59413e;
+  --color-error: #ba1a1a;
+  --color-on-secondary-fixed: #3b0907;
+  --color-on-primary-fixed: #410002;
+  --color-surface-dim: #dadad7;
+  --color-secondary-fixed: #ffdad6;
+  --color-tertiary-fixed: #d1e4ff;
+  --color-on-tertiary-fixed: #001d35;
+  --color-inverse-surface: #2f312f;
+  --color-primary-fixed: #ffdad6;
+  --color-inverse-on-surface: #f1f1ee;
+  --color-on-primary-fixed-variant: #8d1515;
+  --color-on-secondary-container: #793731;
+  --color-surface-bright: #f9f9f6;
+  --color-on-primary: #ffffff;
+  --color-surface-tint: #ae2f2a;
+  --color-tertiary: #003257;
+  --color-surface-variant: #e2e3e0;
+
+  --font-headline: "Newsreader", serif;
+  --font-body: "Inter", sans-serif;
+  --font-label: "Inter", sans-serif;
+}
+
+@layer utilities {
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--color-surface-container-highest);
+    border-radius: 10px;
+  }
+}
