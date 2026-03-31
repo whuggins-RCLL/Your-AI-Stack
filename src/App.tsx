@@ -4,7 +4,7 @@
  */
 
 import { useState, useMemo, useEffect } from 'react';
-import { Bookmark, ArrowRight, ArrowLeftRight, Plus, Download, Layers, Compass, BookmarkPlus, FileDown, BookOpen, X, Sparkles } from 'lucide-react';
+import { ArrowRight, ArrowLeftRight, Plus, Download, Layers, Compass, BookmarkPlus, FileDown, BookOpen, X, Sparkles } from 'lucide-react';
 import { tools } from './data';
 import FilterBar, { filterTools } from './components/FilterBar';
 
@@ -428,91 +428,73 @@ export default function App() {
           {filteredTools.map((tool) => (
             <article
               key={tool.id}
-              className="group bg-surface-container-lowest rounded-xl p-6 transition-all duration-300 hover:scale-[1.01] shadow-[0_20px_40px_rgba(26,28,27,0.04)] flex flex-col h-full cursor-pointer relative"
+              className="tool-card group bg-surface-container-lowest rounded-xl p-6 transition-all duration-300 hover:scale-[1.01] shadow-[0_20px_40px_rgba(26,28,27,0.04)] border border-outline-variant/30 flex flex-col h-full"
+              role="article"
             >
-              <div className="flex justify-between items-start mb-4">
-                <div className="w-12 h-12 rounded-lg overflow-hidden bg-surface-container flex items-center justify-center">
-                  <img
-                    src={tool.logoUrl}
-                    alt={`${tool.name} Logo`}
-                    className="w-full h-full object-cover"
-                    referrerPolicy="no-referrer"
-                  />
+              <div className="card-header flex items-start justify-between gap-3 mb-4">
+                <div className="flex items-start gap-3 min-w-0">
+                  <div className="w-10 h-10 rounded-lg overflow-hidden bg-surface-container flex items-center justify-center shrink-0">
+                    <img
+                      src={tool.logoUrl}
+                      alt=""
+                      className="tool-logo w-full h-full object-cover"
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
+                  <div className="min-w-0">
+                    <h3 className="tool-name font-headline font-bold text-xl leading-tight truncate">
+                      {tool.name}
+                    </h3>
+                    <span className="category-badge inline-flex mt-1 px-2 py-0.5 rounded-full text-[10px] font-label tracking-wide uppercase bg-surface-container text-on-surface-variant">
+                      {tool.tags[0] || 'General'}
+                    </span>
+                  </div>
                 </div>
-                <button 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    toggleBookmark(tool.id);
-                  }}
-                  className={`transition-colors z-10 ${bookmarkedIds.has(tool.id) ? 'text-primary' : 'text-on-surface-variant hover:text-primary'}`}
-                >
-                  <Bookmark className="w-6 h-6" fill={bookmarkedIds.has(tool.id) ? "currentColor" : "none"} />
-                </button>
-              </div>
-
-              <div className="mb-2 flex items-center gap-2">
-                <h3 className="font-headline font-bold text-xl group-hover:text-primary transition-colors">
-                  {tool.name}
-                </h3>
                 {tool.isNew && (
-                  <span className="text-[8px] bg-primary-container/20 text-primary px-1.5 py-0.5 rounded font-label uppercase tracking-widest">
+                  <span className="new-badge text-[10px] bg-primary-container/20 text-primary px-2 py-0.5 rounded font-label uppercase tracking-widest shrink-0">
                     New
                   </span>
                 )}
               </div>
 
-              <p className="text-on-surface-variant text-sm mb-4 line-clamp-2 leading-relaxed">
+              <p className="tool-description text-on-surface-variant text-sm mb-4 line-clamp-3 leading-relaxed">
                 {tool.description}
               </p>
 
-              <div className="mb-4">
-                <p className="text-xs font-semibold text-primary mb-1">Best for:</p>
-                <p className="text-sm italic">{tool.bestFor}</p>
-              </div>
-
-              <div className="flex flex-wrap gap-2 mb-6">
-                {tool.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-2 py-0.5 bg-[#F5F0EB] text-[#6B6B6B] text-[10px] font-label tracking-wider uppercase rounded-md"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              {tool.helpUrls && tool.helpUrls.length > 0 && (
-                <div className="mb-6">
-                  <p className="text-xs font-semibold text-primary mb-2">Training & Help:</p>
-                  <ul className="text-xs flex flex-col gap-1.5">
-                    {tool.helpUrls.map((url, idx) => (
-                      <li key={idx} className="truncate">
-                        <a 
-                          href={url} 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
-                          className="text-on-surface-variant hover:text-primary underline decoration-outline-variant underline-offset-2 transition-colors"
-                        >
-                          Resource {idx + 1}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              <div className="mt-auto flex justify-between items-center">
-                <span className="text-[10px] font-label tracking-[0.2em] uppercase text-on-surface/40">
+              <div className="card-footer flex flex-wrap items-center gap-2 mb-6">
+                <span className="pricing-tag px-2 py-0.5 bg-[#F5F0EB] text-[#6B6B6B] text-[10px] font-label tracking-wider uppercase rounded-md">
                   {tool.tier}
                 </span>
+                <span className="skill-tag px-2 py-0.5 bg-surface-container text-on-surface-variant text-[10px] font-label tracking-wider uppercase rounded-md">
+                  {tool.tags[1] || 'General'}
+                </span>
+                {tool.tier.toLowerCase() === 'stanford licensed' && (
+                  <span className="stanford-badge px-2 py-0.5 bg-primary/10 text-primary text-[10px] font-semibold rounded-md">
+                    🌲 Stanford Approved
+                  </span>
+                )}
+              </div>
+
+              <div className="card-actions mt-auto flex items-center justify-between gap-3">
                 <a
                   href={tool.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-primary text-sm font-semibold flex items-center gap-1 hover:gap-2 transition-all"
+                  className="btn-details inline-flex items-center gap-1 text-primary text-sm font-semibold hover:gap-2 transition-all"
                 >
-                  Visit Tool <ArrowRight className="w-4 h-4" />
+                  Learn More <ArrowRight className="w-4 h-4" />
                 </a>
+                <button
+                  onClick={() => toggleBookmark(tool.id)}
+                  className={`btn-compare inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-label tracking-widest uppercase border transition-colors ${
+                    bookmarkedIds.has(tool.id)
+                      ? 'border-primary bg-primary/10 text-primary'
+                      : 'border-outline-variant/50 text-on-surface-variant hover:bg-surface-container-low'
+                  }`}
+                  aria-label={`Add ${tool.name} to comparison`}
+                >
+                  {bookmarkedIds.has(tool.id) ? 'Added' : 'Compare'}
+                </button>
               </div>
             </article>
           ))}
