@@ -11,6 +11,7 @@ export default function App() {
   const [showDisclaimer, setShowDisclaimer] = useState(true);
   const [showExplainer, setShowExplainer] = useState(true);
   const [showPhilosophy, setShowPhilosophy] = useState(true);
+  const [showMajorLlms, setShowMajorLlms] = useState(true);
   const [activeCategory, setActiveCategory] = useState('All Tools');
   const [bookmarkedIds, setBookmarkedIds] = useState<Set<string>>(new Set());
   const [showOnlySaved, setShowOnlySaved] = useState(false);
@@ -305,11 +306,21 @@ export default function App() {
 
         {/* Major LLMs Section */}
         <section className="mb-16 bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-8 shadow-sm">
-          <div className="flex items-center gap-3 mb-6">
-            <Sparkles className="w-6 h-6 text-primary" />
-            <h2 className="font-headline text-2xl font-bold text-on-surface">Major, General Purpose Large Language Models (LLMs)</h2>
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
+            <div className="flex items-center gap-3">
+              <Sparkles className="w-6 h-6 text-primary" />
+              <h2 className="font-headline text-2xl font-bold text-on-surface">Major, General Purpose Large Language Models (LLMs)</h2>
+            </div>
+            <button
+              onClick={() => setShowMajorLlms(prev => !prev)}
+              className="inline-flex items-center gap-2 rounded-full border border-outline-variant/60 bg-surface-container-low px-4 py-2 text-sm font-semibold text-on-surface transition-colors hover:bg-surface-container"
+            >
+              {showMajorLlms ? 'Hide section' : 'Show section'}
+            </button>
           </div>
-          
+
+          {showMajorLlms && (
+          <>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <div className="bg-surface-container rounded-xl p-6 border border-outline-variant/20 hover:border-primary/30 transition-colors">
               <h3 className="font-bold text-lg text-on-surface mb-3">GPT-5.4 / GPT-5.4 Pro</h3>
@@ -346,6 +357,8 @@ export default function App() {
               <strong>Mistral</strong> and <strong>DeepSeek</strong> are also worth tracking, especially for users interested in open or more deployable model families. For Stanford users, DeepSeek should be used through the <strong>Stanford AI Playground</strong>; Stanford’s UIT says a secure local version is available there and recommends the Playground as the safer Stanford-managed environment for AI exploration.
             </p>
           </div>
+          </>
+          )}
         </section>
 
         {/* A-Z + Controls Section */}
