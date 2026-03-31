@@ -4,7 +4,7 @@
  */
 
 import { useState, useMemo } from 'react';
-import { Search, Bookmark, ArrowRight, ArrowLeftRight, Plus, Download, Layers, Compass, BookmarkPlus, FileDown, BookOpen } from 'lucide-react';
+import { Search, Bookmark, ArrowRight, ArrowLeftRight, Plus, Download, Layers, Compass, BookmarkPlus, FileDown, BookOpen, X } from 'lucide-react';
 import { tools } from './data';
 
 export default function App() {
@@ -12,6 +12,7 @@ export default function App() {
   const [activeCategory, setActiveCategory] = useState('All Tools');
   const [bookmarkedIds, setBookmarkedIds] = useState<Set<string>>(new Set());
   const [showOnlySaved, setShowOnlySaved] = useState(false);
+  const [showCompare, setShowCompare] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
   const categories = ['All Tools', 'Presentations', 'Spreadsheets', 'Coding', 'Design', 'Music and Sound', 'Deployment', 'No-Code'];
@@ -274,9 +275,12 @@ export default function App() {
                 <option>Recently Added</option>
               </select>
             </div>
-            <button className="flex items-center gap-2 bg-surface-container-highest/50 px-4 py-2 rounded-lg text-xs font-label tracking-widest uppercase hover:bg-surface-container-highest transition-colors">
+            <button 
+              onClick={() => setShowCompare(true)}
+              disabled={bookmarkedIds.size === 0}
+              className="flex items-center gap-2 bg-surface-container-highest/50 px-4 py-2 rounded-lg text-xs font-label tracking-widest uppercase hover:bg-surface-container-highest transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
               <ArrowLeftRight className="w-4 h-4" />
-              Compare (3)
+              Compare ({bookmarkedIds.size})
             </button>
           </div>
         </div>
@@ -381,58 +385,141 @@ export default function App() {
       <button className="md:hidden fixed bottom-6 right-6 w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center active:scale-90 transition-transform z-[60]">
         <Plus className="w-6 h-6" />
       </button>
+      {/* Compare Modal */}
+      {showCompare && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-on-surface/20 backdrop-blur-md p-6">
+          <div className="bg-surface-container-lowest max-w-6xl w-full max-h-[90vh] rounded-2xl shadow-[0_20px_40px_rgba(26,28,27,0.1)] flex flex-col overflow-hidden">
+            <div className="p-6 border-b border-outline-variant/20 flex justify-between items-center">
+              <h2 className="font-headline text-2xl font-bold text-on-surface">
+                Compare Saved Tools
+              </h2>
+              <button 
+                onClick={() => setShowCompare(false)}
+                className="p-2 hover:bg-surface-container rounded-full transition-colors"
+              >
+                <X className="w-6 h-6 text-on-surface-variant" />
+              </button>
+            </div>
+            
+            <div className="p-6 overflow-x-auto flex-1">
+              {bookmarkedTools.length === 0 ? (
+                <div className="text-center py-12 text-on-surface-variant">
+                  <p>No tools saved for comparison.</p>
+                  <button 
+                    onClick={() => setShowCompare(false)}
+                    className="mt-4 bg-primary text-on-primary px-6 py-2 rounded-full font-label tracking-widest uppercase text-sm hover:opacity-90 transition-opacity"
+                  >
+                    Browse Tools
+                  </button>
+                </div>
+              ) : (
+                <div className="flex gap-6 min-w-max pb-4">
+                  {bookmarkedTools.map(tool => (
+                    <div key={tool.id} className="w-80 flex flex-col border border-outline-variant/20 rounded-xl p-6 bg-surface-container-lowest">
+                      <div className="flex items-center gap-4 mb-6">
+                        <div className="w-12 h-12 rounded-lg overflow-hidden bg-surface-container flex-shrink-0">
+                          <img src={tool.logoUrl} alt={`${tool.name} Logo`} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                        </div>
+                        <div>
+                          <h3 className="font-bold text-lg leading-tight">{tool.name}</h3>
+                          <span className="text-[10px] font-label tracking-widest uppercase text-on-surface-variant">{tool.tier}</span>
+                        </div>
+                      </div>
+                      
+                      <div className="space-y-6 flex-1">
+                        <div>
+                          <h4 className="text-xs font-label tracking-widest uppercase text-primary mb-2">Best For</h4>
+                          <p className="text-sm italic text-on-surface-variant">{tool.bestFor}</p>
+                        </div>
+                        
+                        <div>
+                          <h4 className="text-xs font-label tracking-widest uppercase text-primary mb-2">Description</h4>
+                          <p className="text-sm text-on-surface-variant leading-relaxed">{tool.description}</p>
+                        </div>
+                        
+                        <div>
+                          <h4 className="text-xs font-label tracking-widest uppercase text-primary mb-2">Tags</h4>
+                          <div className="flex flex-wrap gap-1.5">
+                            {tool.tags.map(tag => (
+                              <span key={tag} className="px-2 py-0.5 bg-surface-container text-on-surface-variant text-[10px] font-label tracking-wider uppercase rounded">
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="mt-6 pt-6 border-t border-outline-variant/20">
+                        <a 
+                          href={tool.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full block text-center bg-primary text-on-primary py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity"
+                        >
+                          Visit Tool
+                        </a>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
 
     {/* Print View (Only visible when printing) */}
-    <div id="pdf-export-content" className="hidden print:block bg-white text-black p-8 max-w-4xl mx-auto font-sans">
-      <div className="mb-8 border-b border-gray-300 pb-6">
-        <h1 className="text-4xl font-bold text-gray-900 mb-2">My Saved AI Tools</h1>
-        <p className="text-gray-500">Exported from Your AI Stack</p>
+    <div id="pdf-export-content" className="hidden print:block bg-[#ffffff] text-[#000000] p-8 max-w-4xl mx-auto font-sans">
+      <div className="mb-8 border-b border-[#d1d5db] pb-6">
+        <h1 className="text-4xl font-bold text-[#111827] mb-2">My Saved AI Tools</h1>
+        <p className="text-[#6b7280]">Exported from Your AI Stack</p>
       </div>
 
       {bookmarkedTools.length === 0 ? (
-        <p className="text-gray-500 italic">No tools saved.</p>
+        <p className="text-[#6b7280] italic">No tools saved.</p>
       ) : (
         <div className="space-y-8">
           {bookmarkedTools.map((tool) => (
-            <div key={tool.id} className="break-inside-avoid border border-gray-200 rounded-xl p-6">
+            <div key={tool.id} className="break-inside-avoid border border-[#e5e7eb] rounded-xl p-6">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-bold text-gray-900">{tool.name}</h2>
-                <span className="text-xs font-bold tracking-widest uppercase text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+                <h2 className="text-2xl font-bold text-[#111827]">{tool.name}</h2>
+                <span className="text-xs font-bold tracking-widest uppercase text-[#6b7280] bg-[#f3f4f6] px-3 py-1 rounded-full">
                   {tool.tier}
                 </span>
               </div>
               
-              <p className="text-gray-700 text-base mb-6 leading-relaxed">
+              <p className="text-[#374151] text-base mb-6 leading-relaxed">
                 {tool.description}
               </p>
               
               <div className="grid grid-cols-2 gap-6 mb-6">
                 <div>
-                  <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Best For</h3>
-                  <p className="text-sm text-gray-800 font-medium">{tool.bestFor}</p>
+                  <h3 className="text-xs font-bold uppercase tracking-widest text-[#9ca3af] mb-2">Best For</h3>
+                  <p className="text-sm text-[#1f2937] font-medium">{tool.bestFor}</p>
                 </div>
                 <div>
-                  <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Use Cases / Tags</h3>
-                  <p className="text-sm text-gray-800 font-medium">{tool.tags.join(', ')}</p>
+                  <h3 className="text-xs font-bold uppercase tracking-widest text-[#9ca3af] mb-2">Use Cases / Tags</h3>
+                  <p className="text-sm text-[#1f2937] font-medium">{tool.tags.join(', ')}</p>
                 </div>
               </div>
 
               {tool.helpUrls && tool.helpUrls.length > 0 && (
                 <div className="mb-6">
-                  <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Training & Resources</h3>
+                  <h3 className="text-xs font-bold uppercase tracking-widest text-[#9ca3af] mb-2">Training & Resources</h3>
                   <ul className="list-disc list-inside space-y-1">
                     {tool.helpUrls.map((url, idx) => (
                       <li key={idx} className="text-sm">
-                        <a href={url} className="text-blue-600 underline break-all">{url}</a>
+                        <a href={url} className="text-[#2563eb] underline break-all">{url}</a>
                       </li>
                     ))}
                   </ul>
                 </div>
               )}
 
-              <div className="pt-4 border-t border-gray-100">
-                <a href={tool.url} className="text-sm text-blue-600 font-medium break-all">{tool.url}</a>
+              <div className="pt-4 border-t border-[#f3f4f6]">
+                <a href={tool.url} className="text-sm text-[#2563eb] font-medium break-all">{tool.url}</a>
               </div>
             </div>
           ))}
