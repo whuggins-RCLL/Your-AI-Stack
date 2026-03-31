@@ -110,87 +110,28 @@ export default function App() {
         </div>
       )}
 
-      {/* Top Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-[#F9F9F6]/80 dark:bg-[#1A1C1B]/80 backdrop-blur-md shadow-[0_20px_40px_rgba(26,28,27,0.04)]">
-        <div className="flex justify-between items-center px-8 py-4 max-w-[1100px] mx-auto">
-          <div className="flex items-center gap-8">
-            <span className="font-headline font-bold text-2xl text-[#1A1C1B] dark:text-[#F9F9F6] tracking-tighter">
-              Your AI Stack
-            </span>
-            <div className="hidden md:flex gap-6 items-center">
-              <button 
-                onClick={() => {
-                  setShowOnlySaved(false);
-                  setActiveCategory('All Tools');
-                }}
-                className={`font-semibold border-b-2 font-headline italic text-lg tracking-tight transition-all ${!showOnlySaved ? 'text-[#8C1515] dark:text-[#E0BFBB] border-[#8C1515]' : 'text-[#1A1C1B] dark:text-[#F9F9F6] border-transparent opacity-70 hover:opacity-100'}`}
-              >
-                Browse All
-              </button>
-              <div className="relative group flex items-center gap-4">
-                <button 
-                  onClick={() => setShowOnlySaved(!showOnlySaved)}
-                  className={`transition-opacity duration-300 font-headline italic text-lg tracking-tight flex items-center gap-1 ${showOnlySaved ? 'text-primary opacity-100' : 'text-[#1A1C1B] dark:text-[#F9F9F6] opacity-70 hover:opacity-100'}`}
-                >
-                  Saved
-                  <span className="bg-primary text-on-primary text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-sans not-italic">
-                    {bookmarkedIds.size}
-                  </span>
-                </button>
-                {bookmarkedIds.size > 0 && (
-                  <button
-                    onClick={handleExportPDF}
-                    className="flex items-center gap-2 bg-primary text-on-primary px-3 py-1.5 rounded-lg text-xs font-label tracking-widest uppercase hover:opacity-90 transition-opacity shadow-sm"
-                  >
-                    <Download className="w-3.5 h-3.5" />
-                    Export PDF
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <button className="text-on-surface opacity-70 hover:opacity-100 transition-opacity active:scale-95">
-              <Search className="w-6 h-6" />
-            </button>
-          </div>
-        </div>
-      </nav>
-
-      <main className="pt-32 pb-24 max-w-[1100px] mx-auto px-6">
+      <main className="pb-24 max-w-[1100px] mx-auto px-6">
         {/* Hero Section */}
-        <header className="mb-16">
-          <h1 className="font-headline text-5xl md:text-7xl text-on-surface tracking-tighter mb-8 leading-[1.1]">
-            Find the right <span className="italic text-primary">AI tool</span><br />for the job.
-          </h1>
-          <div className="flex flex-col gap-6">
-            {/* Search Bar */}
-            <div className="relative w-full max-w-2xl group">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface/40 w-5 h-5" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-surface-container border-b-2 border-outline-variant focus:border-primary focus:outline-none py-4 pl-12 pr-4 rounded-t-lg transition-colors placeholder:italic"
-                placeholder="Search the archive (e.g. 'Coding assistant' or 'Claude')..."
-              />
-            </div>
-            {/* Category Pills */}
-            <div className="flex flex-wrap gap-2">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`px-4 py-1.5 rounded-full text-xs font-label tracking-widest uppercase transition-colors ${
-                    activeCategory === cat
-                      ? 'bg-primary text-on-primary'
-                      : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high'
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
+        <header className="relative w-full h-[350px] sm:h-[400px] lg:h-[450px] overflow-hidden mb-12 shadow-2xl flex items-center rounded-b-3xl sm:rounded-3xl sm:mt-6 bg-[#8C1515]">
+          <div className="absolute inset-0 z-0">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#2E2D29] via-[#8C1515] to-[#53565A] opacity-90"></div>
+            <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[70%] rounded-full bg-[#8C1515] mix-blend-screen blur-[120px] opacity-70 animate-pulse" style={{ animationDuration: '8s' }}></div>
+            <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[80%] rounded-full bg-[#FFFFFF] mix-blend-overlay blur-[150px] opacity-20"></div>
+            <div className="absolute top-[20%] right-[20%] w-[40%] h-[50%] rounded-full bg-[#D4AF37] mix-blend-screen blur-[100px] opacity-30"></div>
+            <div className="absolute bottom-[10%] left-[30%] w-[50%] h-[60%] rounded-full bg-[#53565A] mix-blend-multiply blur-[100px] opacity-50"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-[#2E2D29]/90 via-[#2E2D29]/60 to-transparent w-3/4 md:w-2/3"></div>
+            <div className="absolute top-[10%] right-[5%] w-[35%] h-[85%] bg-white/5 backdrop-blur-3xl border border-white/10 rounded-[40px] transform rotate-3 shadow-2xl"></div>
+            <div className="absolute bottom-[-15%] right-[20%] w-[45%] h-[70%] bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[40px] transform -rotate-6 shadow-2xl"></div>
+            <div className="absolute top-[25%] left-[55%] w-[30%] h-[60%] bg-[#8C1515]/10 backdrop-blur-xl border border-white/5 rounded-[40px] transform rotate-12 shadow-xl"></div>
+            <div className="absolute inset-0 bg-white/5 backdrop-blur-[2px]"></div>
+          </div>
+          <div className="relative z-10 px-8 sm:px-16 lg:px-24 max-w-4xl">
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-semibold text-white tracking-tight mb-4 drop-shadow-lg">
+              Your AI Stack
+            </h1>
+            <p className="text-lg md:text-xl text-white/90 leading-relaxed drop-shadow-md font-light">
+              Find the right AI tool for the job.
+            </p>
           </div>
         </header>
 
@@ -374,31 +315,92 @@ export default function App() {
           </div>
         </section>
 
-        {/* Controls Row */}
-        <div className="flex flex-col md:flex-row justify-between items-end md:items-center mb-8 gap-4 border-b border-outline-variant/10 pb-4">
-          <p className="font-body text-sm text-on-surface-variant italic">
-            Showing {filteredTools.length} curated results
-          </p>
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-label tracking-widest text-on-surface-variant uppercase">
-                Sort By:
-              </span>
-              <select className="bg-transparent border-none text-sm font-semibold focus:outline-none cursor-pointer">
-                <option>A-Z</option>
-                <option>Category</option>
-                <option>Recently Added</option>
-              </select>
-            </div>
-            <button 
-              onClick={() => setShowCompare(true)}
-              disabled={bookmarkedIds.size === 0}
-              className="flex items-center gap-2 bg-surface-container-highest/50 px-4 py-2 rounded-lg text-xs font-label tracking-widest uppercase hover:bg-surface-container-highest transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-              <ArrowLeftRight className="w-4 h-4" />
-              Compare ({bookmarkedIds.size})
+        {/* A-Z + Controls Section */}
+        <section className="mb-8 border-b border-outline-variant/10 pb-4 space-y-6">
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              onClick={() => {
+                setShowOnlySaved(false);
+                setActiveCategory('All Tools');
+              }}
+              className={`px-4 py-2 rounded-lg text-xs font-label tracking-widest uppercase transition-colors ${!showOnlySaved ? 'bg-primary text-on-primary' : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high'}`}
+            >
+              Browse All
             </button>
+            <button
+              onClick={() => setShowOnlySaved(!showOnlySaved)}
+              className={`px-4 py-2 rounded-lg text-xs font-label tracking-widest uppercase transition-colors flex items-center gap-2 ${showOnlySaved ? 'bg-primary text-on-primary' : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high'}`}
+            >
+              Saved
+              <span className="bg-on-primary/20 text-current text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-sans">
+                {bookmarkedIds.size}
+              </span>
+            </button>
+            {bookmarkedIds.size > 0 && (
+              <button
+                onClick={handleExportPDF}
+                className="flex items-center gap-2 bg-primary text-on-primary px-4 py-2 rounded-lg text-xs font-label tracking-widest uppercase hover:opacity-90 transition-opacity shadow-sm"
+              >
+                <Download className="w-3.5 h-3.5" />
+                Export PDF
+              </button>
+            )}
           </div>
-        </div>
+
+          <div className="flex flex-col gap-6">
+            <div className="relative w-full max-w-2xl group">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface/40 w-5 h-5" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full bg-surface-container border-b-2 border-outline-variant focus:border-primary focus:outline-none py-4 pl-12 pr-4 rounded-t-lg transition-colors placeholder:italic"
+                placeholder="Search the archive (e.g. 'Coding assistant' or 'Claude')..."
+              />
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`px-4 py-1.5 rounded-full text-xs font-label tracking-widest uppercase transition-colors ${
+                    activeCategory === cat
+                      ? 'bg-primary text-on-primary'
+                      : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high'
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex flex-col md:flex-row justify-between items-end md:items-center gap-4">
+            <p className="font-body text-sm text-on-surface-variant italic">
+              Showing {filteredTools.length} curated results
+            </p>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-label tracking-widest text-on-surface-variant uppercase">
+                  Sort By:
+                </span>
+                <select className="bg-transparent border-none text-sm font-semibold focus:outline-none cursor-pointer">
+                  <option>A-Z</option>
+                  <option>Category</option>
+                  <option>Recently Added</option>
+                </select>
+              </div>
+              <button
+                onClick={() => setShowCompare(true)}
+                disabled={bookmarkedIds.size === 0}
+                className="flex items-center gap-2 bg-surface-container-highest/50 px-4 py-2 rounded-lg text-xs font-label tracking-widest uppercase hover:bg-surface-container-highest transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <ArrowLeftRight className="w-4 h-4" />
+                Compare ({bookmarkedIds.size})
+              </button>
+            </div>
+          </div>
+        </section>
 
         {/* Tool Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
