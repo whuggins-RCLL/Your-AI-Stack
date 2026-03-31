@@ -3,40 +3,38 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useMemo } from 'react';
-import { Search, Bookmark, ArrowRight, ArrowLeftRight, Plus, Download, Layers, Compass, BookmarkPlus, FileDown, BookOpen, X, Sparkles } from 'lucide-react';
+import { useState, useMemo, useEffect } from 'react';
+import { Bookmark, ArrowRight, ArrowLeftRight, Plus, Download, Layers, Compass, BookmarkPlus, FileDown, BookOpen, X, Sparkles } from 'lucide-react';
 import { tools } from './data';
+import FilterBar, { filterTools } from './components/FilterBar';
 
 export default function App() {
   const [showDisclaimer, setShowDisclaimer] = useState(true);
   const [showExplainer, setShowExplainer] = useState(true);
   const [showPhilosophy, setShowPhilosophy] = useState(true);
   const [showMajorLlms, setShowMajorLlms] = useState(true);
-  const [activeCategory, setActiveCategory] = useState('All Tools');
   const [bookmarkedIds, setBookmarkedIds] = useState<Set<string>>(new Set());
   const [showOnlySaved, setShowOnlySaved] = useState(false);
   const [showCompare, setShowCompare] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [filters, setFilters] = useState({
+    categories: ['All'],
+    pricing: ['All'],
+    skillLevels: ['All'],
+    search: ''
+  });
+  const [isGridVisible, setIsGridVisible] = useState(true);
 
-  const categories = ['All Tools', 'Presentations', 'Spreadsheets', 'Coding', 'Design', 'Music and Sound', 'Podcasts', 'Deployment', 'No-Code'];
-
-  let filteredTools = activeCategory === 'All Tools' 
-    ? tools 
-    : tools.filter(tool => tool.tags.includes(activeCategory));
+  let filteredTools = filterTools(tools, filters);
 
   if (showOnlySaved) {
     filteredTools = filteredTools.filter(tool => bookmarkedIds.has(tool.id));
   }
 
-  if (searchQuery.trim() !== '') {
-    const query = searchQuery.toLowerCase();
-    filteredTools = filteredTools.filter(tool => 
-      tool.name.toLowerCase().includes(query) || 
-      tool.description.toLowerCase().includes(query) ||
-      tool.bestFor.toLowerCase().includes(query) ||
-      tool.tags.some(tag => tag.toLowerCase().includes(query))
-    );
-  }
+  useEffect(() => {
+    setIsGridVisible(false);
+    const timer = window.setTimeout(() => setIsGridVisible(true), 80);
+    return () => window.clearTimeout(timer);
+  }, [filters, showOnlySaved]);
 
   const bookmarkedTools = useMemo(() => tools.filter(t => bookmarkedIds.has(t.id)), [bookmarkedIds]);
 
@@ -367,7 +365,7 @@ export default function App() {
             <button
               onClick={() => {
                 setShowOnlySaved(false);
-                setActiveCategory('All Tools');
+                setFilters({ categories: ['All'], pricing: ['All'], skillLevels: ['All'], search: '' });
               }}
               className={`px-4 py-2 rounded-lg text-xs font-label tracking-widest uppercase transition-colors ${!showOnlySaved ? 'bg-primary text-on-primary' : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high'}`}
             >
@@ -393,38 +391,15 @@ export default function App() {
             )}
           </div>
 
-          <div className="flex flex-col gap-6">
-            <div className="relative w-full max-w-2xl group">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface/40 w-5 h-5" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-surface-container border-b-2 border-outline-variant focus:border-primary focus:outline-none py-4 pl-12 pr-4 rounded-t-lg transition-colors placeholder:italic"
-                placeholder="Search the archive (e.g. 'Coding assistant' or 'Claude')..."
-              />
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`px-4 py-1.5 rounded-full text-xs font-label tracking-widest uppercase transition-colors ${
-                    activeCategory === cat
-                      ? 'bg-primary text-on-primary'
-                      : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high'
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-          </div>
+          <FilterBar
+            tools={tools}
+            filters={filters}
+            onFiltersChange={setFilters}
+            resultCount={filteredTools.length}
+            totalCount={tools.length}
+          />
 
           <div className="flex flex-col md:flex-row justify-between items-end md:items-center gap-4">
-            <p className="font-body text-sm text-on-surface-variant italic">
-              Showing {filteredTools.length} curated results
-            </p>
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
                 <span className="text-xs font-label tracking-widest text-on-surface-variant uppercase">
@@ -449,7 +424,7 @@ export default function App() {
         </section>
 
         {/* Tool Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-300 ${isGridVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'}`}>
           {filteredTools.map((tool) => (
             <article
               key={tool.id}
