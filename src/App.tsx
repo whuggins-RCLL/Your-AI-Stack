@@ -4,7 +4,7 @@
  */
 
 import { useState, useMemo, useEffect } from 'react';
-import { ArrowRight, ArrowLeftRight, Plus, Download, Layers, Compass, BookmarkPlus, FileDown, BookOpen, X, Sparkles } from 'lucide-react';
+import { ArrowRight, ArrowLeftRight, Plus, Download, Layers, Compass, BookmarkPlus, FileDown, BookOpen, X, Sparkles, Check, ExternalLink } from 'lucide-react';
 import { tools } from './data';
 import FilterBar, { filterTools } from './components/FilterBar';
 
@@ -16,6 +16,11 @@ export default function App() {
   const [bookmarkedIds, setBookmarkedIds] = useState<Set<string>>(new Set());
   const [showOnlySaved, setShowOnlySaved] = useState(false);
   const [showCompare, setShowCompare] = useState(false);
+  const [selectedToolId, setSelectedToolId] = useState<string | null>(null);
+  const [detailTab, setDetailTab] = useState<'overview' | 'getting-started' | 'use-cases'>('overview');
+  const [mobileDetailView, setMobileDetailView] = useState(false);
+  const [showOnlyDifferences, setShowOnlyDifferences] = useState(false);
+  const [activeCompareToolId, setActiveCompareToolId] = useState<string | null>(null);
   const [filters, setFilters] = useState({
     categories: ['All'],
     pricing: ['All'],
@@ -37,15 +42,108 @@ export default function App() {
   }, [filters, showOnlySaved]);
 
   const bookmarkedTools = useMemo(() => tools.filter(t => bookmarkedIds.has(t.id)), [bookmarkedIds]);
+  const selectedTool = useMemo(() => tools.find((tool) => tool.id === selectedToolId) || null, [selectedToolId]);
+  const comparisonTools = useMemo(() => bookmarkedTools.slice(0, 3), [bookmarkedTools]);
 
   const toggleBookmark = (id: string) => {
     setBookmarkedIds(prev => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
-      else next.add(id);
+      else if (next.size < 3) next.add(id);
       return next;
     });
   };
+
+  const getPrivacyInfo = (tool: any) => {
+    if (tool.tier?.toLowerCase() === 'stanford licensed') {
+      return { level: 'Stanford Approved', explanation: 'Covered by institutional controls and preferred for university-related workflows.' };
+    }
+    if (tool.tier?.toLowerCase() === 'free') {
+      return { level: 'Standard', explanation: 'Review data handling before sharing sensitive legal or client information.' };
+    }
+    return { level: 'Enhanced Review Needed', explanation: 'Verify retention, training usage, and terms before using confidential data.' };
+  };
+
+  const getToolDetailData = (tool: any) => ({
+    whyLaw: tool.whyLaw || `This tool can help with ${tool.bestFor.toLowerCase()} while improving speed and consistency in legal workflows.`,
+    gettingStarted: tool.gettingStarted || `1. Create an account and confirm your access tier.\n2. Start with a small, low-risk legal task.\n3. Compare the result against your current workflow.\n4. Save your best prompt template for repeatable use.`,
+    videoUrl: tool.videoUrl || '',
+    useCases: tool.useCases || [
+      {
+        title: `First-pass ${tool.tags[0] || 'workflow'} support`,
+        persona: '1L student',
+        scenario: `You need to complete a high-volume task and want a first draft quickly.`,
+        steps: ['Define objective and constraints.', 'Run one draft with citations where possible.', 'Validate against primary sources and course guidance.'],
+        outcome: 'You produce a stronger first draft in less time and focus effort on legal judgment.'
+      },
+      {
+        title: 'Clinic document acceleration',
+        persona: 'Clinic student',
+        scenario: `You have a deadline and need a reliable structure for legal writing.`,
+        steps: ['Upload or summarize source material.', 'Generate structured output.', 'Edit for jurisdiction-specific and client-specific requirements.'],
+        outcome: 'You reduce repetitive drafting time and spend more time on analysis.'
+      }
+    ]
+  });
+
+  const openDetails = (toolId: string) => {
+    setSelectedToolId(toolId);
+    setDetailTab('overview');
+    setMobileDetailView(window.innerWidth < 768);
+  };
+
+  useEffect(() => {
+    if (!activeCompareToolId && comparisonTools.length) {
+      setActiveCompareToolId(comparisonTools[0].id);
+    } else if (activeCompareToolId && !comparisonTools.find((tool) => tool.id === activeCompareToolId)) {
+      setActiveCompareToolId(comparisonTools[0]?.id ?? null);
+    }
+  }, [comparisonTools, activeCompareToolId]);
+
+  const comparisonRows = useMemo(() => {
+    const rowGroups = [
+      {
+        label: 'Core Capabilities',
+        rows: [
+          { label: 'Best For', getValue: (tool: any) => tool.bestFor || '—' },
+          { label: 'Category', getValue: (tool: any) => tool.tags?.[0] || '—' },
+          { label: 'Has Learning Resources', getValue: (tool: any) => tool.helpUrls?.length ? '✓' : '—' },
+          { label: 'Marked as New', getValue: (tool: any) => tool.isNew ? '✓' : '—' }
+        ]
+      },
+      {
+        label: 'Pricing & Access',
+        rows: [
+          { label: 'Pricing Tier', getValue: (tool: any) => tool.tier || '—' },
+          { label: 'Stanford Access Note', getValue: (tool: any) => tool.tier?.toLowerCase() === 'stanford licensed' ? '✓' : '—' }
+        ]
+      },
+      {
+        label: 'Privacy',
+        rows: [
+          { label: 'Privacy Indicator', getValue: (tool: any) => getPrivacyInfo(tool).level },
+          { label: 'Needs Extra Data Review', getValue: (tool: any) => tool.tier?.toLowerCase() === 'free' || tool.tier?.toLowerCase() === 'freemium' ? '✓' : '—' }
+        ]
+      },
+      {
+        label: 'Platform Support',
+        rows: [
+          { label: 'Web', getValue: () => '✓' },
+          { label: 'Has Mobile App', getValue: (tool: any) => /ios|android|mobile/i.test(`${tool.description} ${tool.bestFor} ${tool.tags?.join(' ')}`) ? '✓' : '—' },
+          { label: 'Desktop Friendly', getValue: (tool: any) => /desktop|web|browser/i.test(`${tool.description} ${tool.bestFor}`) ? '✓' : '—' }
+        ]
+      }
+    ];
+
+    return rowGroups.map((group) => ({
+      ...group,
+      rows: group.rows.map((row) => {
+        const values = comparisonTools.map((tool) => row.getValue(tool));
+        const hasDifference = new Set(values).size > 1;
+        return { ...row, values, hasDifference };
+      }).filter((row) => !showOnlyDifferences || row.hasDifference)
+    })).filter((group) => group.rows.length > 0);
+  }, [comparisonTools, showOnlyDifferences]);
 
   const handleExportPDF = async () => {
     try {
@@ -477,19 +575,22 @@ export default function App() {
 
               <div className="card-actions mt-auto flex items-center justify-between gap-3">
                 <a
-                  href={tool.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    openDetails(tool.id);
+                  }}
                   className="btn-details inline-flex items-center gap-1 text-primary text-sm font-semibold hover:gap-2 transition-all"
                 >
                   Learn More <ArrowRight className="w-4 h-4" />
                 </a>
                 <button
                   onClick={() => toggleBookmark(tool.id)}
+                  disabled={!bookmarkedIds.has(tool.id) && bookmarkedIds.size >= 3}
                   className={`btn-compare inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-label tracking-widest uppercase border transition-colors ${
                     bookmarkedIds.has(tool.id)
                       ? 'border-primary bg-primary/10 text-primary'
-                      : 'border-outline-variant/50 text-on-surface-variant hover:bg-surface-container-low'
+                      : 'border-outline-variant/50 text-on-surface-variant hover:bg-surface-container-low disabled:opacity-40 disabled:cursor-not-allowed'
                   }`}
                   aria-label={`Add ${tool.name} to comparison`}
                 >
@@ -505,84 +606,188 @@ export default function App() {
       <button className="md:hidden fixed bottom-6 right-6 w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center active:scale-90 transition-transform z-[60]">
         <Plus className="w-6 h-6" />
       </button>
-      {/* Compare Modal */}
-      {showCompare && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-on-surface/20 backdrop-blur-md p-6">
-          <div className="bg-surface-container-lowest max-w-6xl w-full max-h-[90vh] rounded-2xl shadow-[0_20px_40px_rgba(26,28,27,0.1)] flex flex-col overflow-hidden">
-            <div className="p-6 border-b border-outline-variant/20 flex justify-between items-center">
-              <h2 className="font-headline text-2xl font-bold text-on-surface">
-                Compare Saved Tools
-              </h2>
-              <button 
-                onClick={() => setShowCompare(false)}
-                className="p-2 hover:bg-surface-container rounded-full transition-colors"
-              >
-                <X className="w-6 h-6 text-on-surface-variant" />
+      {/* Detail View */}
+      {selectedTool && (
+        <div className={`fixed inset-0 z-[110] ${mobileDetailView ? 'bg-surface' : 'bg-on-surface/30 backdrop-blur-sm p-4 md:p-8 flex items-center justify-center'}`}>
+          <div className={`${mobileDetailView ? 'w-full h-full overflow-auto' : 'w-full max-w-5xl max-h-[90vh] rounded-2xl overflow-auto'} bg-surface-container-lowest shadow-[0_20px_40px_rgba(26,28,27,0.12)]`}>
+            <div className="p-6 border-b border-outline-variant/20 flex items-start justify-between gap-4 sticky top-0 bg-surface-container-lowest z-10">
+              <div className="flex items-center gap-4">
+                <img src={selectedTool.logoUrl} alt="" className="w-12 h-12 rounded-lg object-cover bg-surface-container" referrerPolicy="no-referrer" />
+                <div>
+                  <h2 className="font-headline text-2xl font-bold">{selectedTool.name}</h2>
+                  <p className="text-sm text-on-surface-variant">{selectedTool.bestFor}</p>
+                </div>
+              </div>
+              <button onClick={() => setSelectedToolId(null)} className="p-2 rounded-full hover:bg-surface-container">
+                <X className="w-5 h-5" />
               </button>
             </div>
-            
-            <div className="p-6 overflow-x-auto flex-1">
-              {bookmarkedTools.length === 0 ? (
-                <div className="text-center py-12 text-on-surface-variant">
-                  <p>No tools saved for comparison.</p>
-                  <button 
-                    onClick={() => setShowCompare(false)}
-                    className="mt-4 bg-primary text-on-primary px-6 py-2 rounded-full font-label tracking-widest uppercase text-sm hover:opacity-90 transition-opacity"
-                  >
-                    Browse Tools
+
+            <div className="px-6 pt-4">
+              <div className="flex gap-2 border-b border-outline-variant/20">
+                {[
+                  { id: 'overview', label: 'Overview' },
+                  { id: 'getting-started', label: 'Getting Started' },
+                  { id: 'use-cases', label: 'Use Cases' }
+                ].map((tab) => (
+                  <button key={tab.id} onClick={() => setDetailTab(tab.id as any)} className={`px-4 py-2 text-sm font-semibold border-b-2 ${detailTab === tab.id ? 'border-primary text-primary' : 'border-transparent text-on-surface-variant'}`}>
+                    {tab.label}
                   </button>
-                </div>
-              ) : (
-                <div className="flex gap-6 min-w-max pb-4">
-                  {bookmarkedTools.map(tool => (
-                    <div key={tool.id} className="w-80 flex flex-col border border-outline-variant/20 rounded-xl p-6 bg-surface-container-lowest">
-                      <div className="flex items-center gap-4 mb-6">
-                        <div className="w-12 h-12 rounded-lg overflow-hidden bg-surface-container flex-shrink-0">
-                          <img src={tool.logoUrl} alt={`${tool.name} Logo`} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
-                        </div>
-                        <div>
-                          <h3 className="font-bold text-lg leading-tight">{tool.name}</h3>
-                          <span className="text-[10px] font-label tracking-widest uppercase text-on-surface-variant">{tool.tier}</span>
-                        </div>
-                      </div>
-                      
-                      <div className="space-y-6 flex-1">
-                        <div>
-                          <h4 className="text-xs font-label tracking-widest uppercase text-primary mb-2">Best For</h4>
-                          <p className="text-sm italic text-on-surface-variant">{tool.bestFor}</p>
-                        </div>
-                        
-                        <div>
-                          <h4 className="text-xs font-label tracking-widest uppercase text-primary mb-2">Description</h4>
-                          <p className="text-sm text-on-surface-variant leading-relaxed">{tool.description}</p>
-                        </div>
-                        
-                        <div>
-                          <h4 className="text-xs font-label tracking-widest uppercase text-primary mb-2">Tags</h4>
-                          <div className="flex flex-wrap gap-1.5">
-                            {tool.tags.map(tag => (
-                              <span key={tag} className="px-2 py-0.5 bg-surface-container text-on-surface-variant text-[10px] font-label tracking-wider uppercase rounded">
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="mt-6 pt-6 border-t border-outline-variant/20">
-                        <a 
-                          href={tool.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="w-full block text-center bg-primary text-on-primary py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity"
-                        >
-                          Visit Tool
-                        </a>
-                      </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="p-6 space-y-6">
+              {detailTab === 'overview' && (
+                <>
+                  <p className="text-on-surface-variant leading-relaxed">{selectedTool.description}</p>
+                  <div>
+                    <h3 className="font-semibold mb-2">Features</h3>
+                    <ul className="grid md:grid-cols-2 gap-2 text-sm text-on-surface-variant">
+                      {selectedTool.tags.map((tag) => <li key={tag} className="flex items-center gap-2"><Check className="w-4 h-4 text-primary" />{tag}</li>)}
+                    </ul>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold uppercase">{selectedTool.tier}</span>
+                    {selectedTool.tags.map((tag) => <span key={tag} className="px-3 py-1 rounded-full bg-surface-container text-xs">{tag}</span>)}
+                  </div>
+                  {selectedTool.tier.toLowerCase() === 'stanford licensed' && (
+                    <div className="rounded-xl border border-primary/20 bg-primary/5 p-4 text-sm">
+                      🌲 Stanford access note: This tool is currently available through Stanford licensing.
                     </div>
+                  )}
+                  <div className="rounded-xl border border-outline-variant/30 p-4">
+                    <p className="font-semibold mb-1">Privacy Level: {getPrivacyInfo(selectedTool).level}</p>
+                    <p className="text-sm text-on-surface-variant">{getPrivacyInfo(selectedTool).explanation}</p>
+                  </div>
+                  <a href={selectedTool.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-on-primary text-sm font-semibold">
+                    Visit Tool Website <ExternalLink className="w-4 h-4" />
+                  </a>
+                  <div className="rounded-xl border-l-4 border-primary bg-primary/5 p-4">
+                    <p className="text-xs uppercase tracking-widest text-primary font-semibold mb-1">Why this matters for law</p>
+                    <p className="text-sm text-on-surface-variant">{getToolDetailData(selectedTool).whyLaw}</p>
+                  </div>
+                </>
+              )}
+
+              {detailTab === 'getting-started' && (
+                <div className="space-y-4">
+                  <div className="rounded-xl border border-outline-variant/30 p-4 bg-surface">
+                    {getToolDetailData(selectedTool).gettingStarted.split('\n').map((line: string, index: number) => (
+                      <p key={index} className="text-sm text-on-surface-variant mb-2">{line}</p>
+                    ))}
+                  </div>
+                  <div className="rounded-xl border border-dashed border-outline-variant/60 p-6 text-center text-sm text-on-surface-variant">
+                    {getToolDetailData(selectedTool).videoUrl ? `Video: ${getToolDetailData(selectedTool).videoUrl}` : 'Embedded video placeholder — tutorial link coming soon.'}
+                  </div>
+                  <div className="rounded-xl bg-[#8C1515]/5 border border-[#8C1515]/20 p-4 text-sm">
+                    <p className="font-semibold text-[#8C1515] mb-2">Tips for law school users</p>
+                    <ul className="list-disc ml-5 space-y-1 text-on-surface-variant">
+                      <li>Start with non-confidential assignments and class hypotheticals.</li>
+                      <li>Always verify citations against primary authority.</li>
+                      <li>Keep prompt templates for memos, briefs, and outlines.</li>
+                    </ul>
+                  </div>
+                </div>
+              )}
+
+              {detailTab === 'use-cases' && (
+                <div className="space-y-4">
+                  {getToolDetailData(selectedTool).useCases.map((item: any) => (
+                    <article key={item.title} className="rounded-xl border border-outline-variant/30 p-4 space-y-2">
+                      <h3 className="font-semibold">{item.title}</h3>
+                      <p className="text-xs uppercase tracking-wider text-primary">{item.persona}</p>
+                      <p className="text-sm text-on-surface-variant">{item.scenario}</p>
+                      <ol className="list-decimal ml-5 text-sm text-on-surface-variant space-y-1">
+                        {item.steps.map((step: string) => <li key={step}>{step}</li>)}
+                      </ol>
+                      <p className="text-sm font-medium">Outcome: <span className="text-on-surface-variant font-normal">{item.outcome}</span></p>
+                    </article>
                   ))}
                 </div>
               )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Floating comparison bar */}
+      {comparisonTools.length > 0 && (
+        <div className="fixed bottom-0 left-0 right-0 h-[60px] bg-surface-container-lowest border-t border-outline-variant/40 z-[90] transition-transform duration-300 ease-out translate-y-0">
+          <div className="max-w-[1100px] h-full mx-auto px-4 flex items-center justify-between gap-4">
+            <div className="flex items-center gap-2 overflow-hidden">
+              {comparisonTools.map((tool) => (
+                <div key={tool.id} className="inline-flex items-center gap-2 bg-surface-container px-2 py-1 rounded-md text-xs">
+                  <img src={tool.logoUrl} alt="" className="w-5 h-5 rounded object-cover" referrerPolicy="no-referrer" />
+                  <span className="truncate max-w-24">{tool.name}</span>
+                </div>
+              ))}
+            </div>
+            <div className="flex items-center gap-2">
+              <button onClick={() => setShowCompare(true)} className="px-3 py-1.5 rounded-lg bg-primary text-on-primary text-xs font-semibold uppercase">Compare Now</button>
+              <button onClick={() => setBookmarkedIds(new Set())} className="px-3 py-1.5 rounded-lg border border-outline-variant text-xs font-semibold uppercase">Clear</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Comparison view */}
+      {showCompare && (
+        <div className="fixed inset-0 z-[105] bg-surface overflow-auto">
+          <div className="max-w-[1200px] mx-auto px-4 md:px-8 py-6">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+              <h2 className="font-headline text-3xl font-bold">Tool Comparison</h2>
+              <div className="flex items-center gap-2">
+                <button onClick={() => setShowOnlyDifferences((prev) => !prev)} className={`px-3 py-1.5 rounded-lg text-xs font-semibold ${showOnlyDifferences ? 'bg-primary text-on-primary' : 'border border-outline-variant'}`}>Highlight Differences</button>
+                <button onClick={() => setShowCompare(false)} className="p-2 rounded-full hover:bg-surface-container"><X className="w-5 h-5" /></button>
+              </div>
+            </div>
+
+            <div className="md:hidden mb-4 flex gap-2 overflow-auto">
+              {comparisonTools.map((tool) => (
+                <button key={tool.id} onClick={() => setActiveCompareToolId(tool.id)} className={`px-3 py-1.5 rounded-full text-xs ${activeCompareToolId === tool.id ? 'bg-primary text-on-primary' : 'bg-surface-container'}`}>
+                  {tool.name}
+                </button>
+              ))}
+            </div>
+
+            <div className="hidden md:block overflow-auto border border-outline-variant/30 rounded-xl">
+              <table className="w-full min-w-[900px] text-sm">
+                <thead className="sticky top-0 bg-surface-container-low z-10">
+                  <tr>
+                    <th className="text-left p-3 border-b border-outline-variant/30">Feature</th>
+                    {comparisonTools.map((tool) => <th key={tool.id} className="p-3 border-b border-outline-variant/30 text-left"><div className="flex items-center gap-2"><img src={tool.logoUrl} className="w-6 h-6 rounded object-cover" alt="" /><span>{tool.name}</span></div></th>)}
+                  </tr>
+                </thead>
+                {comparisonRows.map((group) => (
+                  <tbody key={group.label}>
+                    <tr><td colSpan={comparisonTools.length + 1} className="px-3 py-2 bg-surface-container text-xs font-semibold uppercase tracking-wider">{group.label}</td></tr>
+                    {group.rows.map((row) => (
+                      <tr key={`${group.label}-${row.label}`} className="border-t border-outline-variant/20">
+                        <td className="p-3">{row.label}</td>
+                        {row.values.map((value, index) => <td key={`${row.label}-${index}`} className="p-3">{value}</td>)}
+                      </tr>
+                    ))}
+                  </tbody>
+                ))}
+              </table>
+            </div>
+
+            <div className="md:hidden space-y-3">
+              {comparisonRows.map((group) => (
+                <section key={group.label} className="rounded-xl border border-outline-variant/20">
+                  <h3 className="px-4 py-2 bg-surface-container text-xs uppercase tracking-wider font-semibold">{group.label}</h3>
+                  {group.rows.map((row) => {
+                    const idx = comparisonTools.findIndex((tool) => tool.id === activeCompareToolId);
+                    return (
+                      <div key={`${group.label}-${row.label}`} className="px-4 py-2 border-t border-outline-variant/20 flex justify-between gap-2 text-sm">
+                        <span>{row.label}</span>
+                        <span className="text-on-surface-variant">{row.values[idx >= 0 ? idx : 0]}</span>
+                      </div>
+                    );
+                  })}
+                </section>
+              ))}
             </div>
           </div>
         </div>

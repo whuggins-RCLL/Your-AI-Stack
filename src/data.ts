@@ -10,6 +10,16 @@ export interface Tool {
   isNew?: boolean;
   bookmarked?: boolean;
   helpUrls?: string[];
+  whyLaw?: string;
+  gettingStarted?: string;
+  videoUrl?: string;
+  useCases?: Array<{
+    title: string;
+    persona: string;
+    scenario: string;
+    steps: string[];
+    outcome: string;
+  }>;
 }
 
 export const tools: Tool[] = [
