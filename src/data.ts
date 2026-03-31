@@ -19,7 +19,7 @@ export const tools: Tool[] = [
     name: 'Google Stitch',
     description: 'AI-powered tool for rapidly building applications and websites.',
     bestFor: 'Rapid prototyping and app creation.',
-    tags: ['Coding', 'App Builder'],
+    tags: ['Coding', 'Design', 'App Builder'],
     tier: 'Free',
     logoUrl: 'https://picsum.photos/seed/googlestitch/200/200',
     url: 'https://stitch.withgoogle.com/home'
@@ -503,5 +503,86 @@ export const tools: Tool[] = [
       'https://podcast.adobe.com/en/enhance',
       'https://podcast.adobe.com/en/guides/how-enhance-speech-can-improve-your-recording-sound-quality'
     ]
+  },
+  // Podcasts
+  {
+    id: 'everyday-ai',
+    name: 'Everyday AI',
+    description: 'A daily AI podcast and newsletter built for business leaders and everyday professionals who want practical ways to use AI at work. It blends AI news, product updates, interviews, and actionable tips across tools like ChatGPT, Gemini, and Claude.',
+    bestFor: 'Daily AI news and practical tips for professionals.',
+    tags: ['Podcasts', 'News', 'Business'],
+    tier: 'Free',
+    logoUrl: 'https://picsum.photos/seed/everydayai/200/200',
+    url: 'https://www.youreverydayai.com/'
+  },
+  {
+    id: 'leveraging-ai',
+    name: 'Leveraging AI',
+    description: 'A business-focused podcast for leaders who want to apply AI ethically and effectively. Host Isar Meitis and guests turn complex AI topics into practical strategies, real-world use cases, and weekly insights for modern organizations.',
+    bestFor: 'Business leaders applying AI ethically and effectively.',
+    tags: ['Podcasts', 'Business', 'Strategy'],
+    tier: 'Free',
+    logoUrl: 'https://picsum.photos/seed/leveragingai/200/200',
+    url: 'https://leveragingai.buzzsprout.com/'
+  },
+  {
+    id: 'ai-future-law',
+    name: 'AI and the Future of Law',
+    description: 'A legal podcast exploring how AI is reshaping law, legal practice, and related issues such as contract law, attorney-client privilege, and AI agents in the profession. It is especially relevant for listeners tracking AI’s impact on the legal industry.',
+    bestFor: 'Legal professionals tracking AI\'s impact on the industry.',
+    tags: ['Podcasts', 'Legal', 'Industry'],
+    tier: 'Free',
+    logoUrl: 'https://picsum.photos/seed/aifuturelaw/200/200',
+    url: 'https://www.adr.org/podcasts/ai-and-the-future-of-law/'
+  },
+  {
+    id: 'ai-show',
+    name: 'The Artificial Intelligence Show',
+    description: 'A weekly show that makes AI approachable and actionable for business and career growth. Hosted by Paul Roetzer and Mike Kaput, it combines timely AI news, listener Q&A, and deeper analysis of what developments in AI actually mean.',
+    bestFor: 'Approachable AI news and analysis for career growth.',
+    tags: ['Podcasts', 'News', 'Analysis'],
+    tier: 'Free',
+    logoUrl: 'https://picsum.photos/seed/aishow/200/200',
+    url: 'https://podcast.smarterx.ai/'
+  },
+  {
+    id: 'nyt-hard-fork',
+    name: 'NYT Hard Fork',
+    description: 'A weekly tech podcast from The New York Times where Kevin Roose and Casey Newton break down the fast-moving world of technology. It focuses on making sense of the “future that’s already here,” with sharp analysis of AI, platforms, policy, and internet culture.',
+    bestFor: 'Sharp analysis of AI, tech platforms, and internet culture.',
+    tags: ['Podcasts', 'Tech', 'News'],
+    tier: 'Free',
+    logoUrl: 'https://picsum.photos/seed/nythardfork/200/200',
+    url: 'https://www.nytimes.com/column/hard-fork'
+  },
+  {
+    id: 'lawnext',
+    name: 'LawNext',
+    description: 'A weekly legal innovation podcast hosted by Bob Ambrogi. Through interviews with founders, legal tech leaders, and practitioners, it examines what’s next in law, from AI and legal startups to access to justice and new law firm models.',
+    bestFor: 'Legal innovation and legal tech startup insights.',
+    tags: ['Podcasts', 'Legal', 'Innovation'],
+    tier: 'Free',
+    logoUrl: 'https://picsum.photos/seed/lawnext/200/200',
+    url: 'https://lawnext.libsyn.com/'
+  },
+  {
+    id: 'practical-ai',
+    name: 'Practical AI',
+    description: 'A show designed to make AI practical, productive, and accessible. It brings together technologists, business leaders, students, and expert guests to discuss real-world AI implementations across topics like machine learning, MLOps, LLMs, and AI governance.',
+    bestFor: 'Real-world AI implementations and technical discussions.',
+    tags: ['Podcasts', 'Technical', 'Implementation'],
+    tier: 'Free',
+    logoUrl: 'https://picsum.photos/seed/practicalai/200/200',
+    url: 'https://practicalai.fm/'
+  },
+  {
+    id: 'how-i-ai',
+    name: 'How I AI',
+    description: 'An interview-style podcast hosted by Brooke Gramer that highlights how founders, innovators, and creatives are using AI in real life. The show emphasizes human-centered stories, practical workflows, and the personal and professional transformations AI can enable.',
+    bestFor: 'Human-centered stories and practical AI workflows.',
+    tags: ['Podcasts', 'Interviews', 'Workflows'],
+    tier: 'Free',
+    logoUrl: 'https://picsum.photos/seed/howiai/200/200',
+    url: 'https://howiaipodcast.com/'
   }
 ];

@@ -4,7 +4,7 @@
  */
 
 import { useState, useMemo } from 'react';
-import { Search, Bookmark, ArrowRight, ArrowLeftRight, Plus, Download, Layers, Compass, BookmarkPlus, FileDown, BookOpen, X } from 'lucide-react';
+import { Search, Bookmark, ArrowRight, ArrowLeftRight, Plus, Download, Layers, Compass, BookmarkPlus, FileDown, BookOpen, X, Sparkles } from 'lucide-react';
 import { tools } from './data';
 
 export default function App() {
@@ -15,7 +15,7 @@ export default function App() {
   const [showCompare, setShowCompare] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const categories = ['All Tools', 'Presentations', 'Spreadsheets', 'Coding', 'Design', 'Music and Sound', 'Deployment', 'No-Code'];
+  const categories = ['All Tools', 'Presentations', 'Spreadsheets', 'Coding', 'Design', 'Music and Sound', 'Podcasts', 'Deployment', 'No-Code'];
 
   let filteredTools = activeCategory === 'All Tools' 
     ? tools 
@@ -208,7 +208,7 @@ export default function App() {
               </div>
               <div>
                 <h2 className="font-headline text-xl font-bold text-[#8C1515] group-hover:underline decoration-2 underline-offset-4">
-                  SLS AI Learning Hub: AI Resources for Students
+                  AI Resources for SLS Students, Faculty, and Staff
                 </h2>
                 <p className="text-on-surface-variant text-sm mt-1 leading-relaxed">
                   Explore Stanford Law School's official hub for student AI resources, guidelines, and learning materials.
@@ -222,7 +222,7 @@ export default function App() {
         </a>
 
         {/* Explainer Section */}
-        <section className="mb-16 bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-8 shadow-sm">
+        <section className="mb-12 bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-8 shadow-sm">
           <div className="max-w-4xl">
             <div className="flex items-center gap-3 mb-4">
               <Layers className="w-6 h-6 text-primary" />
@@ -256,6 +256,121 @@ export default function App() {
                 <p className="text-sm text-on-surface-variant leading-relaxed">Go to your "Saved" list and export a clean PDF of your custom stack, complete with training resources.</p>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Philosophy Section */}
+        <section className="mb-12 bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-8 shadow-sm">
+          <div className="max-w-4xl">
+            <h2 className="font-headline text-3xl font-bold text-on-surface mb-6">Build your AI stack around the work that matters.</h2>
+            
+            <div className="space-y-4 text-on-surface-variant leading-relaxed mb-12">
+              <p className="font-bold text-on-surface text-lg">Most people are getting AI wrong.</p>
+              <p>Some cling to one tool and force it into every task, even when the job demands something more specific. Others get swept up in the constant churn of launches, trends, and hype, bouncing from tool to tool with no real system, no depth, and no lasting advantage.</p>
+              <p>Both approaches fail for the same reason: they are tool-first.</p>
+              <p>The best professionals take the opposite approach. They build their AI stack around the real work they do every day — the problems they need to solve, the decisions they need to make, the content they need to produce, and the speed and quality their role demands.</p>
+              <p className="font-bold text-on-surface">That is where leverage comes from.</p>
+              <p>A strong AI stack is not about having access to everything. It is about choosing the right tools for your workflow, using them with intention, and building a system that makes you faster, sharper, and more effective over time.</p>
+              <ul className="list-disc list-inside space-y-1 ml-4 font-medium text-on-surface">
+                <li>Do not build your stack around what is trending. Build it around what is useful.</li>
+                <li>Do not collect tools. Build capability.</li>
+                <li>Do not confuse experimentation with mastery.</li>
+              </ul>
+              <p>Stay anchored to your actual needs. Stay problem-based. Go deep where it counts.</p>
+              <p>Because over the next three to five years, the people who win will not be the ones who tried every AI tool. They will be the ones who became dangerous with the right ones.</p>
+            </div>
+
+            <h3 className="font-headline text-2xl font-bold text-on-surface mb-4">The AI skills that will matter most</h3>
+            <p className="text-on-surface-variant leading-relaxed mb-8">
+              If you want to stay relevant, do not just use AI casually. Become a power user in the core skill areas that modern work is rapidly reorganizing around.<br/><br/>
+              Pick one tool in each category. Learn it deeply. Use it often enough that it becomes part of how you think, execute, and deliver.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+              {[
+                { title: "1. Research and synthesis", desc: "Know how to find signal fast, separate quality from noise, and turn large volumes of information into clear, usable insight." },
+                { title: "2. Writing and communication", desc: "Master a tool that helps you write faster, think more clearly, and communicate with more precision across emails, briefs, memos, proposals, and strategic documents." },
+                { title: "3. Analysis and decision support", desc: "Use AI to break down complex problems, surface tradeoffs, stress-test thinking, and improve the speed and quality of your decisions." },
+                { title: "4. Workflow automation", desc: "Learn how to remove repetitive work, connect systems, and automate the tasks that quietly drain time and attention." },
+                { title: "5. Coding and technical creation", desc: "This is no longer a niche skill. Whether you are technical or not, the ability to use AI to write scripts, debug issues, prototype ideas, and build lightweight solutions is becoming a serious advantage." },
+                { title: "6. Content and presentation creation", desc: "Be able to produce polished decks, visuals, reports, and creative assets that are not just fast, but clear, persuasive, and executive-ready." },
+                { title: "7. Data fluency", desc: "Know how to use AI to work through spreadsheets, documents, dashboards, and structured information so you can move from raw data to real direction." },
+                { title: "8. Personal knowledge management", desc: "Use AI to capture ideas, organize information, retrieve insights, and build a knowledge system that compounds instead of disappearing into scattered notes and tabs." },
+                { title: "9. Creative problem solving", desc: "Develop the ability to brainstorm better, explore more angles, generate stronger options, and push past obvious thinking when the path is unclear." },
+                { title: "10. Collaboration and team leverage", desc: "Use AI to improve meetings, speed up handoffs, tighten alignment, and increase the quality and consistency of work across teams." },
+                { title: "11. Prompting and instruction design", desc: "The people who get the most from AI are the ones who know how to direct it. Clear context, sharp inputs, defined outcomes, and strong judgment are becoming foundational professional skills." }
+              ].map((skill, idx) => (
+                <div key={idx} className="bg-surface-container rounded-xl p-6 border border-outline-variant/20 hover:border-primary/30 transition-colors">
+                  <h4 className="font-bold text-lg text-on-surface mb-2">{skill.title}</h4>
+                  <p className="text-sm text-on-surface-variant leading-relaxed">{skill.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="bg-primary-container/10 rounded-2xl p-8 border border-primary/20 text-center">
+              <h3 className="font-headline text-2xl font-bold text-on-surface mb-6">The real goal</h3>
+              <p className="text-lg text-on-surface-variant font-medium mb-6">You do not need every AI tool.</p>
+              <ul className="space-y-2 text-on-surface-variant mb-8 inline-block text-left">
+                <li>✓ You need the right stack for your work.</li>
+                <li>✓ You need depth, not distraction.</li>
+                <li>✓ You need systems, not clutter.</li>
+                <li>✓ You need mastery in the skills that will matter when AI stops being novel and starts being expected.</li>
+              </ul>
+              <p className="text-on-surface font-medium mb-6">
+                Build an AI stack that earns its place in your workflow.<br/>
+                Then become a power user in the categories that will keep you valuable.
+              </p>
+              <div className="text-primary font-bold space-y-1">
+                <p>That is how you stay current.</p>
+                <p>That is how you stay competitive.</p>
+                <p>That is how you build real edge.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Major LLMs Section */}
+        <section className="mb-16 bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-8 shadow-sm">
+          <div className="flex items-center gap-3 mb-6">
+            <Sparkles className="w-6 h-6 text-primary" />
+            <h2 className="font-headline text-2xl font-bold text-on-surface">Major, General Purpose Large Language Models (LLMs)</h2>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div className="bg-surface-container rounded-xl p-6 border border-outline-variant/20 hover:border-primary/30 transition-colors">
+              <h3 className="font-bold text-lg text-on-surface mb-3">GPT-5.4 / GPT-5.4 Pro</h3>
+              <p className="text-sm text-on-surface-variant leading-relaxed">
+                Strongest all-around choice for professional work, long-context tasks, coding, tool use, and computer use. OpenAI positions GPT-5.4 as its default for “most important work” and says it supports a 1M-token context window.
+              </p>
+            </div>
+            
+            <div className="bg-surface-container rounded-xl p-6 border border-outline-variant/20 hover:border-primary/30 transition-colors">
+              <h3 className="font-bold text-lg text-on-surface mb-3">Claude Opus 4.6</h3>
+              <p className="text-sm text-on-surface-variant leading-relaxed">
+                One of the very best for complex knowledge work, coding, agents, and polished writing. Anthropic describes it as its strongest model and “the world’s most powerful model for coding, agents, and professional work.”
+              </p>
+            </div>
+            
+            <div className="bg-surface-container rounded-xl p-6 border border-outline-variant/20 hover:border-primary/30 transition-colors">
+              <h3 className="font-bold text-lg text-on-surface mb-3">Gemini 3.1 Pro</h3>
+              <p className="text-sm text-on-surface-variant leading-relaxed">
+                A top-tier multimodal and long-context model, especially strong when tasks mix text, images, audio, video, and large codebases. Google says it is its most advanced model for complex tasks, with up to 1M context.
+              </p>
+            </div>
+            
+            <div className="bg-surface-container rounded-xl p-6 border border-outline-variant/20 hover:border-primary/30 transition-colors">
+              <h3 className="font-bold text-lg text-on-surface mb-3">Grok 4 / Grok 4 Heavy</h3>
+              <p className="text-sm text-on-surface-variant leading-relaxed">
+                Clearly in the frontier group, especially if you value native web/search integration and real-time information. xAI positions Grok 4 as its top model with native tool use and search integration.
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-primary-container/20 rounded-xl p-6 border border-primary/20">
+            <h3 className="font-bold text-lg text-on-surface mb-3">Notable additional models:</h3>
+            <p className="text-sm text-on-surface-variant leading-relaxed">
+              <strong>Mistral</strong> and <strong>DeepSeek</strong> are also worth tracking, especially for users interested in open or more deployable model families. For Stanford users, DeepSeek should be used through the <strong>Stanford AI Playground</strong>; Stanford’s UIT says a secure local version is available there and recommends the Playground as the safer Stanford-managed environment for AI exploration.
+            </p>
           </div>
         </section>
 
