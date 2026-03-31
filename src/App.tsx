@@ -9,6 +9,8 @@ import { tools } from './data';
 
 export default function App() {
   const [showDisclaimer, setShowDisclaimer] = useState(true);
+  const [showExplainer, setShowExplainer] = useState(true);
+  const [showPhilosophy, setShowPhilosophy] = useState(true);
   const [activeCategory, setActiveCategory] = useState('All Tools');
   const [bookmarkedIds, setBookmarkedIds] = useState<Set<string>>(new Set());
   const [showOnlySaved, setShowOnlySaved] = useState(false);
@@ -163,48 +165,77 @@ export default function App() {
         </a>
 
         {/* Explainer Section */}
-        <section className="mb-12 bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-8 shadow-sm">
+        <section className="mb-12 bg-gradient-to-br from-surface-container-lowest via-white to-surface shadow-[0_16px_40px_rgba(26,28,27,0.08)] border border-outline-variant/35 rounded-3xl p-8 md:p-10">
           <div className="max-w-4xl">
-            <div className="flex items-center gap-3 mb-4">
-              <Layers className="w-6 h-6 text-primary" />
-              <h2 className="font-headline text-2xl font-bold text-on-surface">What is an "AI Stack"?</h2>
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center">
+                  <Layers className="w-5 h-5" />
+                </div>
+                <h2 className="font-headline text-3xl font-semibold text-on-surface tracking-tight">What is an "AI Stack"?</h2>
+              </div>
+              <button
+                onClick={() => setShowExplainer(prev => !prev)}
+                className="inline-flex items-center gap-2 rounded-full border border-outline-variant/60 bg-surface-container-low px-4 py-2 text-sm font-semibold text-on-surface transition-colors hover:bg-surface-container"
+              >
+                {showExplainer ? 'Hide section' : 'Show section'}
+              </button>
             </div>
-            <p className="text-on-surface-variant mb-8 leading-relaxed">
+            {showExplainer && (
+            <>
+            <p className="text-on-surface-variant mb-8 leading-relaxed text-lg">
               In software engineering, a "tech stack" refers to the combination of tools, languages, and frameworks used to build an application. Similarly, your <strong>AI Stack</strong> is the personal collection of artificial intelligence tools you combine to enhance your daily workflow. Instead of relying on one tool to do everything, a good stack uses specialized tools for specific tasks (e.g., one for drafting emails, another for generating presentations, and another for coding).
             </p>
             
-            <h3 className="font-headline text-xl font-bold text-on-surface mb-6">How to build your stack using this site:</h3>
+            <h3 className="font-headline text-2xl font-semibold text-on-surface mb-6">How to build your stack using this site:</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="flex flex-col gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold mb-2">
+                <div className="w-11 h-11 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold mb-2 shadow-sm">
                   <Compass className="w-5 h-5" />
                 </div>
-                <h4 className="font-bold text-on-surface text-lg">1. Discover</h4>
-                <p className="text-sm text-on-surface-variant leading-relaxed">Browse categories or search for specific use cases to find tools that solve your unique problems.</p>
+                <h4 className="font-headline font-semibold text-on-surface text-2xl">1. Discover</h4>
+                <p className="text-base text-on-surface-variant leading-relaxed">Browse categories or search for specific use cases to find tools that solve your unique problems.</p>
               </div>
               <div className="flex flex-col gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold mb-2">
+                <div className="w-11 h-11 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold mb-2 shadow-sm">
                   <BookmarkPlus className="w-5 h-5" />
                 </div>
-                <h4 className="font-bold text-on-surface text-lg">2. Curate</h4>
-                <p className="text-sm text-on-surface-variant leading-relaxed">Click the bookmark icon to save tools you want to evaluate. Start with just 1-2 core tools to avoid overwhelm.</p>
+                <h4 className="font-headline font-semibold text-on-surface text-2xl">2. Curate</h4>
+                <p className="text-base text-on-surface-variant leading-relaxed">Click the bookmark icon to save tools you want to evaluate. Start with just 1-2 core tools to avoid overwhelm.</p>
               </div>
               <div className="flex flex-col gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold mb-2">
+                <div className="w-11 h-11 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold mb-2 shadow-sm">
                   <FileDown className="w-5 h-5" />
                 </div>
-                <h4 className="font-bold text-on-surface text-lg">3. Export</h4>
-                <p className="text-sm text-on-surface-variant leading-relaxed">Go to your "Saved" list and export a clean PDF of your custom stack, complete with training resources.</p>
+                <h4 className="font-headline font-semibold text-on-surface text-2xl">3. Export</h4>
+                <p className="text-base text-on-surface-variant leading-relaxed">Go to your "Saved" list and export a clean PDF of your custom stack, complete with training resources.</p>
               </div>
             </div>
+            </>
+            )}
           </div>
         </section>
 
         {/* Philosophy Section */}
-        <section className="mb-12 bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-8 shadow-sm">
+        <section className="mb-12 bg-gradient-to-br from-surface-container-lowest via-white to-surface shadow-[0_16px_40px_rgba(26,28,27,0.08)] border border-outline-variant/35 rounded-3xl p-8 md:p-10">
           <div className="max-w-4xl">
-            <h2 className="font-headline text-3xl font-bold text-on-surface mb-6">Build your AI stack around the work that matters.</h2>
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center">
+                  <Sparkles className="w-5 h-5" />
+                </div>
+                <h2 className="font-headline text-4xl font-semibold text-on-surface tracking-tight">Build your AI stack around the work that matters.</h2>
+              </div>
+              <button
+                onClick={() => setShowPhilosophy(prev => !prev)}
+                className="inline-flex items-center gap-2 rounded-full border border-outline-variant/60 bg-surface-container-low px-4 py-2 text-sm font-semibold text-on-surface transition-colors hover:bg-surface-container"
+              >
+                {showPhilosophy ? 'Hide section' : 'Show section'}
+              </button>
+            </div>
             
+            {showPhilosophy && (
+            <>
             <div className="space-y-4 text-on-surface-variant leading-relaxed mb-12">
               <p className="font-bold text-on-surface text-lg">Most people are getting AI wrong.</p>
               <p>Some cling to one tool and force it into every task, even when the job demands something more specific. Others get swept up in the constant churn of launches, trends, and hype, bouncing from tool to tool with no real system, no depth, and no lasting advantage.</p>
@@ -267,6 +298,8 @@ export default function App() {
                 <p>That is how you build real edge.</p>
               </div>
             </div>
+            </>
+            )}
           </div>
         </section>
 
