@@ -45,6 +45,37 @@ export default function App() {
     });
   };
 
+  const handleExportPDF = async () => {
+    try {
+      // @ts-ignore
+      const html2pdf = (await import('html2pdf.js')).default;
+      const element = document.getElementById('pdf-export-content');
+      if (!element) return;
+      
+      // Temporarily make it visible for html2pdf
+      element.classList.remove('hidden');
+      element.classList.remove('print:block');
+      element.style.display = 'block';
+
+      const opt = {
+        margin:       0.5,
+        filename:     'saved-ai-tools.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+
+      await html2pdf().set(opt).from(element).save();
+      
+      // Restore classes
+      element.style.display = '';
+      element.classList.add('hidden');
+      element.classList.add('print:block');
+    } catch (error) {
+      console.error('Failed to export PDF:', error);
+    }
+  };
+
   return (
     <>
     <div className="min-h-screen bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary print:hidden">
@@ -107,7 +138,7 @@ export default function App() {
                 </button>
                 {bookmarkedIds.size > 0 && (
                   <button
-                    onClick={() => window.print()}
+                    onClick={handleExportPDF}
                     className="flex items-center gap-2 bg-primary text-on-primary px-3 py-1.5 rounded-lg text-xs font-label tracking-widest uppercase hover:opacity-90 transition-opacity shadow-sm"
                   >
                     <Download className="w-3.5 h-3.5" />
@@ -353,7 +384,7 @@ export default function App() {
     </div>
 
     {/* Print View (Only visible when printing) */}
-    <div className="hidden print:block bg-white text-black p-8 max-w-4xl mx-auto font-sans">
+    <div id="pdf-export-content" className="hidden print:block bg-white text-black p-8 max-w-4xl mx-auto font-sans">
       <div className="mb-8 border-b border-gray-300 pb-6">
         <h1 className="text-4xl font-bold text-gray-900 mb-2">My Saved AI Tools</h1>
         <p className="text-gray-500">Exported from Your AI Stack</p>
