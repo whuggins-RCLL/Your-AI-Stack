@@ -4,7 +4,7 @@
  */
 
 import { useState, useMemo, useEffect } from 'react';
-import { ArrowRight, ArrowLeftRight, Plus, Download, Layers, Compass, BookmarkPlus, FileDown, BookOpen, X, Sparkles, Check, ExternalLink } from 'lucide-react';
+import { ArrowRight, ArrowLeftRight, Plus, Download, Layers, Compass, BookmarkPlus, FileDown, X, Sparkles, Check, ExternalLink } from 'lucide-react';
 import { tools } from './data';
 import FilterBar, { filterTools } from './components/FilterBar';
 
@@ -231,35 +231,17 @@ export default function App() {
             <p className="text-lg md:text-xl text-white/90 leading-relaxed drop-shadow-md font-light">
               Find the right AI tool for the job.
             </p>
+            <a
+              href="https://sites.google.com/law.stanford.edu/ailearninghub/ai-resources-for-students?authuser=0"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group mt-6 inline-flex items-center gap-2 rounded-xl border border-white/35 bg-white/15 px-5 py-3 text-sm font-semibold tracking-wide text-white shadow-lg backdrop-blur-sm transition-all hover:bg-white hover:text-[#8C1515] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+            >
+              AI Resources Hub
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+            </a>
           </div>
         </header>
-
-        {/* Featured Resource Banner */}
-        <a 
-          href="https://sites.google.com/law.stanford.edu/ailearninghub/ai-resources-for-students?authuser=0"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mb-8 block bg-[#8C1515]/5 border border-[#8C1515]/20 rounded-2xl p-5 hover:bg-[#8C1515]/10 transition-colors group shadow-sm"
-        >
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 shrink-0 rounded-full bg-[#8C1515] text-white flex items-center justify-center shadow-sm">
-                <BookOpen className="w-6 h-6" />
-              </div>
-              <div>
-                <h2 className="font-headline text-xl font-bold text-[#8C1515] group-hover:underline decoration-2 underline-offset-4">
-                  AI Resources for SLS Students, Faculty, and Staff
-                </h2>
-                <p className="text-on-surface-variant text-sm mt-1 leading-relaxed">
-                  Explore Stanford Law School's official hub for student AI resources, guidelines, and learning materials.
-                </p>
-              </div>
-            </div>
-            <div className="hidden md:flex shrink-0 items-center gap-2 text-[#8C1515] font-semibold text-sm tracking-wide uppercase">
-              Visit Hub <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
-            </div>
-          </div>
-        </a>
 
         {/* Explainer Section */}
         <section className="mb-8 bg-gradient-to-br from-surface-container-lowest via-white to-surface shadow-[0_16px_40px_rgba(26,28,27,0.08)] border border-outline-variant/35 rounded-3xl p-6 md:p-8">
