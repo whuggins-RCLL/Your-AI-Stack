@@ -10,9 +10,9 @@ import FilterBar, { filterTools } from './components/FilterBar';
 
 export default function App() {
   const [showDisclaimer, setShowDisclaimer] = useState(true);
-  const [showExplainer, setShowExplainer] = useState(true);
-  const [showPhilosophy, setShowPhilosophy] = useState(true);
-  const [showMajorLlms, setShowMajorLlms] = useState(true);
+  const [showExplainer, setShowExplainer] = useState(false);
+  const [showPhilosophy, setShowPhilosophy] = useState(false);
+  const [showMajorLlms, setShowMajorLlms] = useState(false);
   const [bookmarkedIds, setBookmarkedIds] = useState<Set<string>>(new Set());
   const [showOnlySaved, setShowOnlySaved] = useState(false);
   const [showCompare, setShowCompare] = useState(false);

@@ -12,6 +12,7 @@ export const FILTER_CATEGORIES = [
   'Coding',
   'Presentations',
   'Audio',
+  'Podcasts',
   'Citation',
   'Data Analysis',
   'Contract Analysis'
@@ -29,7 +30,8 @@ const CATEGORY_MATCHERS = {
   'Image Generation': ['image', 'design', 'visual'],
   Coding: ['coding', 'code', 'developer'],
   Presentations: ['presentations', 'slides', 'deck'],
-  Audio: ['audio', 'podcast', 'music', 'sound'],
+  Audio: ['audio', 'music', 'sound'],
+  Podcasts: ['podcast', 'podcasts'],
   Citation: ['citation', 'cited', 'sources'],
   'Data Analysis': ['data analysis', 'spreadsheet', 'analysis'],
   'Contract Analysis': ['contract']
