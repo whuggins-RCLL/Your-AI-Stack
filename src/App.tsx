@@ -112,9 +112,9 @@ export default function App() {
         </div>
       )}
 
-      <main className="pb-24 max-w-[1100px] mx-auto px-6">
+      <main className="pb-16 max-w-[1100px] mx-auto px-4 sm:px-5">
         {/* Hero Section */}
-        <header className="relative w-full h-[350px] sm:h-[400px] lg:h-[450px] overflow-hidden mb-12 shadow-2xl flex items-center rounded-b-3xl sm:rounded-3xl sm:mt-6 bg-[#8C1515]">
+        <header className="relative w-full h-[280px] sm:h-[320px] lg:h-[360px] overflow-hidden mb-8 shadow-2xl flex items-center rounded-b-3xl sm:rounded-3xl sm:mt-4 bg-[#8C1515]">
           <div className="absolute inset-0 z-0">
             <div className="absolute inset-0 bg-gradient-to-br from-[#2E2D29] via-[#8C1515] to-[#53565A] opacity-90"></div>
             <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[70%] rounded-full bg-[#8C1515] mix-blend-screen blur-[120px] opacity-70 animate-pulse" style={{ animationDuration: '8s' }}></div>
@@ -127,7 +127,7 @@ export default function App() {
             <div className="absolute top-[25%] left-[55%] w-[30%] h-[60%] bg-[#8C1515]/10 backdrop-blur-xl border border-white/5 rounded-[40px] transform rotate-12 shadow-xl"></div>
             <div className="absolute inset-0 bg-white/5 backdrop-blur-[2px]"></div>
           </div>
-          <div className="relative z-10 px-8 sm:px-16 lg:px-24 max-w-4xl">
+          <div className="relative z-10 px-6 sm:px-12 lg:px-16 max-w-4xl">
             <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-semibold text-white tracking-tight mb-4 drop-shadow-lg">
               Your AI Stack
             </h1>
@@ -142,7 +142,7 @@ export default function App() {
           href="https://sites.google.com/law.stanford.edu/ailearninghub/ai-resources-for-students?authuser=0"
           target="_blank"
           rel="noopener noreferrer"
-          className="mb-12 block bg-[#8C1515]/5 border border-[#8C1515]/20 rounded-2xl p-6 hover:bg-[#8C1515]/10 transition-colors group shadow-sm"
+          className="mb-8 block bg-[#8C1515]/5 border border-[#8C1515]/20 rounded-2xl p-5 hover:bg-[#8C1515]/10 transition-colors group shadow-sm"
         >
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div className="flex items-center gap-4">
@@ -165,7 +165,7 @@ export default function App() {
         </a>
 
         {/* Explainer Section */}
-        <section className="mb-12 bg-gradient-to-br from-surface-container-lowest via-white to-surface shadow-[0_16px_40px_rgba(26,28,27,0.08)] border border-outline-variant/35 rounded-3xl p-8 md:p-10">
+        <section className="mb-8 bg-gradient-to-br from-surface-container-lowest via-white to-surface shadow-[0_16px_40px_rgba(26,28,27,0.08)] border border-outline-variant/35 rounded-3xl p-6 md:p-8">
           <div className="max-w-4xl">
             <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
               <div className="flex items-center gap-3">
@@ -217,7 +217,7 @@ export default function App() {
         </section>
 
         {/* Philosophy Section */}
-        <section className="mb-12 bg-gradient-to-br from-surface-container-lowest via-white to-surface shadow-[0_16px_40px_rgba(26,28,27,0.08)] border border-outline-variant/35 rounded-3xl p-8 md:p-10">
+        <section className="mb-8 bg-gradient-to-br from-surface-container-lowest via-white to-surface shadow-[0_16px_40px_rgba(26,28,27,0.08)] border border-outline-variant/35 rounded-3xl p-6 md:p-8">
           <div className="max-w-4xl">
             <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
               <div className="flex items-center gap-3">
