@@ -314,5 +314,194 @@ export const tools: Tool[] = [
       'https://www.zoho.com/show/zia-ai.html',
       'https://help.zoho.com/portal/en/kb/show/ai-features'
     ]
+  },
+
+  // Spreadsheets and Working with Data Sets
+  {
+    id: 'google-sheets-gemini',
+    name: 'Google Sheets + Gemini',
+    description: 'Google Sheets enhanced with Gemini, =AI() functions, and Apps Script for data manipulation and automation.',
+    bestFor: 'Data analysis, custom functions, and automated workflows in Google Workspace.',
+    tags: ['Spreadsheets', 'Data Sets', 'Automation'],
+    tier: 'Freemium',
+    logoUrl: 'https://picsum.photos/seed/googlesheets/200/200',
+    url: 'https://sheets.google.com/',
+    helpUrls: [
+      'https://support.google.com/docs/answer/14356410',
+      'https://support.google.com/docs/answer/15877199',
+      'https://support.google.com/a/users/answer/15146419',
+      'https://developers.google.com/apps-script/overview',
+      'https://developers.google.com/apps-script/guides/sheets',
+      'https://developers.google.com/apps-script/guides/sheets/functions'
+    ]
+  },
+  {
+    id: 'microsoft-excel-copilot',
+    name: 'Microsoft Excel + Copilot',
+    description: 'Excel powered by Copilot, featuring Claude/ChatGPT support, Office Scripts, and Python integration.',
+    bestFor: 'Advanced data analysis, Python-based modeling, and enterprise spreadsheet automation.',
+    tags: ['Spreadsheets', 'Data Sets', 'Automation', 'Python'],
+    tier: 'Paid',
+    logoUrl: 'https://picsum.photos/seed/excel/200/200',
+    url: 'https://www.microsoft.com/en-us/microsoft-365/excel',
+    helpUrls: [
+      'https://support.microsoft.com/en-us/office/edit-with-copilot-in-excel-a2fd6fe4-97ac-416b-b89a-22f4d1357c7a',
+      'https://support.microsoft.com/en-us/topic/choose-your-model-when-editing-with-copilot-in-excel-b2c3b3ec-154b-484b-84d0-914a80df395a',
+      'https://support.microsoft.com/en-us/office/get-advanced-data-analysis-using-copilot-in-excel-app-skills-364e4ae9-9343-4d56-952a-5f62b0f70db6',
+      'https://support.microsoft.com/en-us/office/introduction-to-python-in-excel-55643c2e-ff56-4168-b1ce-9428c8308545',
+      'https://learn.microsoft.com/en-us/office/dev/scripts/overview/excel',
+      'https://learn.microsoft.com/en-us/office/dev/scripts/',
+      'https://support.microsoft.com/en-us/office/introduction-to-office-scripts-in-excel-9fbe283d-adb8-4f13-a75b-a81c6baf163a'
+    ]
+  },
+  {
+    id: 'google-colab',
+    name: 'Google Colab + Gemini',
+    description: 'Hosted Jupyter notebook service that requires no setup to use, while providing free access to computing resources including GPUs, now enhanced with Gemini.',
+    bestFor: 'Machine learning, data science education, and collaborative Python coding.',
+    tags: ['Data Sets', 'Coding', 'Python', 'Notebooks'],
+    tier: 'Freemium',
+    logoUrl: 'https://picsum.photos/seed/colab/200/200',
+    url: 'https://colab.google/',
+    helpUrls: [
+      'https://developers.google.com/colab',
+      'https://developers.google.com/colab/notebooks',
+      'https://blog.google/innovation-and-ai/technology/developers-tools/google-colab-ai-coding-features/',
+      'https://codelabs.developers.google.com/codelabs/intro-gemini-25-pro-colab'
+    ]
+  },
+  {
+    id: 'kaggle',
+    name: 'Kaggle',
+    description: 'Platform for data science competitions, hosting datasets, and writing/sharing code in notebooks. Great for GenAI learning.',
+    bestFor: 'Finding datasets, participating in ML competitions, and learning GenAI.',
+    tags: ['Data Sets', 'Machine Learning', 'Notebooks', 'Education'],
+    tier: 'Free',
+    logoUrl: 'https://picsum.photos/seed/kaggle/200/200',
+    url: 'https://www.kaggle.com/',
+    helpUrls: [
+      'https://www.kaggle.com/docs',
+      'https://www.kaggle.com/docs/notebooks',
+      'https://www.kaggle.com/code',
+      'https://blog.google/innovation-and-ai/technology/developers-tools/google-kaggle-genai-intensive-recap-2025/',
+      'https://www.kaggle.com/learn-guide/5-day-agents'
+    ]
+  },
+  {
+    id: 'stanford-ai-playground',
+    name: 'Stanford AI Playground',
+    description: 'A sandbox environment for learning and testing AI.',
+    bestFor: 'Learning, experimenting, and testing AI models in a safe, internal environment.',
+    tags: ['Sandbox', 'Education', 'Testing'],
+    tier: 'Internal',
+    logoUrl: 'https://picsum.photos/seed/stanfordai/200/200',
+    url: 'https://uit.stanford.edu/aiplayground'
+  },
+
+  // Music and Sound
+  {
+    id: 'suno',
+    name: 'Suno',
+    description: 'AI music generation platform for creating full songs from text prompts.',
+    bestFor: 'Creating original music tracks, songs, and audio clips quickly.',
+    tags: ['Music and Sound', 'Music Generation', 'Audio'],
+    tier: 'Freemium',
+    logoUrl: 'https://picsum.photos/seed/suno/200/200',
+    url: 'https://suno.com/',
+    helpUrls: [
+      'https://suno.com/l/ai-music-app',
+      'https://suno.com/l/make-music-with-ai',
+      'https://suno.com/hub/how-to-make-a-song'
+    ]
+  },
+  {
+    id: 'elevenlabs-music',
+    name: 'ElevenLabs Music + Sound Effects',
+    description: 'AI audio platform offering music generation and advanced sound effects creation.',
+    bestFor: 'Generating high-quality sound effects and music for videos, games, and media.',
+    tags: ['Music and Sound', 'Music Generation', 'Sound Effects', 'Audio'],
+    tier: 'Freemium',
+    logoUrl: 'https://picsum.photos/seed/elevenlabs/200/200',
+    url: 'https://elevenlabs.io/',
+    helpUrls: [
+      'https://elevenlabs.io/docs/overview/capabilities/music',
+      'https://elevenlabs.io/docs/overview/capabilities/music/best-practices',
+      'https://elevenlabs.io/docs/overview/capabilities/sound-effects'
+    ]
+  },
+  {
+    id: 'google-lyria',
+    name: 'Google Lyria 3 / Lyria 3 Pro',
+    description: 'Google\'s advanced AI music generation models, available within Gemini and Workspace.',
+    bestFor: 'Creating custom soundtracks and longer musical tracks within the Google ecosystem.',
+    tags: ['Music and Sound', 'Music Generation', 'Audio'],
+    tier: 'Freemium',
+    logoUrl: 'https://picsum.photos/seed/lyria/200/200',
+    url: 'https://gemini.google.com/',
+    helpUrls: [
+      'https://ai.google.dev/gemini-api/docs/music-generation',
+      'https://workspaceupdates.googleblog.com/2026/02/create-custom-soundtracks-with-lyria-3.html',
+      'https://workspaceupdates.googleblog.com/2026/03/create-longer-musical-tracks-in-gemini-app-with-Lyria-3-Pro.html',
+      'https://workspaceupdates.googleblog.com/2026/03/generate-custom-music-in-google-vids-powered-by-Lyria-3-and-Lyria-3-Pro.html'
+    ]
+  },
+  {
+    id: 'udio',
+    name: 'Udio',
+    description: 'AI music generator focused on high-fidelity song creation across various genres.',
+    bestFor: 'Generating high-quality, genre-specific music tracks and songs.',
+    tags: ['Music and Sound', 'Music Generation', 'Audio'],
+    tier: 'Freemium',
+    logoUrl: 'https://picsum.photos/seed/udio/200/200',
+    url: 'https://www.udio.com/',
+    helpUrls: [
+      'https://help.udio.com/',
+      'https://help.udio.com/en/collections/11811237-song-creation'
+    ]
+  },
+  {
+    id: 'stable-audio',
+    name: 'Stable Audio',
+    description: 'AI music and sound generation tool by Stability AI, offering control over structure and length.',
+    bestFor: 'Generating structured music tracks and sound design elements.',
+    tags: ['Music and Sound', 'Music Generation', 'Audio'],
+    tier: 'Freemium',
+    logoUrl: 'https://picsum.photos/seed/stableaudio/200/200',
+    url: 'https://stableaudio.com/',
+    helpUrls: [
+      'https://stableaudio.com/user-guide',
+      'https://stability.ai/guides/stable-audio-25-prompt-guide',
+      'https://stability.ai/stable-audio'
+    ]
+  },
+  {
+    id: 'mistral-voxtral',
+    name: 'Mistral Voxtral TTS / Voxtral Transcribe 2',
+    description: 'Advanced text-to-speech and transcription models by Mistral AI.',
+    bestFor: 'High-quality voice generation and accurate audio transcription.',
+    tags: ['Music and Sound', 'Voice', 'Speech', 'Transcription'],
+    tier: 'Paid',
+    logoUrl: 'https://picsum.photos/seed/mistral/200/200',
+    url: 'https://mistral.ai/news/voxtral-tts',
+    helpUrls: [
+      'https://docs.mistral.ai/models/voxtral-tts-26-03',
+      'https://docs.mistral.ai/capabilities/audio/text_to_speech',
+      'https://mistral.ai/news/voxtral-transcribe-2'
+    ]
+  },
+  {
+    id: 'adobe-podcast',
+    name: 'Adobe Podcast / Enhance Speech',
+    description: 'AI-powered audio recording and editing tool, featuring powerful speech enhancement.',
+    bestFor: 'Cleaning up noisy audio recordings and making voiceovers sound professional.',
+    tags: ['Music and Sound', 'Voice', 'Audio Cleanup'],
+    tier: 'Freemium',
+    logoUrl: 'https://picsum.photos/seed/adobepodcast/200/200',
+    url: 'https://podcast.adobe.com/',
+    helpUrls: [
+      'https://podcast.adobe.com/help',
+      'https://podcast.adobe.com/en/enhance',
+      'https://podcast.adobe.com/en/guides/how-enhance-speech-can-improve-your-recording-sound-quality'
+    ]
   }
 ];

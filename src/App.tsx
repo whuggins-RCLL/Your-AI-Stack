@@ -3,21 +3,51 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState } from 'react';
-import { Search, Bookmark, ArrowRight, ArrowLeftRight, Plus } from 'lucide-react';
+import { useState, useMemo } from 'react';
+import { Search, Bookmark, ArrowRight, ArrowLeftRight, Plus, Download, Layers, Compass, BookmarkPlus, FileDown, BookOpen } from 'lucide-react';
 import { tools } from './data';
 
 export default function App() {
   const [showDisclaimer, setShowDisclaimer] = useState(true);
   const [activeCategory, setActiveCategory] = useState('All Tools');
-  const categories = ['All Tools', 'Presentations', 'Coding', 'Design', 'Deployment', 'No-Code'];
+  const [bookmarkedIds, setBookmarkedIds] = useState<Set<string>>(new Set());
+  const [showOnlySaved, setShowOnlySaved] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredTools = activeCategory === 'All Tools' 
+  const categories = ['All Tools', 'Presentations', 'Spreadsheets', 'Coding', 'Design', 'Music and Sound', 'Deployment', 'No-Code'];
+
+  let filteredTools = activeCategory === 'All Tools' 
     ? tools 
     : tools.filter(tool => tool.tags.includes(activeCategory));
 
+  if (showOnlySaved) {
+    filteredTools = filteredTools.filter(tool => bookmarkedIds.has(tool.id));
+  }
+
+  if (searchQuery.trim() !== '') {
+    const query = searchQuery.toLowerCase();
+    filteredTools = filteredTools.filter(tool => 
+      tool.name.toLowerCase().includes(query) || 
+      tool.description.toLowerCase().includes(query) ||
+      tool.bestFor.toLowerCase().includes(query) ||
+      tool.tags.some(tag => tag.toLowerCase().includes(query))
+    );
+  }
+
+  const bookmarkedTools = useMemo(() => tools.filter(t => bookmarkedIds.has(t.id)), [bookmarkedIds]);
+
+  const toggleBookmark = (id: string) => {
+    setBookmarkedIds(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
   return (
-    <div className="min-h-screen bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary">
+    <>
+    <div className="min-h-screen bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary print:hidden">
       {/* Disclaimer Modal */}
       {showDisclaimer && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-on-surface/20 backdrop-blur-md p-6">
@@ -56,16 +86,34 @@ export default function App() {
               Your AI Stack
             </span>
             <div className="hidden md:flex gap-6 items-center">
-              <a href="#" className="text-[#8C1515] dark:text-[#E0BFBB] font-semibold border-b-2 border-[#8C1515] font-headline italic text-lg tracking-tight">
+              <button 
+                onClick={() => {
+                  setShowOnlySaved(false);
+                  setActiveCategory('All Tools');
+                }}
+                className={`font-semibold border-b-2 font-headline italic text-lg tracking-tight transition-all ${!showOnlySaved ? 'text-[#8C1515] dark:text-[#E0BFBB] border-[#8C1515]' : 'text-[#1A1C1B] dark:text-[#F9F9F6] border-transparent opacity-70 hover:opacity-100'}`}
+              >
                 Browse All
-              </a>
-              <div className="relative group">
-                <a href="#" className="text-[#1A1C1B] dark:text-[#F9F9F6] opacity-70 hover:opacity-100 transition-opacity duration-300 font-headline italic text-lg tracking-tight flex items-center gap-1">
+              </button>
+              <div className="relative group flex items-center gap-4">
+                <button 
+                  onClick={() => setShowOnlySaved(!showOnlySaved)}
+                  className={`transition-opacity duration-300 font-headline italic text-lg tracking-tight flex items-center gap-1 ${showOnlySaved ? 'text-primary opacity-100' : 'text-[#1A1C1B] dark:text-[#F9F9F6] opacity-70 hover:opacity-100'}`}
+                >
                   Saved
                   <span className="bg-primary text-on-primary text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-sans not-italic">
-                    3
+                    {bookmarkedIds.size}
                   </span>
-                </a>
+                </button>
+                {bookmarkedIds.size > 0 && (
+                  <button
+                    onClick={() => window.print()}
+                    className="flex items-center gap-2 bg-primary text-on-primary px-3 py-1.5 rounded-lg text-xs font-label tracking-widest uppercase hover:opacity-90 transition-opacity shadow-sm"
+                  >
+                    <Download className="w-3.5 h-3.5" />
+                    Export PDF
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -89,6 +137,8 @@ export default function App() {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface/40 w-5 h-5" />
               <input
                 type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full bg-surface-container border-b-2 border-outline-variant focus:border-primary focus:outline-none py-4 pl-12 pr-4 rounded-t-lg transition-colors placeholder:italic"
                 placeholder="Search the archive (e.g. 'Coding assistant' or 'Claude')..."
               />
@@ -111,6 +161,71 @@ export default function App() {
             </div>
           </div>
         </header>
+
+        {/* Featured Resource Banner */}
+        <a 
+          href="https://sites.google.com/law.stanford.edu/ailearninghub/ai-resources-for-students?authuser=0"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mb-12 block bg-[#8C1515]/5 border border-[#8C1515]/20 rounded-2xl p-6 hover:bg-[#8C1515]/10 transition-colors group shadow-sm"
+        >
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 shrink-0 rounded-full bg-[#8C1515] text-white flex items-center justify-center shadow-sm">
+                <BookOpen className="w-6 h-6" />
+              </div>
+              <div>
+                <h2 className="font-headline text-xl font-bold text-[#8C1515] group-hover:underline decoration-2 underline-offset-4">
+                  SLS AI Learning Hub: AI Resources for Students
+                </h2>
+                <p className="text-on-surface-variant text-sm mt-1 leading-relaxed">
+                  Explore Stanford Law School's official hub for student AI resources, guidelines, and learning materials.
+                </p>
+              </div>
+            </div>
+            <div className="hidden md:flex shrink-0 items-center gap-2 text-[#8C1515] font-semibold text-sm tracking-wide uppercase">
+              Visit Hub <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+            </div>
+          </div>
+        </a>
+
+        {/* Explainer Section */}
+        <section className="mb-16 bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-8 shadow-sm">
+          <div className="max-w-4xl">
+            <div className="flex items-center gap-3 mb-4">
+              <Layers className="w-6 h-6 text-primary" />
+              <h2 className="font-headline text-2xl font-bold text-on-surface">What is an "AI Stack"?</h2>
+            </div>
+            <p className="text-on-surface-variant mb-8 leading-relaxed">
+              In software engineering, a "tech stack" refers to the combination of tools, languages, and frameworks used to build an application. Similarly, your <strong>AI Stack</strong> is the personal collection of artificial intelligence tools you combine to enhance your daily workflow. Instead of relying on one tool to do everything, a good stack uses specialized tools for specific tasks (e.g., one for drafting emails, another for generating presentations, and another for coding).
+            </p>
+            
+            <h3 className="font-headline text-xl font-bold text-on-surface mb-6">How to build your stack using this site:</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="flex flex-col gap-3">
+                <div className="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold mb-2">
+                  <Compass className="w-5 h-5" />
+                </div>
+                <h4 className="font-bold text-on-surface text-lg">1. Discover</h4>
+                <p className="text-sm text-on-surface-variant leading-relaxed">Browse categories or search for specific use cases to find tools that solve your unique problems.</p>
+              </div>
+              <div className="flex flex-col gap-3">
+                <div className="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold mb-2">
+                  <BookmarkPlus className="w-5 h-5" />
+                </div>
+                <h4 className="font-bold text-on-surface text-lg">2. Curate</h4>
+                <p className="text-sm text-on-surface-variant leading-relaxed">Click the bookmark icon to save tools you want to evaluate. Start with just 1-2 core tools to avoid overwhelm.</p>
+              </div>
+              <div className="flex flex-col gap-3">
+                <div className="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold mb-2">
+                  <FileDown className="w-5 h-5" />
+                </div>
+                <h4 className="font-bold text-on-surface text-lg">3. Export</h4>
+                <p className="text-sm text-on-surface-variant leading-relaxed">Go to your "Saved" list and export a clean PDF of your custom stack, complete with training resources.</p>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Controls Row */}
         <div className="flex flex-col md:flex-row justify-between items-end md:items-center mb-8 gap-4 border-b border-outline-variant/10 pb-4">
@@ -151,8 +266,14 @@ export default function App() {
                     referrerPolicy="no-referrer"
                   />
                 </div>
-                <button className={`transition-colors ${tool.bookmarked ? 'text-primary' : 'text-on-surface-variant hover:text-primary'}`}>
-                  <Bookmark className="w-6 h-6" fill={tool.bookmarked ? "currentColor" : "none"} />
+                <button 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    toggleBookmark(tool.id);
+                  }}
+                  className={`transition-colors z-10 ${bookmarkedIds.has(tool.id) ? 'text-primary' : 'text-on-surface-variant hover:text-primary'}`}
+                >
+                  <Bookmark className="w-6 h-6" fill={bookmarkedIds.has(tool.id) ? "currentColor" : "none"} />
                 </button>
               </div>
 
@@ -223,44 +344,70 @@ export default function App() {
             </article>
           ))}
         </div>
-
-        {/* Pagination/More */}
-        <div className="mt-20 text-center">
-          <button className="font-headline italic text-xl border-b border-primary text-on-surface hover:text-primary transition-colors py-1">
-            Load More Archived Tools
-          </button>
-        </div>
       </main>
-
-      {/* Footer */}
-      <footer className="w-full py-12 mt-24 bg-[#EEEEEB] dark:bg-[#121413]">
-        <div className="flex flex-col md:flex-row justify-between items-center px-8 max-w-[1100px] mx-auto gap-8">
-          <div className="flex flex-col items-center md:items-start gap-4">
-            <span className="font-headline text-xl text-[#1A1C1B] dark:text-[#F9F9F6]">
-              Your AI Stack
-            </span>
-            <p className="font-body text-xs uppercase tracking-widest font-medium text-[#1A1C1B]/60 dark:text-[#F9F9F6]/60">
-              © {new Date().getFullYear()} Your AI Stack. Curated Intellect.
-            </p>
-          </div>
-          <div className="flex flex-wrap justify-center gap-x-8 gap-y-4">
-            {['Privacy Policy', 'Terms of Service', 'Archive Guidelines', 'Submit a Tool'].map((link) => (
-              <a
-                key={link}
-                href="#"
-                className="font-body text-xs uppercase tracking-widest font-medium text-[#1A1C1B]/60 dark:text-[#F9F9F6]/60 hover:text-[#8C1515] transition-colors"
-              >
-                {link}
-              </a>
-            ))}
-          </div>
-        </div>
-      </footer>
 
       {/* FAB for mobile */}
       <button className="md:hidden fixed bottom-6 right-6 w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center active:scale-90 transition-transform z-[60]">
         <Plus className="w-6 h-6" />
       </button>
     </div>
+
+    {/* Print View (Only visible when printing) */}
+    <div className="hidden print:block bg-white text-black p-8 max-w-4xl mx-auto font-sans">
+      <div className="mb-8 border-b border-gray-300 pb-6">
+        <h1 className="text-4xl font-bold text-gray-900 mb-2">My Saved AI Tools</h1>
+        <p className="text-gray-500">Exported from Your AI Stack</p>
+      </div>
+
+      {bookmarkedTools.length === 0 ? (
+        <p className="text-gray-500 italic">No tools saved.</p>
+      ) : (
+        <div className="space-y-8">
+          {bookmarkedTools.map((tool) => (
+            <div key={tool.id} className="break-inside-avoid border border-gray-200 rounded-xl p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-2xl font-bold text-gray-900">{tool.name}</h2>
+                <span className="text-xs font-bold tracking-widest uppercase text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+                  {tool.tier}
+                </span>
+              </div>
+              
+              <p className="text-gray-700 text-base mb-6 leading-relaxed">
+                {tool.description}
+              </p>
+              
+              <div className="grid grid-cols-2 gap-6 mb-6">
+                <div>
+                  <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Best For</h3>
+                  <p className="text-sm text-gray-800 font-medium">{tool.bestFor}</p>
+                </div>
+                <div>
+                  <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Use Cases / Tags</h3>
+                  <p className="text-sm text-gray-800 font-medium">{tool.tags.join(', ')}</p>
+                </div>
+              </div>
+
+              {tool.helpUrls && tool.helpUrls.length > 0 && (
+                <div className="mb-6">
+                  <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Training & Resources</h3>
+                  <ul className="list-disc list-inside space-y-1">
+                    {tool.helpUrls.map((url, idx) => (
+                      <li key={idx} className="text-sm">
+                        <a href={url} className="text-blue-600 underline break-all">{url}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              <div className="pt-4 border-t border-gray-100">
+                <a href={tool.url} className="text-sm text-blue-600 font-medium break-all">{tool.url}</a>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+    </>
   );
 }
