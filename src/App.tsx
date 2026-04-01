@@ -32,7 +32,8 @@ export default function App() {
   const [activeCompareToolId, setActiveCompareToolId] = useState<string | null>(null);
   const [filters, setFilters] = useState({
     categories: ['All'],
-    search: ''
+    search: '',
+    quickFilter: 'none'
   });
   const [sortBy, setSortBy] = useState<'A-Z' | 'Category' | 'Recently Added'>('A-Z');
   const [isGridVisible, setIsGridVisible] = useState(true);
