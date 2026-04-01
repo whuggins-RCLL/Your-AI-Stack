@@ -13,11 +13,7 @@ const getCategoryOptions = (tools = []) => {
   const categorySet = new Set();
   tools.forEach((tool) => {
     const uses = splitUses(tool);
-    if (uses.length) {
-      uses.forEach((use) => categorySet.add(use));
-      return;
-    }
-    (tool.tags || []).forEach((tag) => categorySet.add(tag));
+    uses.forEach((use) => categorySet.add(use));
   });
   return ['All', ...Array.from(categorySet).sort((a, b) => a.localeCompare(b))];
 };
@@ -34,9 +30,7 @@ const includesSome = (value, needles) => needles.some((needle) => value.includes
 const matchesCategory = (tool, categories) => {
   if (!categories.length || categories.includes('All')) return true;
   const uses = splitUses(tool);
-  if (uses.length) return categories.some((category) => uses.includes(category));
-  const tags = (tool.tags || []).map((tag) => tag.toLowerCase());
-  return categories.some((category) => tags.includes(category.toLowerCase()));
+  return categories.some((category) => uses.includes(category));
 };
 
 const matchesSkill = (tool, levels) => {
