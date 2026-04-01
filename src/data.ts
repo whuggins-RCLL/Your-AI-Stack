@@ -120,12 +120,27 @@ export const tools: Tool[] = [
   {
     id: 'github',
     name: 'GitHub',
-    description: 'Developer platform for version control, collaboration, and CI/CD.',
-    bestFor: 'Source code management and collaboration.',
+    description: 'Cloud platform for Git-based version control, collaboration, and end-to-end software delivery workflows.',
+    bestFor: 'Source control, collaborative development, code review, and repository-centered software lifecycle workflows.',
+    uses: 'Version Control, Code Hosting, Collaboration, Pull Requests, Code Review, Issue Tracking, CI/CD Automation, Project Management, Package Hosting, Documentation Hosting, Open Source',
     tags: ['Coding', 'Version Control'],
     tier: 'Freemium',
     logoUrl: 'https://picsum.photos/seed/github/200/200',
-    url: 'https://github.com/'
+    url: 'https://github.com/',
+    parentCompany: 'Microsoft',
+    summary: 'GitHub is a cloud-based software development platform for hosting code, collaborating on repositories, tracking work, automating workflows, and shipping software. GitHub\'s official product pages position it as a platform where developers, agents, and code come together, with core capabilities spanning repositories, pull requests, issues, discussions, Actions, security features, project management, package hosting, APIs, and client apps.',
+    tagCategories: 'software development platform, code hosting, version control, Git platform, developer platform, collaboration platform, DevOps, CI/CD, project management, application security, repository hosting, open source platform, enterprise developer tooling, issue tracking, pull request workflow, package hosting, automation platform, API platform, developer productivity, team collaboration, software delivery, source control, engineering workflow, cloud development, documentation hosting, code review, planning tool, developer ecosystem, Microsoft platform, software lifecycle management',
+    features: 'repositories, Git-based version control, pull requests, code review, issues, discussions, projects, milestones, Actions automation, CI/CD workflows, package hosting, webhooks, APIs, GitHub Apps, Marketplace, Dependabot alerts, dependency review, security advisories, code search, branch protection, organizations, teams, custom roles, GitHub Pages, wiki support, repository insights, mobile app, desktop app, CLI support, collaborative coding, workflow templates, hosted runners, self-hosted runners, project boards, task lists, enterprise administration',
+    notGoodFor: 'Not good for general-purpose consumer chat, replacing a dedicated coding agent by itself, guaranteed correct code without review, or serving as a full substitute for engineering judgment, QA, security review, and release governance. It is also a weaker fit when someone only needs a lightweight local-only Git client rather than a broader cloud collaboration and software platform.',
+    officialTrainingDocs: [
+      'https://docs.github.com/en',
+      'https://docs.github.com/en/get-started',
+      'https://docs.github.com/en/get-started/start-your-journey/about-github-and-git',
+      'https://docs.github.com/repositories',
+      'https://github.com/features'
+    ],
+    stanfordUniversitySlsProvidedAccess: false,
+    robertCrownLawLibraryFavorite: true
   },
   {
     id: 'figma',
@@ -189,12 +204,53 @@ export const tools: Tool[] = [
   {
     id: 'vercel',
     name: 'Vercel',
-    description: 'Frontend cloud platform for deploying and hosting web applications.',
-    bestFor: 'Next.js hosting and seamless deployments.',
+    description: 'Cloud platform for deploying, scaling, and operating modern web and AI applications.',
+    bestFor: 'Web app deployment, preview workflows, managed hosting, and frontend-first production delivery.',
+    uses: 'Web App Deployment, Cloud Hosting, Preview Deployments, Serverless Functions, Edge Computing, CI/CD, DNS Management, Analytics & Observability, AI App Infrastructure, Monorepo Support',
     tags: ['Deployment', 'Hosting'],
     tier: 'Freemium',
     logoUrl: 'https://picsum.photos/seed/vercel/200/200',
-    url: 'https://vercel.com/'
+    url: 'https://vercel.com/',
+    parentCompany: 'Vercel',
+    summary: 'Vercel is a cloud platform for building, deploying, scaling, and securing modern web applications and AI-powered products. Vercel positions itself as an AI Cloud for developers, combining hosting, preview deployments, frontend infrastructure, compute, collaboration workflows, observability, security, and developer tooling for shipping web apps faster.',
+    tagCategories: 'cloud platform, web deployment, frontend cloud, developer platform, hosting platform, AI cloud, software development platform, deployment platform, serverless platform, edge platform, modern web infrastructure, DevOps, CI CD, preview deployments, frontend infrastructure, web performance, observability, security platform, developer productivity, cloud development, app hosting, web app platform, Next.js platform, AI app infrastructure, platform engineering, full stack deployment, edge compute, developer workflow, collaboration platform, application platform',
+    features: 'git-based deployments, preview deployments, production deployments, custom domains, SSL, edge network, serverless functions, edge functions, observability, analytics, logs, speed insights, web analytics, storage options, cron jobs, environment variables, monorepo support, framework detection, CLI, API access, templates, project dashboards, team collaboration, access controls, enterprise plans, secure deployment workflows, AI SDK, AI Gateway, Workflow for agents and stateful jobs, Functions, Queues, build caching, rollback support, DNS management, local development support, framework support, zero-config deployments, global infrastructure',
+    notGoodFor: 'Not good for general-purpose consumer chat, replacing engineering judgment for architecture or security, fully offline or self-hosted workflows by default, or guaranteeing correct application behavior without testing and review. It is also a weaker fit when a team wants raw low-level infrastructure control instead of a managed platform optimized for web and AI app delivery.',
+    officialTrainingDocs: [
+      'https://vercel.com/docs',
+      'https://vercel.com/docs/getting-started-with-vercel',
+      'https://vercel.com/docs/fundamentals',
+      'https://vercel.com/docs/projects',
+      'https://vercel.com/docs/ai-sdk',
+      'https://vercel.com/academy'
+    ],
+    stanfordUniversitySlsProvidedAccess: false,
+    robertCrownLawLibraryFavorite: false
+  },
+  {
+    id: 'google-vertex-ai',
+    name: 'Google Vertex AI',
+    description: 'Google Cloud\'s managed AI platform for developing, tuning, and deploying ML and generative AI applications.',
+    bestFor: 'Enterprise AI development, model deployment, agent workflows, and production MLOps.',
+    uses: 'ML Model Training, Model Deployment, Generative AI Development, Agent Building, Model Tuning, Evaluation, MLOps, Enterprise AI Governance, Multimodal App Development, Production AI Management',
+    tags: ['Podcasts', 'AI Platform', 'Google Cloud'],
+    tier: 'Paid',
+    logoUrl: 'https://picsum.photos/seed/vertexai/200/200',
+    url: 'https://cloud.google.com/vertex-ai',
+    parentCompany: 'Google',
+    summary: 'Google Vertex AI is Google Cloud\'s fully managed, unified AI development platform for building, customizing, deploying, and operating machine learning models and generative AI applications. It is designed for enterprise and developer workflows across model access, prompt and app prototyping, agent building, tuning, MLOps, deployment, evaluation, and production management using Google models and third-party models.',
+    tagCategories: 'AI platform, machine learning platform, generative AI platform, enterprise AI, developer platform, MLOps, model deployment, model training, model hosting, AI app development, agent platform, Google Cloud, Vertex AI Studio, Model Garden, enterprise search, recommendation systems, data science platform, ML engineering, prompt engineering, multimodal AI, LLM platform, AI operations, model evaluation, AI governance, cloud AI, production AI, managed AI infrastructure, foundation models, AI development environment, enterprise developer tooling',
+    features: 'model hosting, model training, custom training, AutoML, foundation model access, Gemini access, Model Garden, Vertex AI Studio, prompt prototyping, agent building, evaluation tools, tuning, supervised fine-tuning, model deployment, endpoint management, REST API, gRPC API, client libraries, notebooks, pipelines, batch prediction, online prediction, vector search, feature store capabilities, data labeling support, monitoring, observability, security controls, enterprise governance, multimodal app development, third-party model access, managed infrastructure, retrieval and grounding workflows, search and recommendation capabilities, experiment workflows, production management, SDK support for Python Go Java and Node.js',
+    notGoodFor: 'Not good for simple consumer chat use, guaranteed deterministic outputs, high-stakes decisions without human review, or teams that only want a lightweight prototype tool with no cloud setup. It is also a weaker fit when someone needs a local-only development workflow or a narrowly focused single-purpose assistant instead of a broad enterprise AI and ML platform.',
+    officialTrainingDocs: [
+      'https://docs.cloud.google.com/vertex-ai/docs',
+      'https://docs.cloud.google.com/vertex-ai/docs/start/introduction-unified-platform',
+      'https://docs.cloud.google.com/vertex-ai/generative-ai/docs/learn/overview',
+      'https://docs.cloud.google.com/vertex-ai/docs/reference',
+      'https://docs.cloud.google.com/vertex-ai/generative-ai/docs'
+    ],
+    stanfordUniversitySlsProvidedAccess: false,
+    robertCrownLawLibraryFavorite: true
   },
   {
     id: 'replit',
@@ -584,32 +640,124 @@ export const tools: Tool[] = [
   {
     id: 'suno',
     name: 'Suno',
-    description: 'AI music generation platform for creating full songs from text prompts.',
-    bestFor: 'Creating original music tracks, songs, and audio clips quickly.',
+    description: 'AI music creation platform for generating songs, vocals, and instrumentals from prompts and uploads.',
+    bestFor: 'Music generation, songwriting prototyping, and browser-first audio ideation.',
+    uses: 'Music Generation, Song Creation, Vocal Generation, Instrumental Creation, Beat Making, Audio Editing, Songwriting, Cover Creation, Music Prototyping, Podcast Intros & Outros',
     tags: ['Music and Sound', 'Music Generation', 'Audio'],
     tier: 'Freemium',
     logoUrl: 'https://picsum.photos/seed/suno/200/200',
     url: 'https://suno.com/',
-    helpUrls: [
-      'https://suno.com/l/ai-music-app',
-      'https://suno.com/l/make-music-with-ai',
-      'https://suno.com/hub/how-to-make-a-song'
+    parentCompany: 'Suno, Inc.',
+    summary: 'Suno is an AI music creation platform for generating original songs, vocals, instrumentals, and audio edits from prompts and uploads. It is designed for creators, songwriters, producers, and content teams who want to make music quickly in the browser or mobile app, with added production workflows through Suno Studio.',
+    tagCategories: 'AI music generator, music AI, generative audio, song generator, audio creation, songwriting tool, music production, browser-based DAW, creative AI, content creation, royalty-free music, vocal generation, instrumental generation, beat making, producer tool, songwriter assistant, audio editing, music workflow, creator economy, social media music, commercial music creation, audio prototyping, studio tool, generative media, consumer AI, creator platform, music ideation, web app, mobile app',
+    features: 'text-to-music generation, song generation, lyric-based generation, vocal generation, instrumental generation, audio uploads, cover creation, extend songs, crop songs, replace section editing, remaster, download audio and video files, web app, iOS app, Android app, private and link-only sharing, library management, style prompting, creative sliders, prompt boosting, Studio multitrack editor, stem extraction, MIDI export, loop recording, EQ, tempo adjustment, generative audio workstation, browser-based production workflow, persona voices, commercial-use plans, community publishing',
+    notGoodFor: 'Not good for precise manual audio engineering like a traditional professional DAW, guaranteed copyright-safe outputs without review, highly deterministic production results, or replacing human music judgment for final release-quality mastering and rights decisions. It is also a weaker fit when someone needs advanced offline studio production instead of a browser-first AI music workflow.',
+    officialTrainingDocs: [
+      'https://help.suno.com/',
+      'https://help.suno.com/en/categories/550017',
+      'https://help.suno.com/en/articles/7940161',
+      'https://help.suno.com/en/categories/1708865',
+      'https://suno.com/'
     ]
   },
   {
-    id: 'elevenlabs-music',
-    name: 'ElevenLabs Music + Sound Effects',
-    description: 'AI audio platform offering music generation and advanced sound effects creation.',
-    bestFor: 'Generating high-quality sound effects and music for videos, games, and media.',
-    tags: ['Music and Sound', 'Music Generation', 'Sound Effects', 'Audio'],
+    id: 'elevenlabs',
+    name: 'ElevenLabs',
+    description: 'AI audio platform for high-quality speech, voice agents, dubbing, and audio generation workflows.',
+    bestFor: 'Text-to-speech, voice cloning, localization, and conversational voice product development.',
+    uses: 'Text-to-Speech, Voice Cloning, Conversational AI Agents, Dubbing & Localization, Voiceover Production, Podcast Narration, Audiobook Production, Sound Effects, Call Automation, Multilingual Audio',
+    tags: ['Music and Sound', 'Voice', 'Audio'],
     tier: 'Freemium',
     logoUrl: 'https://picsum.photos/seed/elevenlabs/200/200',
     url: 'https://elevenlabs.io/',
-    helpUrls: [
-      'https://elevenlabs.io/docs/overview/capabilities/music',
-      'https://elevenlabs.io/docs/overview/capabilities/music/best-practices',
-      'https://elevenlabs.io/docs/overview/capabilities/sound-effects'
-    ]
+    parentCompany: 'ElevenLabs',
+    summary: 'ElevenLabs is an AI audio platform for generating, editing, and deploying realistic speech, voice agents, and other audio experiences. It is designed for creators, developers, and enterprises working on text to speech, speech to text, voice cloning, dubbing, conversational AI, sound effects, music, and production workflows through web apps, APIs, and SDKs.',
+    tagCategories: 'AI voice platform, voice AI, audio AI, text to speech, speech to text, voice cloning, conversational AI, voice agents, audio generation, generative audio, dubbing, creator tools, developer platform, enterprise AI, customer support AI, call automation, voiceover tool, podcast production, audiobook production, media localization, accessibility technology, synthetic voice, speech synthesis, audio editing, API platform, multimodal AI, creator economy, production workflow, real-time voice, AI communications',
+    features: 'text to speech, speech to text, voice cloning, instant voice cloning, professional voice cloning, conversational AI, voice agents, agent platform, low-latency voice interactions, multilingual support, 70 plus languages, web app, REST API, Python SDK, TypeScript SDK, dubbing, voice changer, voice isolator, sound effects generation, AI music generation, Studio editor, captions, collaboration, multilingual audio workflows, audio timeline editing, custom voices, voice design, marketplace voices, enterprise security, SSO support, trust center resources, API reference, creator workflows, customer service workflows, call automation, voiceovers, audiobooks, podcast narration, localization workflows',
+    notGoodFor: 'Not good for guaranteed factual accuracy in spoken content without review, replacing human judgment for legal or brand-sensitive voice use, unrestricted cloning of voices without consent, or advanced manual audio engineering like a full traditional DAW. It is also a weaker fit when someone only needs a general-purpose chatbot rather than a specialized voice and audio platform.',
+    officialTrainingDocs: [
+      'https://elevenlabs.io/docs/overview/intro',
+      'https://elevenlabs.io/api',
+      'https://elevenlabs.io/text-to-speech',
+      'https://elevenlabs.io/conversational-ai',
+      'https://elevenlabs.io/help'
+    ],
+    stanfordUniversitySlsProvidedAccess: false,
+    robertCrownLawLibraryFavorite: true
+  },
+  {
+    id: 'westlaw-precision',
+    name: 'Westlaw Precision',
+    description: 'Legal research platform for case law, statutes, citator analysis, and AI-assisted litigation workflows.',
+    bestFor: 'Authority-backed legal research, citation validation, and litigation preparation.',
+    uses: 'Legal Research, Case Law Search, Statute & Regulation Research, Citation Analysis, Document Validation, Docket Search, AI-Assisted Legal Research, Litigation Prep, Appellate Research',
+    tags: ['Legal Research', 'Case Law', 'Litigation'],
+    tier: 'Stanford Licensed',
+    logoUrl: 'https://picsum.photos/seed/westlawprecision/200/200',
+    url: 'https://legal.thomsonreuters.com/en/westlaw/versions-of-westlaw-plans',
+    parentCompany: 'Thomson Reuters',
+    summary: 'Westlaw Precision is Thomson Reuters\' flagship legal research platform for lawyers and legal professionals. It is designed to help users research case law, statutes, regulations, and secondary sources more efficiently, with features for citation analysis, document validation, litigation research, docket search, and AI-assisted research through Westlaw Precision with CoCounsel.',
+    tagCategories: 'legal research, legal tech, research platform, litigation research, law firm technology, in-house legal tech, legal AI, professional services AI, case law research, statutory research, regulatory research, legal drafting support, citation analysis, legal workflow platform, enterprise legal technology, document intelligence, legal productivity, litigation support, due diligence, docket research, appellate research, trial prep, legal knowledge work, lawyer tools, Thomson Reuters legal, AI-assisted legal research',
+    features: 'case law search, statute search, regulation search, secondary source search, KeyCite citation analysis, KeyCite Overruled in Part, KeyCite Cited With, Quick Check, AI-Assisted Research, CoCounsel integration, AI Jurisdictional Surveys, Claims Explorer, docket search, case citation lookup, research filters, legal document linking, history and treatment analysis, search and browse by topic, research validation, authority checking, legal question answering with linked authority, workflow-oriented legal research, research history, saved workspaces, training videos, onboarding resources, help center support',
+    notGoodFor: 'Not good for general-purpose consumer chat, coding workflows, non-legal business productivity, guaranteed legal correctness without attorney review, or replacing legal judgment in high-stakes matters. It is also a weaker fit when a user mainly wants broad document drafting or autonomous workflow execution instead of a primary legal research and authority-validation platform.',
+    officialTrainingDocs: [
+      'https://training.thomsonreuters.com/legal-westlaw-precision',
+      'https://www.thomsonreuters.com/en-us/help/westlaw-precision',
+      'https://training.thomsonreuters.com/category/Westlaw%20Precision/280999852',
+      'https://training.thomsonreuters.com/playlist/1_eqrtpgqo'
+    ],
+    stanfordUniversitySlsProvidedAccess: true,
+    robertCrownLawLibraryFavorite: true
+  },
+  {
+    id: 'lexis-protege',
+    name: 'Lexis Protégé',
+    description: 'Personalized legal AI assistant inside Lexis+ for research, drafting, and workflow-oriented legal tasks.',
+    bestFor: 'Legal drafting, research synthesis, document analysis, and citation-grounded legal workflows.',
+    uses: 'Legal Research, Legal Drafting, Case Summarization, Document Analysis, Memo Drafting, Brief Drafting, Interrogatory Drafting, Email Drafting, Legal Workflow Automation, Citation-Backed Research',
+    tags: ['Legal Research', 'Drafting', 'Legal AI'],
+    tier: 'Stanford Licensed',
+    logoUrl: 'https://picsum.photos/seed/lexisprotege/200/200',
+    url: 'https://www.lexisnexis.com/en-us/products/lexis-plus-protege.page',
+    parentCompany: 'LexisNexis',
+    summary: 'Lexis Protégé is LexisNexis\'s personalized AI assistant for legal professionals, delivered within Lexis+ AI and Lexis+ with Protégé. It is designed to help with legal drafting, research, summarization, analysis, and workflow-based legal work using trusted LexisNexis content and linked authority, with newer releases emphasizing purpose-built legal workflows and personalization.',
+    tagCategories: 'legal AI, legal research, legal drafting, legal tech, AI assistant, professional services AI, law firm technology, in-house legal tech, litigation support, document analysis, legal workflow platform, enterprise legal technology, legal productivity, case law research, statutory research, regulatory research, citation-backed AI, legal knowledge work, lawyer tools, drafting assistant, research assistant, workflow automation, legal analysis, generative AI, agentic AI, legal operations, document intelligence, authority-grounded AI, Lexis+ AI, legal professional tool',
+    features: 'legal drafting, legal research, legal summarization, legal analysis, personalized AI assistance, workflow-based legal tasks, grounded answers with authority, trusted LexisNexis content integration, multi-turn suggestions, draft mode, find similar briefs pleadings and motions, draft interrogatories, memo drafting, email drafting, legal question answering, case summarization, profile setup and personalization, secure legal AI workspace, linked citations, purpose-built legal workflows, broader AI task support inside Lexis+ AI, training videos, university courses, onboarding resources',
+    notGoodFor: 'Not good for general-purpose consumer chat, coding workflows, non-legal everyday productivity, guaranteed legal correctness without attorney review, or replacing legal judgment in high-stakes matters. It is also a weaker fit when the user mainly wants a broad autonomous business agent rather than a legal-specific assistant grounded in LexisNexis authority and workflows.',
+    officialTrainingDocs: [
+      'https://www.lexisnexis.com/en-us/products/lexis-plus-protege.page',
+      'https://help.lexisnexis.com/Flare/lexisplusai/US/en_US/Content/Protege/protegeintro.htm',
+      'https://supportcenter.lexisnexis.com/app/answers/answer_view/a_id/1128873/~/learning-lexis%2B-ai-prot%C3%A9g%C3%A9---training-videos',
+      'https://www.lexisnexis.com/university/Course.aspx?classInfo=Crs~1131~67590',
+      'https://www.lexisnexis.com/en-us/training/default.page'
+    ],
+    stanfordUniversitySlsProvidedAccess: true,
+    robertCrownLawLibraryFavorite: true
+  },
+  {
+    id: 'mistral-le-chat',
+    name: 'Mistral',
+    description: 'General-purpose Mistral AI assistant experience delivered through Le Chat.',
+    bestFor: 'Writing, summarization, research, coding support, and enterprise knowledge workflows.',
+    uses: 'Writing, Research, Brainstorming, Coding, Summarization, Document Analysis, Web Search, Deep Research, Voice Chat, Enterprise Knowledge Workflows, Agent Building',
+    tags: ['Assistant', 'Research', 'Coding'],
+    tier: 'Freemium',
+    logoUrl: 'https://picsum.photos/seed/mistrallechat/200/200',
+    url: 'https://mistral.ai/products/le-chat',
+    parentCompany: 'Mistral AI',
+    summary: 'Mistral is Mistral AI\'s general-purpose AI assistant experience, delivered through Le Chat, for conversation, writing, summarization, research, coding help, document analysis, web-assisted answers, and enterprise knowledge workflows. Mistral also supports a broader developer and enterprise platform through its API, Studio, models, agents, and related products, but Le Chat is the main end-user assistant product.',
+    tagCategories: 'AI assistant, conversational AI, chatbot, productivity, writing assistant, research assistant, coding assistant, multimodal AI, enterprise AI, business productivity, generative AI, knowledge work, learning assistant, summarization tool, document analysis, search assistant, voice AI, reasoning assistant, agent platform, developer platform, API model, enterprise knowledge assistant, workflow assistant, secure AI assistant, European AI platform, model provider, personal productivity, team productivity, enterprise search, agentic workflows',
+    features: 'natural language chat, writing help, summarization, brainstorming, document upload and understanding, image understanding, web search, deep research, agents, projects, libraries, connectors, canvas, code interpreter, voice mode, think mode, chat sharing, enterprise deployments, secure knowledge access, API platform, SDK support, model access, structured developer docs, team and enterprise tiers, multimodal workflows, reasoning support, up-to-date answers with sources, custom enterprise integrations, developer playground, app-building support, model selection, secure admin controls',
+    notGoodFor: 'Not good for guaranteed factual accuracy without verification, high-stakes legal or medical decisions without human review, fully deterministic outputs, or replacing specialized tools when the user specifically needs a dedicated coding IDE, a full production ML platform, or a traditional search/database product. It is also a weaker fit when someone only wants a narrow single-purpose workflow rather than a broad assistant and AI platform.',
+    officialTrainingDocs: [
+      'https://docs.mistral.ai/',
+      'https://help.mistral.ai/en/collections/789629-le-chat',
+      'https://help.mistral.ai/en/articles/347531-an-overview-of-le-chat-s-capabilities',
+      'https://docs.mistral.ai/api',
+      'https://mistral.ai/products/le-chat'
+    ],
+    stanfordUniversitySlsProvidedAccess: false,
+    robertCrownLawLibraryFavorite: false
   },
   {
     id: 'google-lyria',
