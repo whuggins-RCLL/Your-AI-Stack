@@ -1,8 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Search, SlidersHorizontal, X } from 'lucide-react';
 
-export const SKILL_LEVEL_OPTIONS = ['All', 'Beginner', 'Intermediate', 'Advanced'];
-
 const splitUses = (tool) =>
   (tool.uses || '')
     .split(',')
@@ -18,24 +16,10 @@ const getCategoryOptions = (tools = []) => {
   return ['All', ...Array.from(categorySet).sort((a, b) => a.localeCompare(b))];
 };
 
-const inferSkillLevel = (tool) => {
-  const text = `${tool.name} ${tool.description} ${tool.bestFor} ${tool.tags.join(' ')}`.toLowerCase();
-  if (text.includes('advanced') || text.includes('complex')) return 'Advanced';
-  if (text.includes('beginner') || text.includes('simple')) return 'Beginner';
-  return 'Intermediate';
-};
-
-const includesSome = (value, needles) => needles.some((needle) => value.includes(needle));
-
 const matchesCategory = (tool, categories) => {
   if (!categories.length || categories.includes('All')) return true;
   const uses = splitUses(tool);
   return categories.some((category) => uses.includes(category));
-};
-
-const matchesSkill = (tool, levels) => {
-  if (!levels.length || levels.includes('All')) return true;
-  return levels.includes(inferSkillLevel(tool));
 };
 
 const matchesSearch = (tool, search) => {
@@ -52,7 +36,6 @@ export const filterTools = (tools, filters) =>
   tools.filter(
     (tool) =>
       matchesCategory(tool, filters.categories) &&
-      matchesSkill(tool, filters.skillLevels) &&
       matchesSearch(tool, filters.search)
   );
 
@@ -102,8 +85,7 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
   };
 
   const activeFilterChips = [
-    ...filters.categories.filter((v) => v !== 'All').map((v) => ({ group: 'categories', value: v })),
-    ...filters.skillLevels.filter((v) => v !== 'All').map((v) => ({ group: 'skillLevels', value: v }))
+    ...filters.categories.filter((v) => v !== 'All').map((v) => ({ group: 'categories', value: v }))
   ];
 
   const renderChipGroup = (label, options, selected, onToggle) => (
@@ -178,9 +160,6 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
               </div>
             )}
           </div>
-          {renderChipGroup('Skill Level', SKILL_LEVEL_OPTIONS, filters.skillLevels, (option) =>
-            onFiltersChange({ ...filters, skillLevels: toggleOption(filters.skillLevels, option) })
-          )}
         </section>
       </div>
 
@@ -218,7 +197,7 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
           <button
             onClick={() => {
               setInputValue('');
-              onFiltersChange({ categories: ['All'], skillLevels: ['All'], search: '' });
+              onFiltersChange({ categories: ['All'], search: '' });
             }}
             className="text-xs underline text-on-surface-variant"
           >
@@ -236,9 +215,6 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
               <h3 className="font-semibold">Filters</h3>
               <button onClick={() => setIsMobileOpen(false)}><X className="w-5 h-5" /></button>
             </div>
-            {renderChipGroup('Skill Level', SKILL_LEVEL_OPTIONS, draftFilters.skillLevels, (option) =>
-              setDraftFilters((prev) => ({ ...prev, skillLevels: toggleOption(prev.skillLevels, option) }))
-            )}
             <button onClick={applyDraft} className="w-full bg-primary text-on-primary py-3 rounded-xl font-semibold">
               Apply ({filterTools(tools, { ...draftFilters, search: inputValue }).length} results)
             </button>
