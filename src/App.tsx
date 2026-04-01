@@ -4,7 +4,7 @@
  */
 
 import { useState, useMemo, useEffect } from 'react';
-import { ArrowRight, ArrowLeftRight, Plus, Download, Layers, Compass, BookmarkPlus, FileDown, X, Sparkles, Check, ExternalLink } from 'lucide-react';
+import { ArrowRight, ArrowLeftRight, Plus, Download, Compass, BookmarkPlus, FileDown, X, Check, ExternalLink } from 'lucide-react';
 import { tools } from './data';
 import FilterBar, { filterTools } from './components/FilterBar';
 
@@ -246,16 +246,11 @@ export default function App() {
         {/* Explainer Section */}
         <section className="mb-8 bg-gradient-to-br from-surface-container-lowest via-white to-surface shadow-[0_16px_40px_rgba(26,28,27,0.08)] border border-outline-variant/35 rounded-3xl p-6 md:p-8">
           <div className="max-w-4xl">
-            <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center">
-                  <Layers className="w-5 h-5" />
-                </div>
-                <h2 className="font-headline text-3xl font-semibold text-on-surface tracking-tight">What is an "AI Stack"?</h2>
-              </div>
+            <div className="grid items-start gap-4 mb-4 md:grid-cols-[1fr_auto] md:gap-6">
+              <h2 className="font-headline text-3xl font-semibold text-on-surface tracking-tight">What is an "AI Stack"?</h2>
               <button
                 onClick={() => setShowExplainer(prev => !prev)}
-                className="inline-flex items-center gap-2 rounded-full border border-outline-variant/60 bg-surface-container-low px-4 py-2 text-sm font-semibold text-on-surface transition-colors hover:bg-surface-container"
+                className="inline-flex items-center justify-center rounded-full border border-outline-variant/60 bg-surface-container-low px-4 py-2 text-sm font-semibold text-on-surface transition-colors hover:bg-surface-container md:justify-self-end"
               >
                 {showExplainer ? 'Hide section' : 'Show section'}
               </button>
@@ -298,16 +293,11 @@ export default function App() {
         {/* Philosophy Section */}
         <section className="mb-8 bg-gradient-to-br from-surface-container-lowest via-white to-surface shadow-[0_16px_40px_rgba(26,28,27,0.08)] border border-outline-variant/35 rounded-3xl p-6 md:p-8">
           <div className="max-w-4xl">
-            <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center">
-                  <Sparkles className="w-5 h-5" />
-                </div>
-                <h2 className="font-headline text-4xl font-semibold text-on-surface tracking-tight">Build your AI stack around the work that matters.</h2>
-              </div>
+            <div className="grid items-start gap-4 mb-6 md:grid-cols-[1fr_auto] md:gap-6">
+              <h2 className="font-headline text-4xl font-semibold text-on-surface tracking-tight">Build your AI stack around the work that matters.</h2>
               <button
                 onClick={() => setShowPhilosophy(prev => !prev)}
-                className="inline-flex items-center gap-2 rounded-full border border-outline-variant/60 bg-surface-container-low px-4 py-2 text-sm font-semibold text-on-surface transition-colors hover:bg-surface-container"
+                className="inline-flex items-center justify-center rounded-full border border-outline-variant/60 bg-surface-container-low px-4 py-2 text-sm font-semibold text-on-surface transition-colors hover:bg-surface-container md:justify-self-end"
               >
                 {showPhilosophy ? 'Hide section' : 'Show section'}
               </button>
@@ -384,14 +374,11 @@ export default function App() {
 
         {/* Major LLMs Section */}
         <section className="mb-16 bg-surface-container-lowest border border-outline-variant/30 rounded-2xl p-8 shadow-sm">
-          <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-            <div className="flex items-center gap-3">
-              <Sparkles className="w-6 h-6 text-primary" />
-              <h2 className="font-headline text-2xl font-bold text-on-surface">Major, General Purpose Large Language Models (LLMs)</h2>
-            </div>
+          <div className="grid items-start gap-4 mb-6 md:grid-cols-[1fr_auto] md:gap-6">
+            <h2 className="font-headline text-2xl font-bold text-on-surface">Major, General Purpose Large Language Models (LLMs)</h2>
             <button
               onClick={() => setShowMajorLlms(prev => !prev)}
-              className="inline-flex items-center gap-2 rounded-full border border-outline-variant/60 bg-surface-container-low px-4 py-2 text-sm font-semibold text-on-surface transition-colors hover:bg-surface-container"
+              className="inline-flex items-center justify-center rounded-full border border-outline-variant/60 bg-surface-container-low px-4 py-2 text-sm font-semibold text-on-surface transition-colors hover:bg-surface-container md:justify-self-end"
             >
               {showMajorLlms ? 'Hide section' : 'Show section'}
             </button>
