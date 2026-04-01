@@ -96,12 +96,26 @@ export const tools: Tool[] = [
   {
     id: 'claude-code',
     name: 'Claude Code',
-    description: 'Anthropic\'s AI coding assistant powered by the Claude model family.',
-    bestFor: 'Complex reasoning and code generation.',
-    tags: ['Coding', 'Assistant'],
+    description: 'Anthropic\'s agentic coding tool for generating, editing, debugging, and shipping code across repositories.',
+    bestFor: 'Code generation, review, debugging, refactoring, and autonomous developer workflows.',
+    uses: 'Code Generation, Code Review, Bug Fixing, Refactoring, Repository Navigation, Terminal Development, Debugging, Test Workflows, Autonomous Coding Tasks, Codebase Exploration',
+    tags: ['Podcasts', 'Coding', 'Assistant'],
     tier: 'Paid',
     logoUrl: 'https://picsum.photos/seed/claudecode/200/200',
-    url: 'https://claude.com/product/claude-code'
+    url: 'https://www.anthropic.com/claude-code',
+    parentCompany: 'Anthropic',
+    summary: 'Claude Code is Anthropic\'s agentic coding tool for developers. It is designed to help with code generation, editing, debugging, refactoring, repository navigation, terminal-based development, and longer-running software tasks from the CLI and supported IDE surfaces. Anthropic also describes it as supporting more autonomous development workflows, including sandboxing and enterprise controls.',
+    tagCategories: 'AI coding agent, coding assistant, software engineering, developer tools, code generation, code review, bug fixing, refactoring, repository assistant, terminal assistant, CLI tool, IDE assistant, agentic coding, engineering productivity, DevTools, automation, codebase understanding, debugging assistant, test workflow support, enterprise developer tooling, programming assistant, cloud development, local development, software delivery, code modernization, AI developer workflow',
+    features: 'natural language coding, terminal integration, CLI usage, code editing, bug fixing, refactoring, repository navigation, autonomous coding tasks, IDE support, VS Code extension, file diffs, longer-running tasks, sandboxing, filesystem isolation, network isolation, enterprise admin controls, usage analytics, model-powered development, code reasoning, project-aware assistance, codebase exploration, implementation support, developer workflow acceleration, cloud and local surfaces, documentation-aware coding, environment-aware assistance',
+    notGoodFor: 'Not good for non-software knowledge work, guaranteed correct code without review, production-critical security decisions without human oversight, or tasks outside supported developer workflows and integrations. It should be treated as a development copilot/agent, not a substitute for engineering judgment, code review, testing, or release governance.',
+    officialTrainingDocs: [
+      'https://docs.anthropic.com/en/docs/claude-code',
+      'https://docs.anthropic.com/en/docs/claude-code/overview',
+      'https://docs.anthropic.com/en/docs/claude-code/reference',
+      'https://www.anthropic.com/news/enabling-claude-code-to-work-more-autonomously'
+    ],
+    stanfordUniversitySlsProvidedAccess: false,
+    robertCrownLawLibraryFavorite: true
   },
   {
     id: 'vercel',
@@ -722,6 +736,80 @@ export const tools: Tool[] = [
       'https://support.anthropic.com/'
     ],
     stanfordUniversitySlsProvidedAccess: 'Limited Access in Stanford AI Playground',
+    robertCrownLawLibraryFavorite: true
+  },
+  {
+    id: 'claude-cowork',
+    name: 'Claude Cowork',
+    description: 'Anthropic\'s agentic AI system for delegated multi-step knowledge work across projects and files.',
+    bestFor: 'Research synthesis, document preparation, and autonomous workflow completion.',
+    uses: 'Research Synthesis, Document Preparation, File Management, Multi-Step Knowledge Work, Project-Based Task Execution, Autonomous Workflow Completion, Business Operations',
+    tags: ['Podcasts', 'General AI', 'Workflow'],
+    tier: 'Paid',
+    logoUrl: 'https://picsum.photos/seed/claudecowork/200/200',
+    url: 'https://www.anthropic.com/product/claude-cowork',
+    parentCompany: 'Anthropic',
+    summary: 'Claude Cowork is Anthropic\'s agentic AI system for executing multi-step knowledge work on a user\'s behalf. Anthropic describes it as handling work such as research synthesis, document preparation, and file management, and explicitly says it is not a chat assistant. It is positioned as a tool for getting work done across real projects and files rather than just answering questions.',
+    tagCategories: 'agentic AI, knowledge work automation, workflow automation, enterprise AI, business productivity, research assistant, document assistant, file management, autonomous workflows, workplace AI, professional productivity, task execution, AI coworker, operations assistant, project assistant, information synthesis, document creation, agent platform, enterprise workflows, desktop AI, work automation, business operations, generative AI, AI for work, agentic workflows, knowledge management, execution agent',
+    features: 'multi-step task execution, research synthesis, document preparation, file management, project-based work, autonomous execution, non-chat workflow support, business task handling, real file interaction, knowledge-work delegation, agentic assistance, workflow completion, professional use cases, enterprise-oriented usage, hands-off task execution, work alongside user projects, task follow-through, execution over conversation, productivity acceleration',
+    notGoodFor: 'Not good for casual conversational chat, simple Q and A use cases where a standard chatbot is enough, or tasks that require guaranteed correctness without review. Anthropic explicitly frames Cowork as separate from chat and as a system for delegated execution, so it is a weaker fit when the user mainly wants an interactive back-and-forth assistant instead of autonomous knowledge-work execution.',
+    officialTrainingDocs: [
+      'https://www.anthropic.com/product/claude-cowork',
+      'https://www.anthropic.com/learn/claude-for-work',
+      'https://www.anthropic.com/webinars/future-of-ai-at-work-introducing-cowork',
+      'https://www.anthropic.com/webinars/claude-cowork-in-an-hour-where-do-i-start'
+    ],
+    stanfordUniversitySlsProvidedAccess: false,
+    robertCrownLawLibraryFavorite: false
+  },
+  {
+    id: 'harvey-ai',
+    name: 'Harvey AI',
+    description: 'AI platform built for legal and professional services workflows, research, drafting, and document analysis.',
+    bestFor: 'Legal research, contract review, due diligence, drafting, and legal workflow automation.',
+    uses: 'Legal Research, Document Analysis, Contract Review, Due Diligence, Legal Drafting, Workflow Automation, Knowledge Management, Bulk File Analysis, Regulatory Research, Tax Research',
+    tags: ['Podcasts', 'Legal', 'Workflow'],
+    tier: 'Paid',
+    logoUrl: 'https://picsum.photos/seed/harveyai/200/200',
+    url: 'https://www.harvey.ai/',
+    parentCompany: 'Harvey',
+    summary: 'Harvey is an AI platform built for legal and professional services. It is used for legal research, document analysis, drafting, due diligence, contract review, workflow automation, and knowledge work across law firms and in-house legal teams. Harvey also offers related products and modules for assistant-style work, secure document storage, knowledge research, and workflow agents.',
+    tagCategories: 'legal AI, professional services AI, AI assistant, legal research, contract analysis, due diligence, document review, legal drafting, enterprise AI, law firm technology, in-house legal tech, workflow automation, knowledge management, document intelligence, compliance support, tax research, regulatory research, professional productivity, business AI, legal operations, generative AI, AI for lawyers, legal workflow platform, secure AI platform, agentic workflows, document automation, legal tech, AI knowledge work',
+    features: 'legal research, document analysis, contract review, due diligence, drafting assistance, workflow agents, assistant workflows, secure document storage, bulk file analysis, knowledge research, legal and regulatory research, tax research, enterprise deployment, prompt-based assistance, legal document review, collaboration support, file processing, domain-specific AI, workflow automation, project-based legal work, repository of legal knowledge, professional services workflows, academy training, webinars, certification courses, introductory training, prompt writing guidance, role-based learning',
+    notGoodFor: 'Not good for general consumer chat use, real-time internet research, guaranteed factual accuracy without review, heavy numerical calculation, or fully replacing legal judgment. Harvey\'s own help materials say it does not have real-time internet access, responses can vary, and it does not perform calculations well, so human review is still important for high-stakes legal work.',
+    officialTrainingDocs: [
+      'https://academy.harvey.ai/',
+      'https://help.harvey.ai/topics/getting-started',
+      'https://help.harvey.ai/articles/getting-started-with-harvey',
+      'https://help.harvey.ai/articles/harvey-academy',
+      'https://academy.harvey.ai/harvey-introductory-training'
+    ],
+    stanfordUniversitySlsProvidedAccess: true,
+    robertCrownLawLibraryFavorite: true
+  },
+  {
+    id: 'legora-ai',
+    name: 'Legora AI',
+    description: 'Legal AI workspace for research, drafting, review, workflow orchestration, and law-firm/in-house collaboration.',
+    bestFor: 'Legal research with citations, collaborative document review, and legal drafting workflows.',
+    uses: 'Legal Research, Document Review, Legal Drafting, Contract Analysis, Due Diligence, Workflow Orchestration, Collaboration (Law Firm & In-House), Email Summarization, Issue Spotting, Data Extraction',
+    tags: ['Podcasts', 'Legal', 'Collaboration'],
+    tier: 'Paid',
+    logoUrl: 'https://picsum.photos/seed/legoraai/200/200',
+    url: 'https://legora.com/',
+    parentCompany: 'Legora',
+    summary: 'Legora is a legal AI platform built for lawyers and legal teams to review documents faster, research with citations, draft smarter, and collaborate across complex matters. It is positioned as a collaborative AI workspace for law firms and in-house legal teams, with products spanning legal research, drafting, tabular review, workflows, Word and Outlook add-ins, portal collaboration, and mobile access.',
+    tagCategories: 'legal AI, legal tech, AI assistant, professional services AI, legal research, contract analysis, due diligence, document review, legal drafting, enterprise AI, law firm technology, in-house legal tech, workflow automation, document intelligence, collaboration platform, knowledge work, compliance support, business AI, legal operations, generative AI, AI for lawyers, legal workflow platform, secure AI platform, agentic workflows, document automation, legal productivity, legal collaboration, research assistant, drafting assistant, review assistant',
+    features: 'citation-backed legal research, document review, drafting assistance, tabular review, workflow orchestration, Word add-in, Outlook add-in, portal collaboration, mobile app, team collaboration, precedent and document analysis, large document set analysis, legal research across internal and external sources, drafting in Microsoft Word, email summarization, email reply drafting, configurable workflows, natural-language workflow creation, collaboration between law firms and in-house teams, legal workspace, legal document summarization, issue spotting, data extraction from documents, secure enterprise deployment, integration-friendly legal workflows',
+    notGoodFor: 'Not good for general consumer chat use, non-legal everyday productivity, guaranteed correctness without lawyer review, or replacing legal judgment on high-stakes matters. It is also a weaker fit if the user mainly wants a broad general-purpose assistant rather than a legal-specific workspace centered on research, review, drafting, and collaboration.',
+    officialTrainingDocs: [
+      'https://support2.legora.com/introduction/welcome/welcome-to-legora',
+      'https://legora.com/product',
+      'https://legora.com/product/legal-research',
+      'https://legora.com/product/workflows',
+      'https://legora.com/product/word-add-in'
+    ],
+    stanfordUniversitySlsProvidedAccess: true,
     robertCrownLawLibraryFavorite: true
   }
 ];
