@@ -32,12 +32,28 @@ export default function App() {
   const [activeCompareToolId, setActiveCompareToolId] = useState<string | null>(null);
   const [filters, setFilters] = useState({
     categories: ['All'],
-    skillLevels: ['All'],
     search: ''
   });
+  const [sortBy, setSortBy] = useState<'A-Z' | 'Category' | 'Recently Added'>('A-Z');
   const [isGridVisible, setIsGridVisible] = useState(true);
 
+  const getPrimaryCategory = (tool: any) =>
+    (tool.uses || '')
+      .split(',')
+      .map((entry: string) => entry.trim())
+      .filter(Boolean)[0] || tool.tags[0] || 'General';
+
   let filteredTools = filterTools(visibleTools, filters);
+
+  filteredTools = [...filteredTools].sort((a, b) => {
+    if (sortBy === 'A-Z') return a.name.localeCompare(b.name);
+    if (sortBy === 'Category') {
+      const categoryCompare = getPrimaryCategory(a).localeCompare(getPrimaryCategory(b));
+      if (categoryCompare !== 0) return categoryCompare;
+      return a.name.localeCompare(b.name);
+    }
+    return (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0) || a.name.localeCompare(b.name);
+  });
 
   if (showOnlySaved) {
     filteredTools = filteredTools.filter(tool => bookmarkedIds.has(tool.id));
@@ -47,7 +63,7 @@ export default function App() {
     setIsGridVisible(false);
     const timer = window.setTimeout(() => setIsGridVisible(true), 80);
     return () => window.clearTimeout(timer);
-  }, [filters, showOnlySaved]);
+  }, [filters, showOnlySaved, sortBy]);
 
   const bookmarkedTools = useMemo(() => visibleTools.filter(t => bookmarkedIds.has(t.id)), [bookmarkedIds, visibleTools]);
   const selectedTool = useMemo(() => visibleTools.find((tool) => tool.id === selectedToolId) || null, [selectedToolId, visibleTools]);
@@ -449,7 +465,7 @@ export default function App() {
             <button
               onClick={() => {
                 setShowOnlySaved(false);
-                setFilters({ categories: ['All'], skillLevels: ['All'], search: '' });
+                setFilters({ categories: ['All'], search: '' });
               }}
               className={`px-4 py-2 rounded-lg text-xs font-label tracking-widest uppercase transition-colors ${!showOnlySaved ? 'bg-primary text-on-primary' : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high'}`}
             >
@@ -489,7 +505,11 @@ export default function App() {
                 <span className="text-xs font-label tracking-widest text-on-surface-variant uppercase">
                   Sort By:
                 </span>
-                <select className="bg-transparent border-none text-sm font-semibold focus:outline-none cursor-pointer">
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value as 'A-Z' | 'Category' | 'Recently Added')}
+                  className="bg-transparent border-none text-sm font-semibold focus:outline-none cursor-pointer"
+                >
                   <option>A-Z</option>
                   <option>Category</option>
                   <option>Recently Added</option>
@@ -522,7 +542,7 @@ export default function App() {
                       {tool.name}
                     </h3>
                     <span className="category-badge inline-flex mt-1 px-2 py-0.5 rounded-full text-[10px] font-label tracking-wide uppercase bg-surface-container text-on-surface-variant">
-                      {tool.tags[0] || 'General'}
+                      {getPrimaryCategory(tool)}
                     </span>
                   </div>
                 </div>
