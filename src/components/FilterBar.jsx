@@ -2,8 +2,10 @@ import { useEffect, useMemo, useState } from 'react';
 import { Search, SlidersHorizontal, X } from 'lucide-react';
 
 const CATEGORY_RULES = [
+  { name: 'Podcasts', keywords: ['podcast', 'audio show', 'episode', 'listen'] },
   { name: 'Coding & Development', keywords: ['code', 'coding', 'app', 'api', 'developer', 'debug', 'frontend', 'backend', 'software', 'repository', 'version control'] },
   { name: 'Legal Research & Analysis', keywords: ['legal', 'case', 'law', 'statute', 'brief', 'analysis', 'compliance', 'contract', 'citation', 'court'] },
+  { name: 'AI Learning', keywords: ['learning', 'tutorial', 'training', 'academy', 'course', 'how to', 'guide'] },
   { name: 'Writing & Documents', keywords: ['writing', 'document', 'draft', 'editing', 'summar', 'note', 'transcript', 'proofread'] },
   { name: 'Meetings & Communication', keywords: ['meeting', 'presentation', 'recording', 'search', 'call', 'voice', 'speech'] },
   { name: 'Design & Creative', keywords: ['design', 'ui', 'ux', 'wireframe', 'visual', 'image', 'video', 'media', 'creative', 'mockup'] },
@@ -116,6 +118,12 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
     setIsMobileOpen(false);
   };
 
+  const quickFilters = [
+    { label: 'Podcasts', category: 'Podcasts' },
+    { label: 'Legal Research Tools', category: 'Legal Research & Analysis' },
+    { label: 'AI Learning', category: 'AI Learning' }
+  ];
+
   const activeFilterChips = [
     ...filters.categories.filter((v) => v !== 'All').map((v) => ({ group: 'categories', value: v }))
   ];
@@ -192,6 +200,24 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
               </div>
             )}
           </div>
+          <div className="flex flex-wrap gap-2">
+            {quickFilters.map((quickFilter) => {
+              const isActive = filters.categories.includes(quickFilter.category);
+              return (
+                <button
+                  key={quickFilter.category}
+                  onClick={() => onFiltersChange({ ...filters, categories: [quickFilter.category] })}
+                  className={`px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ${
+                    isActive
+                      ? 'bg-primary text-on-primary border-primary'
+                      : 'bg-surface-container-low text-on-surface-variant border-outline-variant/40 hover:bg-surface-container-high'
+                  }`}
+                >
+                  {quickFilter.label}
+                </button>
+              );
+            })}
+          </div>
         </section>
 
         <aside className="space-y-3">
@@ -224,6 +250,24 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
             {option}
           </button>
         ))}
+      </div>
+      <div className="md:hidden flex gap-2 overflow-x-auto pb-1 custom-scrollbar">
+        {quickFilters.map((quickFilter) => {
+          const isActive = filters.categories.includes(quickFilter.category);
+          return (
+            <button
+              key={`mobile-${quickFilter.category}`}
+              onClick={() => onFiltersChange({ ...filters, categories: [quickFilter.category] })}
+              className={`whitespace-nowrap px-3 py-1.5 text-xs rounded-full border ${
+                isActive
+                  ? 'bg-primary text-on-primary border-primary'
+                  : 'bg-surface-container-low text-on-surface-variant border-outline-variant/40'
+              }`}
+            >
+              {quickFilter.label}
+            </button>
+          );
+        })}
       </div>
 
       <div className="flex flex-wrap items-center gap-2">
