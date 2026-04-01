@@ -509,15 +509,7 @@ export default function App() {
               role="article"
             >
               <div className="card-header flex items-start justify-between gap-3 mb-4">
-                <div className="flex items-start gap-3 min-w-0">
-                  <div className="w-10 h-10 rounded-lg overflow-hidden bg-surface-container flex items-center justify-center shrink-0">
-                    <img
-                      src={tool.logoUrl}
-                      alt=""
-                      className="tool-logo w-full h-full object-cover"
-                      referrerPolicy="no-referrer"
-                    />
-                  </div>
+                <div className="flex items-start min-w-0">
                   <div className="min-w-0">
                     <h3 className="tool-name font-headline font-bold text-xl leading-tight truncate">
                       {tool.name}
