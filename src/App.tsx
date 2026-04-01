@@ -270,7 +270,7 @@ export default function App() {
               rel="noopener noreferrer"
               className="group mt-6 inline-flex items-center gap-2 rounded-xl border border-white/35 bg-white/15 px-5 py-3 text-sm font-semibold tracking-wide text-white shadow-lg backdrop-blur-sm transition-all hover:bg-white hover:text-[#8C1515] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
             >
-              AI Resources Hub
+              Resources for the SLS Community
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
             </a>
           </div>
