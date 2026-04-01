@@ -9,6 +9,10 @@ import { tools } from './data';
 import FilterBar, { filterTools } from './components/FilterBar';
 
 export default function App() {
+  const podcastTools = useMemo(
+    () => tools.filter((tool) => tool.tags.some((tag) => tag.toLowerCase() === 'podcasts')),
+    []
+  );
   const [showDisclaimer, setShowDisclaimer] = useState(true);
   const [showExplainer, setShowExplainer] = useState(false);
   const [showPhilosophy, setShowPhilosophy] = useState(false);
@@ -24,13 +28,12 @@ export default function App() {
   const [activeCompareToolId, setActiveCompareToolId] = useState<string | null>(null);
   const [filters, setFilters] = useState({
     categories: ['All'],
-    pricing: ['All'],
     skillLevels: ['All'],
     search: ''
   });
   const [isGridVisible, setIsGridVisible] = useState(true);
 
-  let filteredTools = filterTools(tools, filters);
+  let filteredTools = filterTools(podcastTools, filters);
 
   if (showOnlySaved) {
     filteredTools = filteredTools.filter(tool => bookmarkedIds.has(tool.id));
@@ -42,9 +45,9 @@ export default function App() {
     return () => window.clearTimeout(timer);
   }, [filters, showOnlySaved]);
 
-  const bookmarkedTools = useMemo(() => tools.filter(t => bookmarkedIds.has(t.id)), [bookmarkedIds]);
-  const selectedTool = useMemo(() => tools.find((tool) => tool.id === selectedToolId) || null, [selectedToolId]);
-  const comparisonTools = useMemo(() => tools.filter(t => compareIds.has(t.id)), [compareIds]);
+  const bookmarkedTools = useMemo(() => podcastTools.filter(t => bookmarkedIds.has(t.id)), [bookmarkedIds, podcastTools]);
+  const selectedTool = useMemo(() => podcastTools.find((tool) => tool.id === selectedToolId) || null, [selectedToolId, podcastTools]);
+  const comparisonTools = useMemo(() => podcastTools.filter(t => compareIds.has(t.id)), [compareIds, podcastTools]);
 
   const toggleBookmark = (id: string) => {
     setBookmarkedIds(prev => {
@@ -442,7 +445,7 @@ export default function App() {
             <button
               onClick={() => {
                 setShowOnlySaved(false);
-                setFilters({ categories: ['All'], pricing: ['All'], skillLevels: ['All'], search: '' });
+                setFilters({ categories: ['All'], skillLevels: ['All'], search: '' });
               }}
               className={`px-4 py-2 rounded-lg text-xs font-label tracking-widest uppercase transition-colors ${!showOnlySaved ? 'bg-primary text-on-primary' : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high'}`}
             >
@@ -469,11 +472,11 @@ export default function App() {
           </div>
 
           <FilterBar
-            tools={tools}
+            tools={podcastTools}
             filters={filters}
             onFiltersChange={setFilters}
             resultCount={filteredTools.length}
-            totalCount={tools.length}
+            totalCount={podcastTools.length}
           />
 
           <div className="flex flex-col md:flex-row justify-between items-end md:items-center gap-4">

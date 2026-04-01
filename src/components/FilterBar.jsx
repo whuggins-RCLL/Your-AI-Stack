@@ -18,7 +18,6 @@ export const FILTER_CATEGORIES = [
   'Contract Analysis'
 ];
 
-export const PRICING_OPTIONS = ['All', 'Free', 'Freemium', 'Paid', 'Stanford Licensed'];
 export const SKILL_LEVEL_OPTIONS = ['All', 'Beginner', 'Intermediate', 'Advanced'];
 
 const CATEGORY_MATCHERS = {
@@ -52,11 +51,6 @@ const matchesCategory = (tool, categories) => {
   return categories.some((category) => includesSome(text, CATEGORY_MATCHERS[category] || [category.toLowerCase()]));
 };
 
-const matchesPricing = (tool, pricing) => {
-  if (!pricing.length || pricing.includes('All')) return true;
-  return pricing.some((option) => option.toLowerCase() === tool.tier.toLowerCase());
-};
-
 const matchesSkill = (tool, levels) => {
   if (!levels.length || levels.includes('All')) return true;
   return levels.includes(inferSkillLevel(tool));
@@ -76,7 +70,6 @@ export const filterTools = (tools, filters) =>
   tools.filter(
     (tool) =>
       matchesCategory(tool, filters.categories) &&
-      matchesPricing(tool, filters.pricing) &&
       matchesSkill(tool, filters.skillLevels) &&
       matchesSearch(tool, filters.search)
   );
@@ -127,7 +120,6 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
 
   const activeFilterChips = [
     ...filters.categories.filter((v) => v !== 'All').map((v) => ({ group: 'categories', value: v })),
-    ...filters.pricing.filter((v) => v !== 'All').map((v) => ({ group: 'pricing', value: v })),
     ...filters.skillLevels.filter((v) => v !== 'All').map((v) => ({ group: 'skillLevels', value: v }))
   ];
 
@@ -203,9 +195,6 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
               </div>
             )}
           </div>
-          {renderChipGroup('Pricing', PRICING_OPTIONS, filters.pricing, (option) =>
-            onFiltersChange({ ...filters, pricing: toggleOption(filters.pricing, option) })
-          )}
           {renderChipGroup('Skill Level', SKILL_LEVEL_OPTIONS, filters.skillLevels, (option) =>
             onFiltersChange({ ...filters, skillLevels: toggleOption(filters.skillLevels, option) })
           )}
@@ -246,7 +235,7 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
           <button
             onClick={() => {
               setInputValue('');
-              onFiltersChange({ categories: ['All'], pricing: ['All'], skillLevels: ['All'], search: '' });
+              onFiltersChange({ categories: ['All'], skillLevels: ['All'], search: '' });
             }}
             className="text-xs underline text-on-surface-variant"
           >
@@ -264,9 +253,6 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
               <h3 className="font-semibold">Filters</h3>
               <button onClick={() => setIsMobileOpen(false)}><X className="w-5 h-5" /></button>
             </div>
-            {renderChipGroup('Pricing', PRICING_OPTIONS, draftFilters.pricing, (option) =>
-              setDraftFilters((prev) => ({ ...prev, pricing: toggleOption(prev.pricing, option) }))
-            )}
             {renderChipGroup('Skill Level', SKILL_LEVEL_OPTIONS, draftFilters.skillLevels, (option) =>
               setDraftFilters((prev) => ({ ...prev, skillLevels: toggleOption(prev.skillLevels, option) }))
             )}
