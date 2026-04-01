@@ -4,7 +4,7 @@
  */
 
 import { useState, useMemo, useEffect } from 'react';
-import { ArrowRight, ArrowLeftRight, Plus, Download, Layers, Compass, BookmarkPlus, FileDown, X, Sparkles, Check, ExternalLink } from 'lucide-react';
+import { ArrowRight, ArrowLeftRight, Plus, Download, Layers, Compass, Bookmark, FileDown, X, Sparkles, Check, ExternalLink } from 'lucide-react';
 import { tools } from './data';
 import FilterBar, { filterTools } from './components/FilterBar';
 
@@ -14,6 +14,7 @@ export default function App() {
   const [showPhilosophy, setShowPhilosophy] = useState(false);
   const [showMajorLlms, setShowMajorLlms] = useState(false);
   const [bookmarkedIds, setBookmarkedIds] = useState<Set<string>>(new Set());
+  const [compareIds, setCompareIds] = useState<Set<string>>(new Set());
   const [showOnlySaved, setShowOnlySaved] = useState(false);
   const [showCompare, setShowCompare] = useState(false);
   const [selectedToolId, setSelectedToolId] = useState<string | null>(null);
@@ -43,10 +44,19 @@ export default function App() {
 
   const bookmarkedTools = useMemo(() => tools.filter(t => bookmarkedIds.has(t.id)), [bookmarkedIds]);
   const selectedTool = useMemo(() => tools.find((tool) => tool.id === selectedToolId) || null, [selectedToolId]);
-  const comparisonTools = useMemo(() => bookmarkedTools.slice(0, 3), [bookmarkedTools]);
+  const comparisonTools = useMemo(() => tools.filter(t => compareIds.has(t.id)), [compareIds]);
 
   const toggleBookmark = (id: string) => {
     setBookmarkedIds(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  const toggleCompare = (id: string) => {
+    setCompareIds(prev => {
       const next = new Set(prev);
       if (next.has(id)) next.delete(id);
       else if (next.size < 3) next.add(id);
@@ -277,10 +287,10 @@ export default function App() {
               </div>
               <div className="flex flex-col gap-3">
                 <div className="w-11 h-11 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold mb-2 shadow-sm">
-                  <ArrowLeftRight className="w-5 h-5" />
+                  <Bookmark className="w-5 h-5" />
                 </div>
-                <h4 className="font-headline font-semibold text-on-surface text-2xl">2. Compare</h4>
-                <p className="text-base text-on-surface-variant leading-relaxed">Use the Compare button on cards to add up to 3 tools, then open Compare to evaluate key differences side by side.</p>
+                <h4 className="font-headline font-semibold text-on-surface text-2xl">2. Curate</h4>
+                <p className="text-base text-on-surface-variant leading-relaxed">Click the bookmark icon to save tools you want to evaluate. Start with just 1-2 core tools to avoid overwhelm.</p>
               </div>
               <div className="flex flex-col gap-3">
                 <div className="w-11 h-11 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold mb-2 shadow-sm">
@@ -493,11 +503,11 @@ export default function App() {
               </div>
               <button
                 onClick={() => setShowCompare(true)}
-                disabled={bookmarkedIds.size === 0}
+                disabled={compareIds.size === 0}
                 className="flex items-center gap-2 bg-surface-container-highest/50 px-4 py-2 rounded-lg text-xs font-label tracking-widest uppercase hover:bg-surface-container-highest transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <ArrowLeftRight className="w-4 h-4" />
-                Compare ({bookmarkedIds.size})
+                Compare ({compareIds.size})
               </button>
             </div>
           </div>
@@ -566,18 +576,33 @@ export default function App() {
                 >
                   Learn More <ArrowRight className="w-4 h-4" />
                 </a>
-                <button
-                  onClick={() => toggleBookmark(tool.id)}
-                  disabled={!bookmarkedIds.has(tool.id) && bookmarkedIds.size >= 3}
-                  className={`btn-compare inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-label tracking-widest uppercase border transition-colors ${
-                    bookmarkedIds.has(tool.id)
-                      ? 'border-primary bg-primary/10 text-primary'
-                      : 'border-outline-variant/50 text-on-surface-variant hover:bg-surface-container-low disabled:opacity-40 disabled:cursor-not-allowed'
-                  }`}
-                  aria-label={`Add ${tool.name} to comparison`}
-                >
-                  {bookmarkedIds.has(tool.id) ? 'Added' : 'Compare'}
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => toggleBookmark(tool.id)}
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-label tracking-widest uppercase border transition-colors ${
+                      bookmarkedIds.has(tool.id)
+                        ? 'border-primary bg-primary/10 text-primary'
+                        : 'border-outline-variant/50 text-on-surface-variant hover:bg-surface-container-low'
+                    }`}
+                    aria-label={`${bookmarkedIds.has(tool.id) ? 'Remove' : 'Save'} ${tool.name} bookmark`}
+                  >
+                    <Bookmark className="w-3.5 h-3.5" />
+                    {bookmarkedIds.has(tool.id) ? 'Saved' : 'Save'}
+                  </button>
+                  <button
+                    onClick={() => toggleCompare(tool.id)}
+                    disabled={!compareIds.has(tool.id) && compareIds.size >= 3}
+                    className={`btn-compare inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-label tracking-widest uppercase border transition-colors ${
+                      compareIds.has(tool.id)
+                        ? 'border-primary bg-primary/10 text-primary'
+                        : 'border-outline-variant/50 text-on-surface-variant hover:bg-surface-container-low disabled:opacity-40 disabled:cursor-not-allowed'
+                    }`}
+                    aria-label={`Add ${tool.name} to comparison`}
+                  >
+                    <ArrowLeftRight className="w-3.5 h-3.5" />
+                    {compareIds.has(tool.id) ? 'Added' : 'Compare'}
+                  </button>
+                </div>
               </div>
             </article>
           ))}
