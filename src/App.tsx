@@ -5,8 +5,51 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import { ArrowRight, ArrowLeftRight, Plus, Download, Layers, Compass, BookmarkPlus, FileDown, X, Sparkles, Check, ExternalLink } from 'lucide-react';
-import { tools } from './data';
+import { tools as legacyTools } from './data';
+import catalogTools from './data/tools';
 import FilterBar, { filterTools } from './components/FilterBar';
+
+const CATEGORY_LABELS: Record<string, string> = {
+  'legal-research': 'Legal Research',
+  'deep-research': 'Deep Research',
+  video: 'Video',
+  writing: 'Writing',
+  llms: 'LLMs',
+  'image-generation': 'Image Generation',
+  coding: 'Coding',
+  presentations: 'Presentations',
+  'audio-transcription': 'Audio',
+  'citation-research': 'Citation',
+  'data-analysis': 'Data Analysis',
+  'contract-analysis': 'Contract Analysis'
+};
+
+const PRICING_LABELS: Record<string, string> = {
+  free: 'Free',
+  freemium: 'Freemium',
+  paid: 'Paid',
+  'stanford-licensed': 'Stanford Licensed'
+};
+
+const normalizedCatalogTools = catalogTools.map((tool: any) => {
+  const categoryLabel = CATEGORY_LABELS[tool.category] || tool.category;
+  return {
+    id: tool.id,
+    name: tool.name,
+    description: tool.description,
+    bestFor: tool.longDescription || tool.description,
+    tags: [categoryLabel, ...(tool.tags || [])],
+    tier: PRICING_LABELS[tool.pricing] || 'Freemium',
+    logoUrl: tool.logoUrl,
+    url: tool.url,
+    isNew: tool.isNew,
+    helpUrls: [],
+    whyLaw: tool.longDescription,
+    categoryLabel
+  };
+});
+
+const tools = [...legacyTools, ...normalizedCatalogTools.filter((catalogTool) => !legacyTools.find((legacyTool) => legacyTool.id === catalogTool.id))];
 
 export default function App() {
   const [showDisclaimer, setShowDisclaimer] = useState(true);

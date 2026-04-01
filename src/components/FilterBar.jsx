@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Search, SlidersHorizontal, X } from 'lucide-react';
 
-export const FILTER_CATEGORIES = [
+const DEFAULT_FILTER_CATEGORIES = [
   'All',
   'Legal Research',
   'Deep Research',
@@ -48,6 +48,7 @@ const includesSome = (value, needles) => needles.some((needle) => value.includes
 
 const matchesCategory = (tool, categories) => {
   if (!categories.length || categories.includes('All')) return true;
+  if (tool.categoryLabel && categories.includes(tool.categoryLabel)) return true;
   const text = `${tool.name} ${tool.description} ${tool.bestFor} ${tool.tags.join(' ')}`.toLowerCase();
   return categories.some((category) => includesSome(text, CATEGORY_MATCHERS[category] || [category.toLowerCase()]));
 };
@@ -120,6 +121,15 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
     return Array.from(terms).slice(0, 8);
   }, [inputValue, tools]);
 
+  const filterCategories = useMemo(() => {
+    const known = new Set(DEFAULT_FILTER_CATEGORIES);
+    const discovered = tools
+      .map((tool) => tool.categoryLabel)
+      .filter(Boolean)
+      .filter((category) => !known.has(category));
+    return [...DEFAULT_FILTER_CATEGORIES, ...discovered];
+  }, [tools]);
+
   const applyDraft = () => {
     onFiltersChange({ ...draftFilters, search: inputValue });
     setIsMobileOpen(false);
@@ -164,7 +174,7 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
         <aside className="bg-surface-container-low rounded-xl p-4">
           <p className="text-xs font-semibold uppercase tracking-widest text-on-surface-variant mb-3">Category</p>
           <div className="space-y-2 max-h-[360px] overflow-auto custom-scrollbar pr-2">
-            {FILTER_CATEGORIES.map((option) => (
+            {filterCategories.map((option) => (
               <button
                 key={option}
                 onClick={() => onFiltersChange({ ...filters, categories: toggleOption(filters.categories, option) })}
@@ -213,7 +223,7 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
       </div>
 
       <div className="md:hidden flex gap-2 overflow-x-auto pb-1 custom-scrollbar">
-        {FILTER_CATEGORIES.map((option) => (
+        {filterCategories.map((option) => (
           <button
             key={option}
             onClick={() => onFiltersChange({ ...filters, categories: toggleOption(filters.categories, option) })}
