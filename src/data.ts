@@ -4,12 +4,21 @@ export interface Tool {
   description: string;
   bestFor: string;
   tags: string[];
+  uses?: string;
   tier: string;
   logoUrl: string;
   url: string;
   isNew?: boolean;
   bookmarked?: boolean;
   helpUrls?: string[];
+  parentCompany?: string;
+  summary?: string;
+  tagCategories?: string;
+  features?: string;
+  notGoodFor?: string;
+  officialTrainingDocs?: string[];
+  stanfordUniversitySlsProvidedAccess?: string | boolean;
+  robertCrownLawLibraryFavorite?: boolean;
   whyLaw?: string;
   gettingStarted?: string;
   videoUrl?: string;
@@ -594,5 +603,125 @@ export const tools: Tool[] = [
     tier: 'Free',
     logoUrl: 'https://picsum.photos/seed/howiai/200/200',
     url: 'https://howiaipodcast.com/'
+  },
+  {
+    id: 'atlas-browser',
+    name: 'Atlas Browser',
+    description: 'OpenAI\'s AI-powered browser with ChatGPT built in for browsing, page summarization, and on-page assistance.',
+    bestFor: 'Web browsing, summarization, and agentic browsing workflows.',
+    uses: 'Web Browsing, Page Summarization, Web Research, Autofill & Passwords, Tab Management, On-Page Q&A, Agentic Web Tasks, Browsing Workflow Automation',
+    tags: ['Podcasts', 'Browser', 'Research'],
+    tier: 'Free',
+    logoUrl: 'https://picsum.photos/seed/atlasbrowser/200/200',
+    url: 'https://chatgpt.com/atlas/getstarted/',
+    parentCompany: 'OpenAI',
+    summary: 'Atlas Browser, branded by OpenAI as ChatGPT Atlas, is OpenAI\'s AI-powered web browser with ChatGPT built directly into the browsing experience. It is designed for browsing, page summarization, instant answers, web assistance, autofill, tab management, and agentic help while you are on any site. OpenAI currently describes it as a macOS browser focused on speed, security, compatibility with the modern web, and built-in ChatGPT workflows.',
+    tagCategories: 'AI browser, web browser, AI assistant, browsing assistant, agentic browser, productivity, research assistant, summarization tool, web navigation, search assistant, multimodal AI, browser-based AI, knowledge work, business productivity, personal productivity, web automation, browsing workflow, ChatGPT integration, smart browsing, modern browser, desktop browser, macOS browser, AI productivity, contextual assistant, intelligent browsing, browser copilot',
+    features: 'built-in ChatGPT, page summarization, instant answers, ask sidebar, agentic browsing help, web assistance on any page, tab management, pin tabs, mute tabs, move tabs between windows, autofill, password saving, passkeys, payment method autofill, address autofill, bookmark import, browser history import, default browser support, settings controls, privacy controls, web compatibility, modern web support, macOS app, built-in browsing workflows, context-aware assistance, page-level help, integrated AI search help',
+    notGoodFor: 'Not good for users who need Windows, iOS, or Android availability today, fully offline browsing workflows, guaranteed factual accuracy without verification, or specialized enterprise browser administration beyond what OpenAI currently supports. It is also not the best fit if someone only wants a normal browser without embedded AI assistance or prefers a fully separate chatbot experience.',
+    officialTrainingDocs: [
+      'https://help.openai.com/en/collections/16051538-chatgpt-atlas',
+      'https://help.openai.com/en/articles/12628555-getting-started-with-atlas',
+      'https://help.openai.com/en/articles/12628461-setting-up-the-atlas-browser',
+      'https://help.openai.com/en/articles/12628371-browsing-the-web-with-chatgpt-atlas',
+      'https://openai.com/index/introducing-chatgpt-atlas/'
+    ],
+    stanfordUniversitySlsProvidedAccess: false,
+    robertCrownLawLibraryFavorite: false
+  },
+  {
+    id: 'chatgpt',
+    name: 'ChatGPT',
+    description: 'OpenAI\'s general-purpose conversational assistant for writing, research, coding, summarization, and multimodal help.',
+    bestFor: 'Writing, research, brainstorming, coding, and learning workflows.',
+    uses: 'Writing, Research, Brainstorming, Summarization, Coding, Translation, Study & Learning, Data Analysis, Problem Solving, Content Drafting, Question Answering',
+    tags: ['Podcasts', 'General AI', 'Productivity'],
+    tier: 'Freemium',
+    logoUrl: 'https://picsum.photos/seed/chatgpt/200/200',
+    url: 'https://chat.com',
+    parentCompany: 'OpenAI',
+    summary: 'ChatGPT is OpenAI\'s general-purpose conversational AI assistant for asking questions, drafting and rewriting content, summarizing, brainstorming, coding, reasoning through problems, translation, and multimodal help. It is used for productivity, research, writing, coding, learning, and general task assistance.',
+    tagCategories: 'AI assistant, conversational AI, chatbot, productivity, writing assistant, research assistant, education, study tool, coding assistant, programming, brainstorming, summarization, translation, knowledge work, multimodal AI, voice AI, personal productivity, business productivity, enterprise AI, collaboration, search assistant, reasoning model interface, generative AI, workflow assistant',
+    features: 'natural language chat, question answering, summarization, rewriting, drafting, brainstorming, coding help, debugging help, translation, explanation, reasoning, multimodal inputs, voice support, projects, custom instructions, saved chat history, data export, sharing chats, personalization, search, research tools, file and context organization, follow-up questions, iterative editing, instruction following',
+    notGoodFor: 'Not ideal for guaranteed factual accuracy without verification, high-stakes legal or medical advice without human review, fully deterministic outputs, offline use by default, or direct action in unsupported external systems',
+    officialTrainingDocs: [
+      'https://help.openai.com/en/collections/3742473-chatgpt',
+      'https://help.openai.com/en/articles/9260256-chatgpt-capabilities-overview',
+      'https://help.openai.com/en/articles/6783457-chatgpt-faq'
+    ],
+    stanfordUniversitySlsProvidedAccess: 'Limited Access in Stanford AI Playground',
+    robertCrownLawLibraryFavorite: true
+  },
+  {
+    id: 'codex',
+    name: 'Codex',
+    description: 'OpenAI\'s AI coding agent for generating, reviewing, and shipping code across repositories and developer tools.',
+    bestFor: 'Code generation, review, refactoring, testing, and repository workflows.',
+    uses: 'Code Generation, Code Review, Bug Fixing, Refactoring, Test Writing, Repository Navigation, Pull Request Drafting, Multi-File Editing, Long-Running Dev Tasks, CI/CD Support',
+    tags: ['Podcasts', 'Coding', 'Developer Tools'],
+    tier: 'Paid',
+    logoUrl: 'https://picsum.photos/seed/codexagent/200/200',
+    url: 'https://openai.com/codex/',
+    parentCompany: 'OpenAI',
+    summary: 'Codex is OpenAI\'s AI coding agent for software development. OpenAI describes it as helping developers write, review, and ship code faster, working across local tools and the cloud. It can navigate repositories, edit files, run commands, execute tests, and support parallel agent workflows through the Codex app, CLI, and IDE integrations.',
+    tagCategories: 'AI coding agent, coding assistant, software engineering, developer tools, code generation, code review, bug fixing, repository assistant, DevTools, IDE assistant, terminal assistant, engineering productivity, automation, codebase understanding, developer workflow, CI and testing support, pull request support, cloud development, agentic coding, programming assistant, Git workflow, software delivery, refactoring, debugging, technical productivity, AI developer platform',
+    features: 'write code, review code, explain codebases, edit files, run terminal commands, execute tests, refactor code, fix bugs, generate features, parallel agents, cloud sandbox tasks, local tool integration, CLI support, IDE integration, VS Code support, Cursor support, Windsurf support, repository navigation, Git functionality, worktree support, automations, multi-project workflows, pull request proposals, code reasoning, developer collaboration, task delegation, long-running coding tasks, environment-aware coding, project-aware assistance',
+    notGoodFor: 'Not good for non-coding general-purpose work, guaranteed correctness without review, unsupported external tooling outside its integrations, or replacing human judgment for production-critical architecture, security, and deployment decisions. Outputs should still be reviewed before merge or release.',
+    officialTrainingDocs: [
+      'https://help.openai.com/en/collections/14937394-codex',
+      'https://help.openai.com/en/articles/11369540-using-codex-with-your-chatgpt-plan',
+      'https://developers.openai.com/codex',
+      'https://developers.openai.com/codex/app'
+    ],
+    stanfordUniversitySlsProvidedAccess: false,
+    robertCrownLawLibraryFavorite: true
+  },
+  {
+    id: 'copilot',
+    name: 'Copilot',
+    description: 'Microsoft\'s AI assistant for chat, search, writing, summarization, image generation, voice interaction, and planning.',
+    bestFor: 'Everyday productivity, writing, research, and planning across devices.',
+    uses: 'Writing, Research, Web Search, Brainstorming, Summarization, Image Generation, Voice Chat, Planning, Content Drafting, Question Answering, Everyday Productivity',
+    tags: ['Podcasts', 'General AI', 'Productivity'],
+    tier: 'Freemium',
+    logoUrl: 'https://picsum.photos/seed/copilot/200/200',
+    url: 'https://copilot.microsoft.com/',
+    parentCompany: 'Microsoft',
+    summary: 'Copilot is Microsoft\'s general-purpose AI assistant for chat, search, writing, summarization, brainstorming, image generation, voice interaction, and everyday productivity. Microsoft positions it as an AI companion available across web, desktop, and mobile, with related Copilot experiences also extending into Microsoft 365 work apps and business workflows.',
+    tagCategories: 'AI assistant, conversational AI, chatbot, productivity, writing assistant, research assistant, search assistant, voice AI, image generation, multimodal AI, consumer AI, business AI, enterprise AI, workplace AI, study tool, summarization, brainstorming, generative AI, natural language assistant, personal productivity, web assistant, mobile assistant, desktop assistant, Microsoft ecosystem, AI companion, everyday AI, knowledge work, task assistant, digital assistant, smart search',
+    features: 'natural language chat, question answering, writing help, summarization, brainstorming, search assistance, voice interaction, image generation, web access, mobile app, desktop app, cross-device access, conversational interface, prompt-based assistance, productivity support, idea generation, content drafting, explanation support, planning help, creative assistance, Microsoft integration, business workflow support, app availability across platforms, AI companion experience, contextual help, follow-up conversations, multimodal interaction, everyday task assistance',
+    notGoodFor: 'Not good for guaranteed factual accuracy without verification, specialized coding-first workflows, high-stakes legal or medical decisions without human review, or fully autonomous enterprise process automation by itself. It is also not the best fit when the user specifically needs a dedicated Microsoft 365 Copilot, Copilot Studio, or GitHub Copilot workflow rather than the broader consumer assistant experience.',
+    officialTrainingDocs: [
+      'https://learn.microsoft.com/en-us/copilot/',
+      'https://www.microsoft.com/en-us/microsoft-copilot/for-individuals/',
+      'https://support.microsoft.com/copilot',
+      'https://learn.microsoft.com/en-us/training/paths/get-started-with-microsoft-365-copilot/'
+    ],
+    stanfordUniversitySlsProvidedAccess: 'Yes, Chat Only (https://uit.stanford.edu/service/microsoft365/mscopilotchat)',
+    robertCrownLawLibraryFavorite: true
+  },
+  {
+    id: 'claude',
+    name: 'Claude',
+    description: 'Anthropic\'s general-purpose assistant for writing, coding, analysis, document review, and agentic workflows.',
+    bestFor: 'Research, writing, coding, document analysis, and workflow support.',
+    uses: 'Writing, Research, Coding, Summarization, Analysis, Document Review, Brainstorming, Prompt Engineering, Agentic Workflows, Vision & Image Analysis, PDF Understanding, File Analysis',
+    tags: ['Podcasts', 'General AI', 'Analysis'],
+    tier: 'Freemium',
+    logoUrl: 'https://picsum.photos/seed/claude/200/200',
+    url: 'https://claude.ai/',
+    parentCompany: 'Anthropic',
+    summary: 'Claude is Anthropic\'s general-purpose AI assistant for conversation, writing, summarization, analysis, coding, research, and workflow support. Anthropic presents Claude across chat and developer experiences, with capabilities spanning text generation, coding, vision, tool use, and agentic workflows for professional and developer use cases.',
+    tagCategories: 'AI assistant, conversational AI, chatbot, productivity, writing assistant, research assistant, coding assistant, software development, multimodal AI, business AI, enterprise AI, education, study tool, summarization, analysis, knowledge work, developer platform, API model, agentic workflows, prompt engineering, document analysis, vision model, workflow automation, generative AI, natural language interface, model provider, LLM assistant, workplace AI, personal productivity, reasoning assistant',
+    features: 'natural language chat, writing help, summarization, brainstorming, question answering, code generation, code explanation, repository help, vision support, PDF understanding, API access, Messages API, SDK support, tool use, agent workflows, prompt engineering, JSON outputs, extended thinking, RAG support, computer use, Claude Code ecosystem, model selection, multi-turn conversations, system prompts, developer docs, console access, business workflow support, file analysis, professional research assistance',
+    notGoodFor: 'Not good for guaranteed factual accuracy without verification, high-stakes expert decisions without human review, or tasks requiring perfect determinism. It is also not the right fit when a user specifically needs a non-chat autonomous work product system, since Anthropic distinguishes Claude Cowork as a separate product for executing multi-step knowledge work on a user\'s behalf.',
+    officialTrainingDocs: [
+      'https://docs.anthropic.com/en/docs/welcome',
+      'https://www.anthropic.com/learn/build-with-claude',
+      'https://www.anthropic.com/learn',
+      'https://support.anthropic.com/'
+    ],
+    stanfordUniversitySlsProvidedAccess: 'Limited Access in Stanford AI Playground',
+    robertCrownLawLibraryFavorite: true
   }
 ];

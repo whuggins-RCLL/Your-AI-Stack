@@ -1,39 +1,25 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Search, SlidersHorizontal, X } from 'lucide-react';
 
-export const FILTER_CATEGORIES = [
-  'All',
-  'Legal Research',
-  'Deep Research',
-  'Video',
-  'Writing',
-  'LLMs',
-  'Image Generation',
-  'Coding',
-  'Presentations',
-  'Audio',
-  'Podcasts',
-  'Citation',
-  'Data Analysis',
-  'Contract Analysis'
-];
-
 export const SKILL_LEVEL_OPTIONS = ['All', 'Beginner', 'Intermediate', 'Advanced'];
 
-const CATEGORY_MATCHERS = {
-  'Legal Research': ['legal research', 'legal'],
-  'Deep Research': ['deep research', 'research'],
-  Video: ['video'],
-  Writing: ['writing'],
-  LLMs: ['llm', 'ai model', 'model'],
-  'Image Generation': ['image', 'design', 'visual'],
-  Coding: ['coding', 'code', 'developer'],
-  Presentations: ['presentations', 'slides', 'deck'],
-  Audio: ['audio', 'music', 'sound'],
-  Podcasts: ['podcast', 'podcasts'],
-  Citation: ['citation', 'cited', 'sources'],
-  'Data Analysis': ['data analysis', 'spreadsheet', 'analysis'],
-  'Contract Analysis': ['contract']
+const splitUses = (tool) =>
+  (tool.uses || '')
+    .split(',')
+    .map((entry) => entry.trim())
+    .filter(Boolean);
+
+const getCategoryOptions = (tools = []) => {
+  const categorySet = new Set();
+  tools.forEach((tool) => {
+    const uses = splitUses(tool);
+    if (uses.length) {
+      uses.forEach((use) => categorySet.add(use));
+      return;
+    }
+    (tool.tags || []).forEach((tag) => categorySet.add(tag));
+  });
+  return ['All', ...Array.from(categorySet).sort((a, b) => a.localeCompare(b))];
 };
 
 const inferSkillLevel = (tool) => {
@@ -47,8 +33,10 @@ const includesSome = (value, needles) => needles.some((needle) => value.includes
 
 const matchesCategory = (tool, categories) => {
   if (!categories.length || categories.includes('All')) return true;
-  const text = `${tool.name} ${tool.description} ${tool.bestFor} ${tool.tags.join(' ')}`.toLowerCase();
-  return categories.some((category) => includesSome(text, CATEGORY_MATCHERS[category] || [category.toLowerCase()]));
+  const uses = splitUses(tool);
+  if (uses.length) return categories.some((category) => uses.includes(category));
+  const tags = (tool.tags || []).map((tag) => tag.toLowerCase());
+  return categories.some((category) => tags.includes(category.toLowerCase()));
 };
 
 const matchesSkill = (tool, levels) => {
@@ -91,6 +79,7 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
   const [draftFilters, setDraftFilters] = useState(filters);
   const [inputValue, setInputValue] = useState(filters.search || '');
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const categoryOptions = useMemo(() => getCategoryOptions(tools), [tools]);
 
   useEffect(() => setDraftFilters(filters), [filters]);
 
@@ -156,7 +145,7 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
         <aside className="bg-surface-container-low rounded-xl p-4">
           <p className="text-xs font-semibold uppercase tracking-widest text-on-surface-variant mb-3">Category</p>
           <div className="space-y-2 max-h-[360px] overflow-auto custom-scrollbar pr-2">
-            {FILTER_CATEGORIES.map((option) => (
+            {categoryOptions.map((option) => (
               <button
                 key={option}
                 onClick={() => onFiltersChange({ ...filters, categories: toggleOption(filters.categories, option) })}
@@ -202,7 +191,7 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
       </div>
 
       <div className="md:hidden flex gap-2 overflow-x-auto pb-1 custom-scrollbar">
-        {FILTER_CATEGORIES.map((option) => (
+        {categoryOptions.map((option) => (
           <button
             key={option}
             onClick={() => onFiltersChange({ ...filters, categories: toggleOption(filters.categories, option) })}
