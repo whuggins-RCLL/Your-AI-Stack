@@ -1,25 +1,55 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Search, SlidersHorizontal, X } from 'lucide-react';
 
+const CATEGORY_RULES = [
+  { name: 'Podcasts', keywords: ['podcast', 'audio show', 'episode', 'listen'] },
+  { name: 'Coding & Development', keywords: ['code', 'coding', 'app', 'api', 'developer', 'debug', 'frontend', 'backend', 'software', 'repository', 'version control'] },
+  { name: 'Legal Research & Analysis', keywords: ['legal', 'case', 'law', 'statute', 'brief', 'analysis', 'compliance', 'contract', 'citation', 'court'] },
+  { name: 'AI Learning', keywords: ['learning', 'tutorial', 'training', 'academy', 'course', 'how to', 'guide'] },
+  { name: 'Writing & Documents', keywords: ['writing', 'document', 'draft', 'editing', 'summar', 'note', 'transcript', 'proofread'] },
+  { name: 'Meetings & Communication', keywords: ['meeting', 'presentation', 'recording', 'search', 'call', 'voice', 'speech'] },
+  { name: 'Design & Creative', keywords: ['design', 'ui', 'ux', 'wireframe', 'visual', 'image', 'video', 'media', 'creative', 'mockup'] },
+  { name: 'Marketing & Sales', keywords: ['marketing', 'campaign', 'social', 'brand', 'ad', 'promotion', 'sales'] },
+  { name: 'Data, Math & Automation', keywords: ['data', 'math', 'logic', 'spreadsheet', 'automation', 'workflow', 'analytics', 'ml', 'model'] },
+  { name: 'Productivity & Knowledge', keywords: ['productivity', 'knowledge', 'search', 'organization', 'planning', 'task'] }
+];
+
 const splitUses = (tool) =>
   (tool.uses || '')
     .split(',')
     .map((entry) => entry.trim())
     .filter(Boolean);
 
+const getNormalizedCategories = (tool) => {
+  const source = [
+    ...splitUses(tool),
+    ...(tool.tags || []),
+    tool.bestFor || '',
+    tool.description || ''
+  ]
+    .join(' ')
+    .toLowerCase();
+
+  const matches = CATEGORY_RULES
+    .filter((rule) => rule.keywords.some((keyword) => source.includes(keyword)))
+    .map((rule) => rule.name);
+
+  return matches.length ? matches : ['General'];
+};
+
 const getCategoryOptions = (tools = []) => {
   const categorySet = new Set();
   tools.forEach((tool) => {
-    const uses = splitUses(tool);
-    uses.forEach((use) => categorySet.add(use));
+    const normalized = getNormalizedCategories(tool);
+    normalized.forEach((category) => categorySet.add(category));
   });
   return ['All', ...Array.from(categorySet).sort((a, b) => a.localeCompare(b))];
 };
 
 const matchesCategory = (tool, categories) => {
   if (!categories.length || categories.includes('All')) return true;
-  const uses = splitUses(tool);
-  return categories.some((category) => uses.includes(category));
+  const normalized = getNormalizedCategories(tool);
+  return categories.some((category) => normalized.includes(category));
 };
 
 const matchesSearch = (tool, search) => {
@@ -36,15 +66,32 @@ export const filterTools = (tools, filters) =>
   tools.filter(
     (tool) =>
       matchesCategory(tool, filters.categories) &&
-      matchesSearch(tool, filters.search)
+      matchesSearch(tool, filters.search) &&
+      matchesQuickFilter(tool, filters.quickFilter)
   );
 
-const toggleOption = (currentValues, option) => {
-  if (option === 'All') return ['All'];
-  const withoutAll = currentValues.filter((value) => value !== 'All');
-  const next = withoutAll.includes(option) ? withoutAll.filter((value) => value !== option) : [...withoutAll, option];
-  return next.length ? next : ['All'];
+const matchesQuickFilter = (tool, quickFilter) => {
+  if (!quickFilter || quickFilter === 'none') return true;
+  const source = `${tool.name} ${tool.description} ${tool.bestFor} ${(tool.tags || []).join(' ')} ${tool.uses || ''}`.toLowerCase();
+
+  if (quickFilter === 'podcasts') {
+    return source.includes('podcast');
+  }
+
+  if (quickFilter === 'legal-research') {
+    return ['legal', 'research', 'case law', 'brief', 'citation', 'contract'].some((term) => source.includes(term));
+  }
+
+  if (quickFilter === 'ai-learning') {
+    const hasLearningKeyword = ['learn', 'tutorial', 'training', 'academy', 'course', 'guide'].some((term) => source.includes(term));
+    const hasDocs = (tool.helpUrls && tool.helpUrls.length > 0) || (tool.officialTrainingDocs && tool.officialTrainingDocs.length > 0);
+    return hasLearningKeyword || hasDocs;
+  }
+
+  return true;
 };
+
+const selectSingleCategory = (option) => [option];
 
 const removeOption = (currentValues, option) => {
   const next = currentValues.filter((value) => value !== option && value !== 'All');
@@ -62,7 +109,7 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      onFiltersChange({ ...filters, search: inputValue });
+      onFiltersChange({ ...filters, search: inputValue, quickFilter: inputValue.trim() ? 'none' : filters.quickFilter || 'none' });
     }, 300);
     return () => clearTimeout(timer);
   }, [inputValue]);
@@ -79,9 +126,34 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
     return Array.from(terms).slice(0, 8);
   }, [inputValue, tools]);
 
+  const featuredTools = useMemo(() => {
+    const pool = [...tools];
+    for (let index = pool.length - 1; index > 0; index -= 1) {
+      const swapIndex = Math.floor(Math.random() * (index + 1));
+      [pool[index], pool[swapIndex]] = [pool[swapIndex], pool[index]];
+    }
+    return pool.slice(0, 3);
+  }, [tools]);
+
   const applyDraft = () => {
     onFiltersChange({ ...draftFilters, search: inputValue });
     setIsMobileOpen(false);
+  };
+
+  const quickFilters = [
+    { label: 'Podcasts', id: 'podcasts' },
+    { label: 'Legal Research Tools', id: 'legal-research' },
+    { label: 'AI Learning', id: 'ai-learning' }
+  ];
+
+  const applyQuickFilter = (quickFilterId) => {
+    setInputValue('');
+    onFiltersChange({
+      ...filters,
+      categories: ['All'],
+      search: '',
+      quickFilter: quickFilterId
+    });
   };
 
   const activeFilterChips = [
@@ -117,14 +189,14 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
         Filters
       </button>
 
-      <div className="hidden md:grid grid-cols-[230px_1fr] gap-6">
+      <div className="hidden md:grid grid-cols-[240px_minmax(0,1fr)_280px] gap-6 items-start">
         <aside className="bg-surface-container-low rounded-xl p-4">
           <p className="text-xs font-semibold uppercase tracking-widest text-on-surface-variant mb-3">Category</p>
           <div className="space-y-2 max-h-[360px] overflow-auto custom-scrollbar pr-2">
             {categoryOptions.map((option) => (
               <button
                 key={option}
-                onClick={() => onFiltersChange({ ...filters, categories: toggleOption(filters.categories, option) })}
+                onClick={() => onFiltersChange({ ...filters, categories: selectSingleCategory(option), quickFilter: 'none' })}
                 className={`w-full text-left px-3 py-2 rounded-lg text-sm ${
                   filters.categories.includes(option) ? 'bg-primary text-on-primary' : 'hover:bg-surface-container-high text-on-surface-variant'
                 }`}
@@ -160,14 +232,49 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
               </div>
             )}
           </div>
+          <div className="flex flex-wrap gap-2">
+            {quickFilters.map((quickFilter) => {
+              const isActive = filters.quickFilter === quickFilter.id;
+              return (
+                <button
+                  key={quickFilter.id}
+                  onClick={() => applyQuickFilter(quickFilter.id)}
+                  className={`px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ${
+                    isActive
+                      ? 'bg-primary text-on-primary border-primary'
+                      : 'bg-surface-container-low text-on-surface-variant border-outline-variant/40 hover:bg-surface-container-high'
+                  }`}
+                >
+                  {quickFilter.label}
+                </button>
+              );
+            })}
+          </div>
         </section>
+
+        <aside className="space-y-3">
+          <p className="text-xs font-semibold uppercase tracking-widest text-on-surface-variant">Featured tools</p>
+          {featuredTools.map((tool) => (
+            <article key={tool.id} className="rounded-xl border border-outline-variant/30 bg-surface-container-low p-3">
+              <p className="text-sm font-semibold text-on-surface line-clamp-1">{tool.name}</p>
+              <p className="text-xs text-on-surface-variant mt-1 line-clamp-2">{tool.bestFor}</p>
+              <div className="mt-2 flex flex-wrap gap-1">
+                {getNormalizedCategories(tool).slice(0, 2).map((category) => (
+                  <span key={category} className="text-[10px] px-2 py-0.5 rounded-full bg-primary/10 text-primary">
+                    {category}
+                  </span>
+                ))}
+              </div>
+            </article>
+          ))}
+        </aside>
       </div>
 
       <div className="md:hidden flex gap-2 overflow-x-auto pb-1 custom-scrollbar">
         {categoryOptions.map((option) => (
           <button
             key={option}
-            onClick={() => onFiltersChange({ ...filters, categories: toggleOption(filters.categories, option) })}
+            onClick={() => onFiltersChange({ ...filters, categories: selectSingleCategory(option), quickFilter: 'none' })}
             className={`whitespace-nowrap px-3 py-1.5 text-xs rounded-full ${
               filters.categories.includes(option) ? 'bg-primary text-on-primary' : 'bg-surface-container-low text-on-surface-variant'
             }`}
@@ -175,6 +282,24 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
             {option}
           </button>
         ))}
+      </div>
+      <div className="md:hidden flex gap-2 overflow-x-auto pb-1 custom-scrollbar">
+        {quickFilters.map((quickFilter) => {
+          const isActive = filters.quickFilter === quickFilter.id;
+          return (
+            <button
+              key={`mobile-${quickFilter.id}`}
+              onClick={() => applyQuickFilter(quickFilter.id)}
+              className={`whitespace-nowrap px-3 py-1.5 text-xs rounded-full border ${
+                isActive
+                  ? 'bg-primary text-on-primary border-primary'
+                  : 'bg-surface-container-low text-on-surface-variant border-outline-variant/40'
+              }`}
+            >
+              {quickFilter.label}
+            </button>
+          );
+        })}
       </div>
 
       <div className="flex flex-wrap items-center gap-2">
@@ -197,7 +322,7 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
           <button
             onClick={() => {
               setInputValue('');
-              onFiltersChange({ categories: ['All'], search: '' });
+              onFiltersChange({ categories: ['All'], search: '', quickFilter: 'none' });
             }}
             className="text-xs underline text-on-surface-variant"
           >
