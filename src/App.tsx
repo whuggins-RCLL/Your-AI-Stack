@@ -277,17 +277,17 @@ export default function App() {
               </div>
               <div className="flex flex-col gap-3">
                 <div className="w-11 h-11 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold mb-2 shadow-sm">
-                  <BookmarkPlus className="w-5 h-5" />
+                  <ArrowLeftRight className="w-5 h-5" />
                 </div>
-                <h4 className="font-headline font-semibold text-on-surface text-2xl">2. Curate</h4>
-                <p className="text-base text-on-surface-variant leading-relaxed">Click the bookmark icon to save tools you want to evaluate. Start with just 1-2 core tools to avoid overwhelm.</p>
+                <h4 className="font-headline font-semibold text-on-surface text-2xl">2. Compare</h4>
+                <p className="text-base text-on-surface-variant leading-relaxed">Use the Compare button on cards to add up to 3 tools, then open Compare to evaluate key differences side by side.</p>
               </div>
               <div className="flex flex-col gap-3">
                 <div className="w-11 h-11 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold mb-2 shadow-sm">
                   <FileDown className="w-5 h-5" />
                 </div>
                 <h4 className="font-headline font-semibold text-on-surface text-2xl">3. Export</h4>
-                <p className="text-base text-on-surface-variant leading-relaxed">Go to your "Saved" list and export a clean PDF of your custom stack, complete with training resources.</p>
+                <p className="text-base text-on-surface-variant leading-relaxed">Bookmark tools you want to keep, then open your Saved list and use Export PDF to generate a clean shareable stack report.</p>
               </div>
             </div>
             </>
