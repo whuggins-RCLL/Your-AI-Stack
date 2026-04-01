@@ -36,22 +36,76 @@ export const tools: Tool[] = [
   {
     id: 'google-stitch',
     name: 'Google Stitch',
-    description: 'AI-powered tool for rapidly building applications and websites.',
-    bestFor: 'Rapid prototyping and app creation.',
-    tags: ['Coding', 'Design', 'App Builder'],
+    description: 'Google Labs\' AI-powered UI design and frontend generation tool.',
+    bestFor: 'UI design, wireframe-to-UI generation, and rapid prototyping.',
+    uses: 'UI Design, Frontend Code Generation, Wireframe-to-UI, Rapid Prototyping, Design Exploration, Developer Handoff, App Mockups, Website Mockups, Visual Ideation, Design Iteration',
+    tags: ['Podcasts', 'Coding', 'Design'],
     tier: 'Free',
     logoUrl: 'https://picsum.photos/seed/googlestitch/200/200',
-    url: 'https://stitch.withgoogle.com/home'
+    url: 'https://stitch.withgoogle.com/',
+    parentCompany: 'Google',
+    summary: 'Google Stitch is Google\'s AI-powered UI design and frontend generation tool from Google Labs. It is designed to turn natural language prompts, images, wireframes, and iterative feedback into high-fidelity user interface designs and corresponding frontend code, helping teams move faster from concept to prototype and developer handoff.',
+    tagCategories: 'AI design tool, UI design, UX design, frontend generation, prototyping, design-to-code, creative AI, product design, interface design, app design, web design, mobile design, developer tool, design workflow, Google Labs, multimodal AI, prompt-based design, wireframe generation, mockup generation, rapid prototyping, design system exploration, product ideation, visual design, app prototyping, website prototyping, AI productivity, design collaboration, developer handoff, generative UI',
+    features: 'text-to-UI generation, image-to-UI generation, wireframe-to-UI generation, high-fidelity UI design, frontend code generation, conversational design iteration, AI-native canvas, theme adjustment, design exploration, image input support, text input support, code input support, design agent progress tracking, voice commands, real-time design critique, export to CSS, export to HTML, export to Figma, desktop and mobile UI generation, rapid prototype creation, iterative feedback loop, visual ideation, developer handoff support, multimodal prompting',
+    notGoodFor: 'Not good for pixel-perfect production design in a full professional design suite, complex end-to-end product research, advanced interaction prototyping, or guaranteed production-ready code without developer review. It is also a weaker fit when a team needs deep manual control over every design detail, mature design-system governance, or traditional layer-based design workflows.',
+    officialTrainingDocs: [
+      'https://stitch.withgoogle.com/',
+      'https://blog.google/innovation-and-ai/models-and-research/google-labs/stitch-ai-ui-design/',
+      'https://blog.google/innovation-and-ai/models-and-research/google-labs/stitch-gemini-3/',
+      'https://blog.google/innovation-and-ai/products/io-2025-tools-to-try-globally/'
+    ],
+    stanfordUniversitySlsProvidedAccess: false,
+    robertCrownLawLibraryFavorite: true
+  },
+  {
+    id: 'pomelli',
+    name: 'Pomelli',
+    description: 'Google Labs\' AI marketing tool for on-brand business campaign creation and product imagery.',
+    bestFor: 'Marketing content generation, campaign creation, and social media assets.',
+    uses: 'Marketing Content Generation, Campaign Creation, Product Photography, On-Brand Content, Business Marketing, Social Media Content, Ad Creative, Promotional Materials',
+    tags: ['Podcasts', 'Marketing', 'Google'],
+    tier: 'Experimental',
+    logoUrl: 'https://picsum.photos/seed/pomelli/200/200',
+    url: 'https://labs.google.com/pomelli/about/',
+    parentCompany: 'Google',
+    summary: 'Pomelli is Google Labs\' AI marketing tool for businesses. It is designed to generate scalable, tailored, on-brand marketing content using a company\'s business context, with support for campaign creation and studio-style product imagery through features like Photoshoot.',
+    tagCategories: 'marketing AI, AI marketing tool, brand marketing, content generation, campaign generation, small business marketing, business productivity, creative AI, generative marketing, brand content creation, product marketing, image generation, on-brand content, ad creative, business growth tool, Google Labs, visual marketing, content automation, marketing workflow, AI design, promotional content, e-commerce marketing, social media content, business branding, marketing assistant',
+    features: 'on-brand content generation, campaign creation, business context grounding, Business DNA, tailored marketing content, scalable content generation, Photoshoot feature, studio-style product imagery, product image transformation, AI image generation, marketing asset creation, desktop web app, business-focused workflow, brand-aware outputs, Google Labs experiment, business website-based setup, marketing prompt workflows',
+    notGoodFor: 'Not good for general-purpose chat, coding, legal research, broad document analysis, or replacing a full end-to-end marketing team or design suite. It is also a weaker fit when a user needs highly manual creative control, advanced campaign operations, or guaranteed factual marketing claims without human review.',
+    officialTrainingDocs: [
+      'https://labs.google.com/pomelli/about/',
+      'https://support.google.com/labs/answer/16715058',
+      'https://support.google.com/labs/answer/16945066',
+      'https://blog.google/innovation-and-ai/models-and-research/google-labs/pomelli/',
+      'https://blog.google/innovation-and-ai/models-and-research/google-labs/pomelli-photoshoot/'
+    ],
+    stanfordUniversitySlsProvidedAccess: false,
+    robertCrownLawLibraryFavorite: false
   },
   {
     id: 'google-ai-studio',
     name: 'Google AI Studio',
-    description: 'Google\'s platform for prototyping and building with Gemini models.',
-    bestFor: 'Prompt engineering and API integration.',
-    tags: ['Coding', 'AI Models'],
+    description: 'Google\'s web-based environment for prototyping with Gemini models and app workflows.',
+    bestFor: 'Prompt prototyping, API development, and multimodal model experimentation.',
+    uses: 'Prompt Prototyping, API Development, Multimodal Testing, Code Generation, App Building, Model Experimentation, Starter App Generation, AI Workflow Building, Long-Context Testing',
+    tags: ['Podcasts', 'Coding', 'Google'],
     tier: 'Free',
     logoUrl: 'https://picsum.photos/seed/aistudio/200/200',
-    url: 'https://aistudio.google.com/'
+    url: 'https://aistudio.google.com/',
+    parentCompany: 'Google',
+    summary: 'Google AI Studio is Google\'s web-based developer environment for quickly experimenting with Gemini models and building generative AI applications. It is positioned as the fast path for developers, students, and researchers to prototype prompts, test multimodal capabilities, generate starter code, explore model options, and build apps with the Gemini API before moving into fuller production workflows if needed.',
+    tagCategories: 'AI development platform, developer tool, generative AI platform, Gemini platform, prompt prototyping, API development, multimodal AI, model playground, AI app builder, LLM development, developer productivity, experimentation platform, AI studio, prompt engineering, rapid prototyping, developer workspace, code generation, AI testing, model evaluation, Google AI, Google developer tools, app development, research tool, student tool, API platform, AI workflow builder, model experimentation, web-based IDE, AI prototyping, Google ecosystem',
+    features: 'prompt prototyping, browser-based playground, multimodal testing, text generation, image generation support, video generation support through supported models, audio capabilities through supported models, code generation, starter app generation, build mode, full-stack app building support, get code export, API key creation, Gemini API integration, model selection, prompt settings controls, chat prompts, structured output workflows, file upload support, long-context experimentation, live API support, real-time interaction testing, agentic tools, native code editing, app remixing, quickstart workflows, Google Workspace account access, browser-based developer workflow, model comparison, rapid iteration',
+    notGoodFor: 'Not good for full enterprise production governance by itself, guaranteed deterministic outputs, high-stakes decisions without human review, or replacing mature end-to-end cloud deployment and observability platforms. It is also a weaker fit when a team specifically needs a production-managed environment with deeper infrastructure controls rather than a fast prototyping and developer experimentation workspace.',
+    officialTrainingDocs: [
+      'https://ai.google.dev/aistudio',
+      'https://ai.google.dev/gemini-api/docs',
+      'https://ai.google.dev/gemini-api/docs/ai-studio-quickstart',
+      'https://ai.google.dev/gemini-api/docs/aistudio-build-mode',
+      'https://ai.google.dev/gemini-api/docs/workspace'
+    ],
+    stanfordUniversitySlsProvidedAccess: false,
+    robertCrownLawLibraryFavorite: true
   },
   {
     id: 'openai-codex',
@@ -86,12 +140,27 @@ export const tools: Tool[] = [
   {
     id: 'lovable',
     name: 'Lovable',
-    description: 'AI-powered full-stack application generator.',
-    bestFor: 'Generating complete web apps from prompts.',
-    tags: ['Coding', 'App Builder'],
+    description: 'AI-powered full-stack app builder for generating and deploying web applications from prompts.',
+    bestFor: 'Full-stack app creation, rapid prototyping, and deployment workflows.',
+    uses: 'Full-Stack App Building, Web App Creation, Rapid Prototyping, Website Building, SaaS Development, Internal Tool Building, Version Control, App Deployment, Team Collaboration, Design System Management',
+    tags: ['Podcasts', 'Coding', 'App Builder'],
     tier: 'Freemium',
     logoUrl: 'https://picsum.photos/seed/lovable/200/200',
-    url: 'https://lovable.dev/'
+    url: 'https://lovable.dev/',
+    parentCompany: 'Lovable',
+    summary: 'Lovable is an AI-powered full-stack app builder for creating, iterating on, and deploying web applications using natural language. It is designed for individuals and teams to go from idea to working app quickly, with real code, version history, publishing, cloud hosting, GitHub sync, security controls, and enterprise governance.',
+    tagCategories: 'AI app builder, full-stack app builder, no-code, low-code, web app builder, website builder, developer tool, product prototyping, rapid prototyping, startup tool, internal tools, SaaS builder, AI development platform, prompt-to-app, natural language programming, frontend generation, backend generation, app deployment, cloud hosting, developer productivity, design systems, enterprise AI, team collaboration, workflow automation, business app builder, prototype builder, app development, vibe coding, web development, AI coding platform',
+    features: 'natural language app generation, full-stack web app creation, real code generation, version history, revert to previous versions, GitHub sync, publishing to live URL, custom domains, cloud hosting, built-in database, authentication, storage, edge functions, Lovable Cloud, design systems, team workspaces, roles and permissions, SSO, SCIM, 2FA, security checks, enterprise governance, API support, Build with URL, prompt-based iteration, image-based app generation, sharing and collaboration, project settings, preview links, deployment workflows, integrations, reusable templates, reusable design systems',
+    notGoodFor: 'Not good for highly customized hand-coded systems where teams want full manual control from the start, non-web software categories like native game engines or complex embedded systems, guaranteed production-ready code without review, or replacing engineering judgment for architecture, security, compliance, and QA. It is also a weaker fit when someone needs a traditional IDE-first workflow instead of a prompt-first full-stack builder.',
+    officialTrainingDocs: [
+      'https://docs.lovable.dev/introduction/welcome',
+      'https://docs.lovable.dev/introduction/getting-started',
+      'https://docs.lovable.dev/introduction/faq',
+      'https://docs.lovable.dev/integrations/lovable-api',
+      'https://docs.lovable.dev/features/publish'
+    ],
+    stanfordUniversitySlsProvidedAccess: false,
+    robertCrownLawLibraryFavorite: false
   },
   {
     id: 'claude-code',
@@ -130,12 +199,77 @@ export const tools: Tool[] = [
   {
     id: 'replit',
     name: 'Replit',
-    description: 'Collaborative browser-based IDE with integrated AI coding features.',
-    bestFor: 'Browser-based development and quick setups.',
-    tags: ['Coding', 'IDE'],
+    description: 'AI-powered browser development platform for building, deploying, and hosting apps.',
+    bestFor: 'Full-stack app building, rapid prototyping, and integrated deployment workflows.',
+    uses: 'Full-Stack App Building, Web App Creation, Mobile App Building, Dashboard Building, Rapid Prototyping, Coding, Debugging, Deployment & Hosting, Agent-Assisted Development, Collaboration',
+    tags: ['Podcasts', 'Coding', 'IDE'],
     tier: 'Freemium',
     logoUrl: 'https://picsum.photos/seed/replit/200/200',
-    url: 'https://replit.com/'
+    url: 'https://replit.com/',
+    parentCompany: 'Replit',
+    summary: 'Replit is an AI-powered software creation platform for building, iterating on, deploying, and hosting apps from the browser. Replit positions the product around Agent-assisted development, integrated infrastructure, and fast idea-to-app workflows, with support for web apps, mobile apps, dashboards, documents, connected-service queries, and collaborative project work.',
+    tagCategories: 'AI app builder, AI coding platform, software development platform, browser IDE, cloud development, developer tool, full-stack app builder, coding assistant, agentic development, rapid prototyping, web app builder, mobile app builder, dashboard builder, startup tool, internal tools, SaaS builder, developer productivity, no-setup development, hosting platform, cloud IDE, team collaboration, educational coding platform, deployment platform, app hosting, natural language programming, vibe coding, AI developer platform, browser-based development, prototyping platform, app creation tool',
+    features: 'Agent-assisted app creation, natural language app generation, browser-based coding, full-stack app generation, built-in hosting, database integration, authentication, monitoring, instant deployment, preview environment, design canvas, multi-artifact projects, mobile app generation, dashboard generation, document and file generation, connected service queries, integrations with AI providers, managed AI credentials, optional BYOK, real-time collaboration, version control integration, custom domains, SSL, team workspaces, enterprise controls, SSO and SAML, admin controls, mobile access, prompt-based iteration, debugging assistance, code suggestions, documentation generation, web app publishing, agent chat, autonomous modes, parallel task execution',
+    notGoodFor: 'Not good for highly specialized local-only development workflows, guaranteed correct code without review, replacing engineering judgment for architecture, security, QA, and production operations, or teams that need a traditional desktop IDE-first workflow with full manual control over every environment detail. It is also a weaker fit when someone only wants a lightweight coding assistant rather than an integrated build-host-deploy platform.',
+    officialTrainingDocs: [
+      'https://docs.replit.com/',
+      'https://docs.replit.com/core-concepts/how-replit-works',
+      'https://docs.replit.com/core-concepts/agent',
+      'https://docs.replit.com/getting-started/intro-replit',
+      'https://docs.replit.com/getting-started/quickstarts/ask-ai'
+    ],
+    stanfordUniversitySlsProvidedAccess: false,
+    robertCrownLawLibraryFavorite: false
+  },
+  {
+    id: 'cursor',
+    name: 'Cursor',
+    description: 'AI editor and coding agent for repository-aware software development.',
+    bestFor: 'Code editing, multi-file changes, bug fixing, and codebase understanding.',
+    uses: 'Code Editing, Code Generation, Bug Fixing, Code Review, Refactoring, Codebase Understanding, Terminal Workflows, Repository Navigation, Multi-File Editing, Cloud Agent Tasks, Semantic Code Search',
+    tags: ['Podcasts', 'Coding', 'AI IDE'],
+    tier: 'Paid',
+    logoUrl: 'https://picsum.photos/seed/cursor/200/200',
+    url: 'https://cursor.com/',
+    parentCompany: 'Anysphere',
+    summary: 'Cursor is an AI editor and coding agent for software development. It is designed to help developers understand codebases, plan and build features, fix bugs, review changes, run terminal workflows, and work with frontier coding models inside an IDE-style environment, with additional support for CLI, APIs, cloud agents, rules, and agent skills.',
+    tagCategories: 'AI coding agent, AI code editor, coding assistant, software engineering, developer tool, code generation, code review, bug fixing, refactoring, repository assistant, IDE assistant, terminal assistant, CLI tool, agentic coding, engineering productivity, DevTools, automation, codebase understanding, debugging assistant, test workflow support, programming assistant, cloud development, local development, software delivery, code modernization, AI developer workflow, developer platform, code search, autonomous coding, pair programming',
+    features: 'codebase understanding, semantic code search, feature planning, code generation, code editing, bug fixing, refactoring, diff review, terminal command execution, web fetching, browser tool use, checkpoints and restore, rules system, AGENTS.md support, team rules, user rules, project rules, agent skills, CLI support, cloud agents, API access, analytics API, admin API, AI code tracking API, model selection, max context mode, composer workflows, plan mode, code review workflows, repo-aware assistance, multi-file editing, testing assistance, GitHub integration, GitLab integration, JetBrains integration, Slack integration, Linear integration',
+    notGoodFor: 'Not good for non-coding general productivity work, guaranteed correct code without review, replacing engineering judgment for architecture, security, testing, and release decisions, or teams that want a purely manual traditional IDE workflow with no agentic assistance. It is also a weaker fit when someone only needs a lightweight chat assistant rather than a code editor and coding-agent platform.',
+    officialTrainingDocs: [
+      'https://cursor.com/docs',
+      'https://cursor.com/docs/get-started/quickstart',
+      'https://cursor.com/docs/agent/overview',
+      'https://cursor.com/docs/cli/overview',
+      'https://cursor.com/docs/api'
+    ],
+    stanfordUniversitySlsProvidedAccess: false,
+    robertCrownLawLibraryFavorite: false
+  },
+  {
+    id: 'windsurf',
+    name: 'Windsurf',
+    description: 'AI-native IDE and coding agent platform for repository-aware software development.',
+    bestFor: 'Code editing, autocomplete, agentic coding, and multi-file repository workflows.',
+    uses: 'Code Editing, Code Generation, Bug Fixing, Code Review, Refactoring, Codebase Understanding, Terminal Workflows, Repository Navigation, Autocomplete, Voice Input Coding, Multi-File Editing',
+    tags: ['Podcasts', 'Coding', 'AI IDE'],
+    tier: 'Freemium',
+    logoUrl: 'https://picsum.photos/seed/windsurf/200/200',
+    url: 'https://windsurf.com/',
+    parentCompany: 'Cognition',
+    summary: 'Windsurf is an AI-native IDE and coding agent platform for software development. It is designed to help developers understand codebases, generate and edit code, navigate repositories, run terminal workflows, and collaborate with agentic tools such as Cascade, Tab, Chat, Command, and Supercomplete inside its editor and plugins.',
+    tagCategories: 'AI coding agent, AI IDE, coding assistant, software engineering, developer tool, code generation, code review, bug fixing, refactoring, repository assistant, IDE assistant, terminal assistant, agentic coding, engineering productivity, DevTools, automation, codebase understanding, debugging assistant, test workflow support, programming assistant, cloud development, local development, software delivery, code modernization, AI developer workflow, code search, autonomous coding, pair programming, developer platform, enterprise developer tooling',
+    features: 'codebase understanding, Cascade agent, code and chat modes, tool calling, voice input, checkpoints, real-time awareness, linter integration, autocomplete, Supercomplete, inline code suggestions, Tab to Jump, Tab to Import, natural-language code edits, Command, terminal command generation, multi-file editing, repo-aware assistance, model selection, in-house SWE models, Claude and GPT model support, BYOK model support for eligible users, plugins for JetBrains and VS Code, browser-based docs and onboarding, settings import from VS Code and Cursor, SSH support, Dev Containers, WSL support, extension marketplace support, gitignore access controls, team and enterprise support',
+    notGoodFor: 'Not good for non-coding general productivity work, guaranteed correct code without review, replacing engineering judgment for architecture, security, testing, and release decisions, or teams that want a purely manual traditional IDE workflow with no agentic assistance. It is also a weaker fit when someone only needs a lightweight chat assistant rather than an AI-native editor and coding-agent platform.',
+    officialTrainingDocs: [
+      'https://docs.windsurf.com/get-started/overview',
+      'https://docs.windsurf.com/windsurf/getting-started',
+      'https://docs.windsurf.com/windsurf/cascade/cascade',
+      'https://docs.windsurf.com/tab/overview',
+      'https://docs.windsurf.com/command/windsurf-overview'
+    ],
+    stanfordUniversitySlsProvidedAccess: false,
+    robertCrownLawLibraryFavorite: false
   },
   {
     id: 'google-sites',
@@ -150,12 +284,27 @@ export const tools: Tool[] = [
   {
     id: 'google-antigravity',
     name: 'Google Antigravity',
-    description: 'Advanced AI coding harness and platform.',
-    bestFor: 'AI-assisted software engineering.',
-    tags: ['Coding', 'Engineering'],
+    description: 'Google\'s agent-first development platform for autonomous software engineering workflows.',
+    bestFor: 'Agentic software development, autonomous coding, and complex engineering tasks.',
+    uses: 'Agentic Software Development, Autonomous Code Generation, Code Review, Debugging, Full-Stack App Building, Deployment, Agent Orchestration, Complex Engineering Tasks, Browser-Integrated Coding',
+    tags: ['Podcasts', 'Coding', 'Engineering'],
     tier: 'Internal',
     logoUrl: 'https://picsum.photos/seed/antigravity/200/200',
-    url: 'https://antigravity.google/product'
+    url: 'https://antigravity.google/',
+    parentCompany: 'Google',
+    summary: 'Google Antigravity is Google\'s agent-first development platform for software engineering. It is designed to let developers manage autonomous coding agents that can plan, code, browse, validate, iterate, and help build applications across workspaces, with a more visual and agent-managed experience than a traditional coding assistant or terminal-first tool.',
+    tagCategories: 'AI coding agent, agentic development platform, developer tool, software engineering, coding assistant, autonomous coding, repository assistant, IDE alternative, browser-integrated coding, engineering productivity, code generation, code review, debugging, refactoring, agent orchestration, developer workflow, AI IDE, workspace management, mission control for agents, cloud development, app development, developer platform, Google AI, Gemini ecosystem, full-stack development, software delivery, prompt-based development, development automation, codebase understanding',
+    features: 'agent management, autonomous planning, code generation, code editing, browser integration, web browsing for tasks, validation workflows, iterative development, workspace-based development, implementation plans, agent-first interface, multi-step task execution, full-stack app building, deployment support, Google Cloud workflows, coding assistance beyond autocomplete, project-aware assistance, long-horizon engineering tasks, task-oriented development, skills support, visual development environment, complex engineering task handling, browser-based IDE experience, agent coordination, cloud app workflows, integration with Gemini models',
+    notGoodFor: 'Not good for non-coding general productivity work, guaranteed correct code without review, highly manual terminal-only workflows for users who prefer a CLI-first experience, or replacing engineering judgment for architecture, security, testing, and release decisions. It is also a weaker fit when someone specifically wants a lightweight terminal-native tool rather than a visual agent-management development platform.',
+    officialTrainingDocs: [
+      'https://antigravity.google/docs',
+      'https://codelabs.developers.google.com/getting-started-google-antigravity',
+      'https://codelabs.developers.google.com/building-with-google-antigravity',
+      'https://codelabs.developers.google.com/getting-started-with-antigravity-skills',
+      'https://cloud.google.com/blog/topics/developers-practitioners/choosing-antigravity-or-gemini-cli'
+    ],
+    stanfordUniversitySlsProvidedAccess: false,
+    robertCrownLawLibraryFavorite: false
   },
 
   // Presentations - Core Tools
