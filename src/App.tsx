@@ -9,10 +9,14 @@ import { tools } from './data';
 import FilterBar, { filterTools } from './components/FilterBar';
 
 export default function App() {
-  const podcastTools = useMemo(
-    () => tools.filter((tool) => tool.tags.some((tag) => tag.toLowerCase() === 'podcasts')),
-    []
-  );
+  const visibleTools = useMemo(() => {
+    const seen = new Set<string>();
+    return tools.filter((tool) => {
+      if (seen.has(tool.id)) return false;
+      seen.add(tool.id);
+      return true;
+    });
+  }, []);
   const [showDisclaimer, setShowDisclaimer] = useState(true);
   const [showExplainer, setShowExplainer] = useState(false);
   const [showPhilosophy, setShowPhilosophy] = useState(false);
@@ -33,7 +37,7 @@ export default function App() {
   });
   const [isGridVisible, setIsGridVisible] = useState(true);
 
-  let filteredTools = filterTools(podcastTools, filters);
+  let filteredTools = filterTools(visibleTools, filters);
 
   if (showOnlySaved) {
     filteredTools = filteredTools.filter(tool => bookmarkedIds.has(tool.id));
@@ -45,9 +49,9 @@ export default function App() {
     return () => window.clearTimeout(timer);
   }, [filters, showOnlySaved]);
 
-  const bookmarkedTools = useMemo(() => podcastTools.filter(t => bookmarkedIds.has(t.id)), [bookmarkedIds, podcastTools]);
-  const selectedTool = useMemo(() => podcastTools.find((tool) => tool.id === selectedToolId) || null, [selectedToolId, podcastTools]);
-  const comparisonTools = useMemo(() => podcastTools.filter(t => compareIds.has(t.id)), [compareIds, podcastTools]);
+  const bookmarkedTools = useMemo(() => visibleTools.filter(t => bookmarkedIds.has(t.id)), [bookmarkedIds, visibleTools]);
+  const selectedTool = useMemo(() => visibleTools.find((tool) => tool.id === selectedToolId) || null, [selectedToolId, visibleTools]);
+  const comparisonTools = useMemo(() => visibleTools.filter(t => compareIds.has(t.id)), [compareIds, visibleTools]);
 
   const toggleBookmark = (id: string) => {
     setBookmarkedIds(prev => {
@@ -472,11 +476,11 @@ export default function App() {
           </div>
 
           <FilterBar
-            tools={podcastTools}
+            tools={visibleTools}
             filters={filters}
             onFiltersChange={setFilters}
             resultCount={filteredTools.length}
-            totalCount={podcastTools.length}
+            totalCount={visibleTools.length}
           />
 
           <div className="flex flex-col md:flex-row justify-between items-end md:items-center gap-4">
