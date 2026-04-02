@@ -129,7 +129,9 @@ const buildSource = (tool: ToolLike) =>
 export const isPodcastTool = (tool: ToolLike) => {
   const tags = (tool.tags || []).map((tag) => tag.toLowerCase());
   if (tags.includes('podcasts')) return true;
-  const source = buildSource(tool);
+  // Only check name and description — not uses/bestFor which may mention
+  // "podcast" as a capability (e.g. "Podcast Intros" in a music tool).
+  const source = [tool.name, tool.description].filter(Boolean).join(' ').toLowerCase();
   return ['podcast', 'episode', 'audio show'].some((term) => source.includes(term));
 };
 
