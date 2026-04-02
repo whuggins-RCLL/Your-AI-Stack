@@ -196,7 +196,7 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
               <p className="text-sm font-semibold text-on-surface line-clamp-1">{tool.name}</p>
               <p className="text-xs text-on-surface-variant mt-1 line-clamp-2">{tool.bestFor}</p>
               <div className="mt-2 flex flex-wrap gap-1">
-                {getNormalizedCategories(tool).slice(0, 2).map((category) => (
+                {inferCategories(tool).slice(0, 2).map((category) => (
                   <span key={category} className="text-[10px] px-2 py-0.5 rounded-full bg-primary/10 text-primary">
                     {category}
                   </span>
