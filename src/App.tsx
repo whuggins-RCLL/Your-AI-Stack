@@ -7,6 +7,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { ArrowRight, ArrowLeftRight, Plus, Download, Layers, Compass, Bookmark, FileDown, X, Sparkles, Check, ExternalLink } from 'lucide-react';
 import { tools } from './data';
 import FilterBar, { filterTools } from './components/FilterBar';
+import { inferCategories } from './utils/toolCategories';
 
 export default function App() {
   const visibleTools = useMemo(() => {
@@ -38,11 +39,7 @@ export default function App() {
   const [sortBy, setSortBy] = useState<'A-Z' | 'Category' | 'Recently Added'>('A-Z');
   const [isGridVisible, setIsGridVisible] = useState(true);
 
-  const getPrimaryCategory = (tool: any) =>
-    (tool.uses || '')
-      .split(',')
-      .map((entry: string) => entry.trim())
-      .filter(Boolean)[0] || tool.tags[0] || 'General';
+  const getPrimaryCategory = (tool: any) => inferCategories(tool)[0] || 'General';
 
   let filteredTools = filterTools(visibleTools, filters);
 
@@ -140,7 +137,7 @@ export default function App() {
         label: 'Core Capabilities',
         rows: [
           { label: 'Best For', getValue: (tool: any) => tool.bestFor || '—' },
-          { label: 'Category', getValue: (tool: any) => tool.tags?.[0] || '—' },
+          { label: 'Category', getValue: (tool: any) => getPrimaryCategory(tool) },
           { label: 'Has Learning Resources', getValue: (tool: any) => tool.helpUrls?.length ? '✓' : '—' },
           { label: 'Marked as New', getValue: (tool: any) => tool.isNew ? '✓' : '—' }
         ]
