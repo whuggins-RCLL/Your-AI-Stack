@@ -1,54 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Search, SlidersHorizontal, X } from 'lucide-react';
-
-const CATEGORY_RULES = [
-  { name: 'Podcasts', keywords: ['podcast', 'audio show', 'episode', 'listen'] },
-  { name: 'Coding & Development', keywords: ['code', 'coding', 'app', 'api', 'developer', 'debug', 'frontend', 'backend', 'software', 'repository', 'version control'] },
-  { name: 'Legal Research & Analysis', keywords: ['legal', 'case', 'law', 'statute', 'brief', 'analysis', 'compliance', 'contract', 'citation', 'court'] },
-  { name: 'AI Learning', keywords: ['learning', 'tutorial', 'training', 'academy', 'course', 'how to', 'guide'] },
-  { name: 'Writing & Documents', keywords: ['writing', 'document', 'draft', 'editing', 'summar', 'note', 'transcript', 'proofread'] },
-  { name: 'Meetings & Communication', keywords: ['meeting', 'presentation', 'recording', 'search', 'call', 'voice', 'speech'] },
-  { name: 'Design & Creative', keywords: ['design', 'ui', 'ux', 'wireframe', 'visual', 'image', 'video', 'media', 'creative', 'mockup'] },
-  { name: 'Marketing & Sales', keywords: ['marketing', 'campaign', 'social', 'brand', 'ad', 'promotion', 'sales'] },
-  { name: 'Data, Math & Automation', keywords: ['data', 'math', 'logic', 'spreadsheet', 'automation', 'workflow', 'analytics', 'ml', 'model'] },
-  { name: 'Productivity & Knowledge', keywords: ['productivity', 'knowledge', 'search', 'organization', 'planning', 'task'] }
-];
-
-const splitUses = (tool) =>
-  (tool.uses || '')
-    .split(',')
-    .map((entry) => entry.trim())
-    .filter(Boolean);
-
-const getNormalizedCategories = (tool) => {
-  const source = [
-    ...splitUses(tool),
-    ...(tool.tags || []),
-    tool.bestFor || '',
-    tool.description || ''
-  ]
-    .join(' ')
-    .toLowerCase();
-
-  const matches = CATEGORY_RULES
-    .filter((rule) => rule.keywords.some((keyword) => source.includes(keyword)))
-    .map((rule) => rule.name);
-
-  return matches.length ? matches : ['General'];
-};
-
-const getCategoryOptions = (tools = []) => {
-  const categorySet = new Set();
-  tools.forEach((tool) => {
-    const normalized = getNormalizedCategories(tool);
-    normalized.forEach((category) => categorySet.add(category));
-  });
-  return ['All', ...Array.from(categorySet).sort((a, b) => a.localeCompare(b))];
-};
+import { getCategoryOptions, inferCategories, matchesQuickFilterCategory } from '../utils/toolCategories';
 
 const matchesCategory = (tool, categories) => {
   if (!categories.length || categories.includes('All')) return true;
-  const normalized = getNormalizedCategories(tool);
+  const normalized = inferCategories(tool);
   return categories.some((category) => normalized.includes(category));
 };
 
@@ -70,26 +26,7 @@ export const filterTools = (tools, filters) =>
       matchesQuickFilter(tool, filters.quickFilter)
   );
 
-const matchesQuickFilter = (tool, quickFilter) => {
-  if (!quickFilter || quickFilter === 'none') return true;
-  const source = `${tool.name} ${tool.description} ${tool.bestFor} ${(tool.tags || []).join(' ')} ${tool.uses || ''}`.toLowerCase();
-
-  if (quickFilter === 'podcasts') {
-    return source.includes('podcast');
-  }
-
-  if (quickFilter === 'legal-research') {
-    return ['legal', 'research', 'case law', 'brief', 'citation', 'contract'].some((term) => source.includes(term));
-  }
-
-  if (quickFilter === 'ai-learning') {
-    const hasLearningKeyword = ['learn', 'tutorial', 'training', 'academy', 'course', 'guide'].some((term) => source.includes(term));
-    const hasDocs = (tool.helpUrls && tool.helpUrls.length > 0) || (tool.officialTrainingDocs && tool.officialTrainingDocs.length > 0);
-    return hasLearningKeyword || hasDocs;
-  }
-
-  return true;
-};
+const matchesQuickFilter = (tool, quickFilter) => matchesQuickFilterCategory(tool, quickFilter);
 
 const selectSingleCategory = (option) => [option];
 
@@ -259,7 +196,7 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
               <p className="text-sm font-semibold text-on-surface line-clamp-1">{tool.name}</p>
               <p className="text-xs text-on-surface-variant mt-1 line-clamp-2">{tool.bestFor}</p>
               <div className="mt-2 flex flex-wrap gap-1">
-                {getNormalizedCategories(tool).slice(0, 2).map((category) => (
+                {inferCategories(tool).slice(0, 2).map((category) => (
                   <span key={category} className="text-[10px] px-2 py-0.5 rounded-full bg-primary/10 text-primary">
                     {category}
                   </span>
