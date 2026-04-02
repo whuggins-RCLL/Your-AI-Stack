@@ -129,8 +129,23 @@ const buildSource = (tool: ToolLike) =>
 export const isPodcastTool = (tool: ToolLike) => {
   const tags = (tool.tags || []).map((tag) => tag.toLowerCase());
   if (tags.includes('podcasts')) return true;
-  const source = buildSource(tool);
-  return ['podcast', 'episode', 'audio show'].some((term) => source.includes(term));
+  const descriptiveSource = [tool.name, tool.description, tool.bestFor]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase();
+
+  const strictPodcastPhrases = [
+    'podcast platform',
+    'podcast hosting',
+    'podcast recording',
+    'podcast editor',
+    'podcast production',
+    'for podcasters',
+    'podcasters',
+    'audio show',
+  ];
+
+  return strictPodcastPhrases.some((phrase) => descriptiveSource.includes(phrase));
 };
 
 export const inferCategories = (tool: ToolLike) => {
