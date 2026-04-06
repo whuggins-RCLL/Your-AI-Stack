@@ -162,6 +162,30 @@ export const tools: Tool[] = [
     isHistoricalModel: true
   },
   {
+    id: 'void',
+    name: 'VOID',
+    description: 'Netflix\'s open video object-and-interaction deletion model/framework for physically plausible scene edits.',
+    bestFor: 'Video object removal, interaction-aware inpainting, and counterfactual scene editing workflows.',
+    uses: 'Video Object Removal, Video Editing, Counterfactual Video Generation, Interaction-Aware Inpainting, Post-Production Cleanup, Research, Creative Prototyping, Video Diffusion Workflows, Physically Plausible Scene Editing, Open Model Experimentation',
+    tags: ['Video', 'Open Source', 'Computer Vision'],
+    tier: 'Open Source',
+    logoUrl: 'https://picsum.photos/seed/void/200/200',
+    url: 'https://github.com/Netflix/void-model',
+    parentCompany: 'Netflix',
+    summary: 'VOID, short for Video Object and Interaction Deletion, is Netflix\'s open model/framework for removing objects from videos while also correcting the interactions those objects caused in the scene, such as collisions, falling objects, shadows, and reflections. Netflix\'s official repo and model card describe it as being built on CogVideoX and fine-tuned for video inpainting with interaction-aware mask conditioning, and the paper frames it as a physically plausible video object removal system for complex counterfactual edits.',
+    tagCategories: 'video generation, video editing, video inpainting, open model, open source AI, computer vision, diffusion model, video diffusion, generative video, creative AI, post-production AI, visual effects, research model, video object removal, counterfactual video, physically plausible simulation, multimodal AI, vision-language model, developer tool, model weights, Apache-2.0, Netflix AI, media AI, VFX tooling, scene editing, causal video modeling, temporal consistency, interaction-aware generation, experimental video model',
+    features: 'open-source GitHub repo, Hugging Face checkpoints, Apache-2.0 license, object removal plus interaction removal, correction of secondary effects like shadows and reflections, correction of physical effects like collisions and falling objects, built on CogVideoX-Fun-V1.5-5b-InP, interaction-aware quadmask conditioning, two-stage inference pipeline, Pass 1 base inpainting model, Pass 2 warped-noise refinement model for higher temporal consistency, notebook quick start, Colab support, CLI workflow, sample videos, mask-generation pipeline, SAM2 integration, Gemini-based stage in mask pipeline, custom prompt.json scene descriptions, default 384x672 resolution, up to 197 frames, DDIM scheduler, BF16 with FP8 quantization for memory efficiency, training code and data-generation pipeline, HUMOTO and Kubric-based training data generation, requires high-memory GPU for easy local use, typically 40GB+ VRAM for the official notebook workflow',
+    notGoodFor: 'Not good for lightweight consumer use, fully deterministic editing, low-resource local machines, or production workflows that need polished turnkey commercial UX out of the box. It is also a weaker fit when someone needs general-purpose video generation, a hosted SaaS editor, or guaranteed factual/forensic authenticity, because VOID is a research-oriented open framework focused specifically on object-and-interaction deletion in videos and its easiest documented setup expects substantial GPU memory.',
+    officialTrainingDocs: [
+      'https://github.com/Netflix/void-model',
+      'https://huggingface.co/netflix/void-model',
+      'https://arxiv.org/abs/2604.02296',
+      'https://void-model.github.io/'
+    ],
+    stanfordUniversitySlsProvidedAccess: false,
+    robertCrownLawLibraryFavorite: false
+  },
+  {
     id: 'openai-codex',
     name: 'OpenAI Codex',
     description: 'AI system that translates natural language to code.',
