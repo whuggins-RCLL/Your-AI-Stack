@@ -133,6 +133,35 @@ export const tools: Tool[] = [
     isHistoricalModel: true
   },
   {
+    id: 'sora',
+    name: 'Sora',
+    description: 'OpenAI\'s video generation product for creating and editing short videos from prompts, images, and video inputs.',
+    bestFor: 'Text-to-video creation, image-to-video generation, remixing, and short-form creative storytelling workflows.',
+    uses: 'Text-to-Video Generation, Image-to-Video Generation, Video Remixing, Storyboarding, Video Editing, Creative Prototyping, Visual Storytelling, Short-Form Video Creation, Character-Based Video Creation, Sound-Enabled Video Generation',
+    tags: ['Video', 'OpenAI', 'Historical'],
+    tier: 'Historical',
+    logoUrl: 'https://picsum.photos/seed/sora/200/200',
+    url: 'https://openai.com/sora/',
+    parentCompany: 'OpenAI',
+    summary: 'Sora is OpenAI\'s video generation product for creating and editing short videos from text prompts, images, and video inputs. OpenAI\'s current product pages describe Sora 2 as turning ideas into videos with hyperreal motion and sound, while OpenAI\'s Help Center also documents the older Sora 1 web experience and notes that it is being deprecated in favor of the next generation of Sora and a future Sora for Business.',
+    tagCategories: 'AI video generator, text-to-video, image-to-video, video editing, creative AI, generative media, visual storytelling, synthetic media, video prototyping, cinematic AI, content creation, media generation, OpenAI product, short-form video creation, multimodal AI, storyboard tool, remix tool, sound-enabled video generation, character video creation, creator tool',
+    features: 'text-to-video generation, image upload support, video upload support, hyperreal motion, automatic sound inclusion, music generation, sound effects generation, dialogue generation, character-based video creation, remixing, recut editing, blending, looping, storyboard editing, prompt-based generation, style control, aspect ratio settings, resolution settings, duration settings, variations, library management, favorites, folder organization, share by link, MP4 download, featured feed, short-form generation, up to 20-second videos in the documented Sora 1 editor, up to 1080p and 20-second videos for ChatGPT Pro in the documented Sora 1 web experience, watermark-free downloads for eligible Pro users, no API access at this time',
+    notGoodFor: 'Not good for guaranteed factual realism, unrestricted sensitive-content generation, fully deterministic outputs, or professional frame-accurate post-production like a traditional NLE or VFX suite. It is also not the right fit for developers seeking a production API today, because OpenAI\'s current Help Center states that Sora does not currently have API access.',
+    officialTrainingDocs: [
+      'https://openai.com/sora/',
+      'https://help.openai.com/en/articles/9957612-generating-videos-on-sora',
+      'https://help.openai.com/en/search?q=Sora',
+      'https://sora.chatgpt.com/'
+    ],
+    helpUrls: [
+      'https://openai.com/sora/',
+      'https://help.openai.com/en/articles/9957612-generating-videos-on-sora'
+    ],
+    stanfordUniversitySlsProvidedAccess: false,
+    robertCrownLawLibraryFavorite: false,
+    isHistoricalModel: true
+  },
+  {
     id: 'openai-codex',
     name: 'OpenAI Codex',
     description: 'AI system that translates natural language to code.',
