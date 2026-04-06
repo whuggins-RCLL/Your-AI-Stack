@@ -35,7 +35,7 @@ const removeOption = (currentValues, option) => {
   return next.length ? next : ['All'];
 };
 
-export default function FilterBar({ tools, filters, onFiltersChange, resultCount, totalCount }) {
+export default function FilterBar({ tools, filters, onFiltersChange, resultCount, totalCount, discontinuedPageHref = '/discontinued-ai' }) {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [draftFilters, setDraftFilters] = useState(filters);
   const [inputValue, setInputValue] = useState(filters.search || '');
@@ -80,7 +80,8 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
   const quickFilters = [
     { label: 'Podcasts', id: 'podcasts' },
     { label: 'Legal Research Tools', id: 'legal-research' },
-    { label: 'AI Learning', id: 'ai-learning' }
+    { label: 'AI Learning', id: 'ai-learning' },
+    { label: 'Discontinued AI', id: 'discontinued-ai', href: discontinuedPageHref }
   ];
 
   const applyQuickFilter = (quickFilterId) => {
@@ -175,7 +176,7 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
               return (
                 <button
                   key={quickFilter.id}
-                  onClick={() => applyQuickFilter(quickFilter.id)}
+                  onClick={() => (quickFilter.href ? (window.location.href = quickFilter.href) : applyQuickFilter(quickFilter.id))}
                   className={`px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ${
                     isActive
                       ? 'bg-primary text-on-primary border-primary'
@@ -226,7 +227,7 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
           return (
             <button
               key={`mobile-${quickFilter.id}`}
-              onClick={() => applyQuickFilter(quickFilter.id)}
+              onClick={() => (quickFilter.href ? (window.location.href = quickFilter.href) : applyQuickFilter(quickFilter.id))}
               className={`whitespace-nowrap px-3 py-1.5 text-xs rounded-full border ${
                 isActive
                   ? 'bg-primary text-on-primary border-primary'

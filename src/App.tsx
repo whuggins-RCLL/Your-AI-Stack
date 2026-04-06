@@ -7,6 +7,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { ArrowRight, ArrowLeftRight, Plus, Download, Layers, Compass, Bookmark, FileDown, X, Sparkles, Check, ExternalLink } from 'lucide-react';
 import { tools } from './data';
 import FilterBar, { filterTools } from './components/FilterBar';
+import DiscontinuedAiPage from './components/DiscontinuedAiPage';
 import { inferCategories } from './utils/toolCategories';
 
 export default function App() {
@@ -38,6 +39,12 @@ export default function App() {
   });
   const [sortBy, setSortBy] = useState<'A-Z' | 'Category' | 'Recently Added'>('A-Z');
   const [isGridVisible, setIsGridVisible] = useState(true);
+
+  const isDiscontinuedPage = typeof window !== 'undefined' && window.location.pathname === '/discontinued-ai';
+
+  if (isDiscontinuedPage) {
+    return <DiscontinuedAiPage />;
+  }
 
   const getPrimaryCategory = (tool: any) => inferCategories(tool)[0] || 'General';
 
@@ -496,6 +503,7 @@ export default function App() {
             onFiltersChange={setFilters}
             resultCount={filteredTools.length}
             totalCount={visibleTools.length}
+            discontinuedPageHref="/discontinued-ai"
           />
 
           <div className="flex flex-col md:flex-row justify-between items-end md:items-center gap-4">
