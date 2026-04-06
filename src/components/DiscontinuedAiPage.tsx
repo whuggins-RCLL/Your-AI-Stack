@@ -21,7 +21,7 @@ export default function DiscontinuedAiPage() {
             </p>
           </div>
           <a
-            href="/"
+            href="#"
             className="inline-flex items-center rounded-lg bg-primary text-on-primary px-4 py-2 text-sm font-semibold hover:opacity-90"
           >
             Back to main page
