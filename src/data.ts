@@ -2169,6 +2169,77 @@ export const tools: Tool[] = [
     officialTrainingDocs: ['https://learning.google.com/experiments/learn-about/signup', 'https://support.google.com/websearch/answer/15662709', 'https://support.google.com/websearch/answer/13572013', 'https://support.google.com/websearch/answer/14184960'],
     stanfordUniversitySlsProvidedAccess: false,
     robertCrownLawLibraryFavorite: false
+  },
+  {
+    id: 'mai-transcribe-1',
+    name: 'MAI-Transcribe-1',
+    description: 'Microsoft’s speech recognition model for converting audio into text in Azure Speech workflows.',
+    bestFor: 'Speech recognition, multilingual transcription, and developer speech-to-text integrations.',
+    uses: 'Speech Recognition, Audio Transcription, Fast Transcription, Speech-to-Text, LLM Speech API, Multilingual Transcription, Developer Integration, Voice Workflows, Azure AI Foundry, Azure Speech',
+    tags: ['Speech', 'Microsoft', 'Transcription'],
+    tier: 'Preview',
+    logoUrl: 'https://picsum.photos/seed/mai-transcribe-1/200/200',
+    url: 'https://learn.microsoft.com/en-us/azure/ai-services/speech-service/mai-transcribe',
+    parentCompany: 'Microsoft',
+    summary: 'MAI-Transcribe-1 is Microsoft’s speech recognition model for converting audio into text with a focus on high accuracy and high efficiency. It is designed for use with Azure Speech in Foundry Tools and the LLM Speech API for transcription and speech-to-text workflows.',
+    tagCategories: 'speech recognition model, speech-to-text, audio transcription, developer platform, Azure AI, Microsoft AI, Foundry Tools, speech AI, transcription model, AI infrastructure, cloud AI, enterprise AI, multimodal AI, voice AI, API model, developer productivity, production speech workflows, model deployment, Azure Speech, transcription platform',
+    features: 'speech-to-text, audio transcription, LLM Speech API support, Azure Speech integration, Foundry Tools integration, high accuracy focus, high efficiency focus, multilingual transcription support, fast transcription workflow compatibility, developer documentation, API integration, speech service deployment, preview availability, cloud-based inference, transcription for voice workflows, Microsoft-hosted model',
+    notGoodFor: 'Not good for text-to-speech, real-time voice personas, image generation, or replacing human review for high-stakes legal, medical, or compliance-sensitive transcription. It is also a weaker fit when someone needs a general-purpose chatbot rather than a speech-to-text model.',
+    officialTrainingDocs: [
+      'https://learn.microsoft.com/en-us/azure/ai-services/speech-service/mai-transcribe',
+      'https://learn.microsoft.com/en-us/azure/ai-services/speech-service/llm-speech',
+      'https://learn.microsoft.com/en-us/azure/ai-services/speech-service/fast-transcription-create',
+      'https://learn.microsoft.com/en-us/azure/ai-services/speech-service/'
+    ],
+    stanfordUniversitySlsProvidedAccess: false,
+    robertCrownLawLibraryFavorite: false
+  },
+  {
+    id: 'mai-voice-1',
+    name: 'MAI-Voice-1',
+    description: 'Microsoft’s neural text-to-speech model for expressive, natural-sounding voice generation.',
+    bestFor: 'Text-to-speech, expressive speech synthesis, and Azure Speech voice application workflows.',
+    uses: 'Text-to-Speech, Voice Generation, Expressive Speech Synthesis, Natural Speech Output, Voice Applications, Speech APIs, Audio Generation, Azure Speech, Voice Agents, Developer Integration',
+    tags: ['Speech', 'Microsoft', 'Text-to-Speech'],
+    tier: 'Preview',
+    logoUrl: 'https://picsum.photos/seed/mai-voice-1/200/200',
+    url: 'https://learn.microsoft.com/en-us/azure/ai-services/speech-service/mai-voices',
+    parentCompany: 'Microsoft',
+    summary: 'MAI-Voice-1 is Microsoft’s neural text-to-speech model for generating expressive, natural-sounding speech with consistent voice persona quality. It is designed for Azure Speech in Foundry Tools and supports text-to-speech workflows for voice applications and AI experiences.',
+    tagCategories: 'text-to-speech model, speech synthesis, voice AI, neural TTS, audio generation, developer platform, Azure AI, Microsoft AI, Foundry Tools, speech AI, voice model, enterprise AI, cloud AI, multimodal AI, API model, developer productivity, expressive speech, audio platform, Azure Speech, voice application model',
+    features: 'text-to-speech, neural voice synthesis, expressive speech output, natural speech output, consistent voice persona quality, Azure Speech integration, Foundry Tools integration, public preview availability, developer documentation, speech service deployment, voice application support, tone adaptation, emotion adaptation, speaking style adaptation, Microsoft-hosted model, cloud-based inference, in-house speech foundation model lineage',
+    notGoodFor: 'Not good for speech recognition, audio transcription, image generation, or replacing professional voice direction and human review for brand-sensitive, legal, or accessibility-critical deployments. It is also a weaker fit when someone needs a general-purpose chatbot rather than a text-to-speech model.',
+    officialTrainingDocs: [
+      'https://learn.microsoft.com/en-us/azure/ai-services/speech-service/mai-voices',
+      'https://learn.microsoft.com/en-us/azure/ai-services/speech-service/',
+      'https://learn.microsoft.com/en-us/azure/ai-services/speech-service/voice-live-quickstart',
+      'https://learn.microsoft.com/en-us/azure/ai-services/speech-service/voice-live-how-to'
+    ],
+    stanfordUniversitySlsProvidedAccess: false,
+    robertCrownLawLibraryFavorite: false
+  },
+  {
+    id: 'mai-image-2',
+    name: 'MAI-Image-2',
+    description: 'Microsoft’s text-to-image model for generating visually rich images from natural-language prompts.',
+    bestFor: 'Text-to-image generation, concept art, design prototyping, and creative content workflows.',
+    uses: 'Text-to-Image Generation, Creative Image Creation, Design Prototyping, Visual Content Creation, Prompt-Based Image Generation, Azure AI Foundry, Developer Integration, Image APIs, Marketing Creative, Concept Art',
+    tags: ['Image Generation', 'Microsoft', 'Creative'],
+    tier: 'Preview',
+    logoUrl: 'https://picsum.photos/seed/mai-image-2/200/200',
+    url: 'https://learn.microsoft.com/en-us/azure/foundry/foundry-models/how-to/use-foundry-models-mai',
+    parentCompany: 'Microsoft',
+    summary: 'MAI-Image-2 is Microsoft’s text-to-image generation model for creating high-quality, visually rich images from natural-language prompts. It is designed for deployment in Microsoft Foundry and supports creative and design-oriented image generation workflows through Microsoft’s image generation APIs.',
+    tagCategories: 'image generation model, text-to-image, creative AI, generative media, visual content creation, design tool, developer platform, Microsoft AI, Azure AI, Foundry model, enterprise AI, cloud AI, API model, marketing creative, concept art, visual prototyping, media generation, prompt-based creation, image synthesis, developer productivity',
+    features: 'text-to-image generation, high-quality image generation, natural-language prompt support, Microsoft Foundry deployment, image generation API support, Microsoft Entra ID authentication support, API key authentication support, developer documentation, creative use case support, design workflow support, cloud-based inference, preview availability, prompt-based image creation, visually rich output, Microsoft-hosted model',
+    notGoodFor: 'Not good for speech recognition, text-to-speech, guaranteed factual accuracy in generated visuals, unrestricted sensitive-content generation, or replacing manual professional design workflows that require pixel-level control. It is also a weaker fit when someone needs a general-purpose chatbot rather than an image generation model.',
+    officialTrainingDocs: [
+      'https://learn.microsoft.com/en-us/azure/foundry/foundry-models/how-to/use-foundry-models-mai',
+      'https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure',
+      'https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/image-generation'
+    ],
+    stanfordUniversitySlsProvidedAccess: false,
+    robertCrownLawLibraryFavorite: false
   }
 
 
