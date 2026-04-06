@@ -9,6 +9,7 @@ export interface Tool {
   logoUrl: string;
   url: string;
   isNew?: boolean;
+  isHistoricalModel?: boolean;
   bookmarked?: boolean;
   helpUrls?: string[];
   parentCompany?: string;
@@ -106,6 +107,30 @@ export const tools: Tool[] = [
     ],
     stanfordUniversitySlsProvidedAccess: false,
     robertCrownLawLibraryFavorite: true
+  },
+  {
+    id: 'eliza-1966',
+    name: 'ELIZA (1966)',
+    description: 'One of the earliest chatbots, using keyword-triggered rules to simulate conversation.',
+    bestFor: 'AI history, classic chatbot demonstrations, and rule-based NLP education.',
+    uses: 'Natural Language Conversation, Pattern Matching, Psychotherapist Simulation, Early Chatbot Research, Human-Computer Interaction Research, NLP History, AI Education, Conversational Interface Demonstration, Rule-Based Language Processing, Computer Science Teaching',
+    tags: ['Historical', 'Chatbot'],
+    tier: 'Historical',
+    logoUrl: 'https://picsum.photos/seed/eliza1966/200/200',
+    url: 'https://cacm.acm.org/research/eliza-a-computer-program-for-the-study-of-natural-language-communication-between-man-and-machine-2/',
+    parentCompany: 'MIT',
+    summary: 'ELIZA is Joseph Weizenbaum’s 1966 natural-language conversation program created at MIT and widely regarded as one of the earliest chatbots. It used keyword-triggered decomposition and reassembly rules to simulate conversation, with its most famous script, DOCTOR, imitating a Rogerian psychotherapist rather than actually understanding language.',
+    tagCategories: 'early chatbot, historical AI, symbolic AI, rule-based AI, natural language processing, conversational AI, human-computer interaction, computer science history, MIT AI, language technology, chatbot research, AI education, NLP history, pattern-matching system, interactive computing, dialogue system, computational linguistics, classic AI system, psychotherapy simulation, text interface',
+    features: 'keyword matching, decomposition rules, reassembly rules, scripted conversation, DOCTOR script, text-only interaction, rule-based response generation, natural-language input handling, context-limited dialogue, MIT MAC time-sharing system operation, early chatbot architecture, symbolic language processing, educational demonstration value, historic AI reference implementation, conversational simulation, human-like prompting style, minimal context handling, deterministic scripted behavior, classic HCI experiment',
+    notGoodFor: 'Not good for modern reasoning, factual question answering, coding, real understanding of user intent, multilingual enterprise use, or any high-stakes task requiring accuracy or judgment. It is a historical rule-based conversational system, not a modern generative AI model or production assistant.',
+    officialTrainingDocs: [
+      'https://cacm.acm.org/research/eliza-a-computer-program-for-the-study-of-natural-language-communication-between-man-and-machine-2/',
+      'https://cacm.acm.org/issue/january-1966/',
+      'https://mitmuseum.mit.edu/collections/object/2022.008.folder.234'
+    ],
+    stanfordUniversitySlsProvidedAccess: false,
+    robertCrownLawLibraryFavorite: false,
+    isHistoricalModel: true
   },
   {
     id: 'openai-codex',

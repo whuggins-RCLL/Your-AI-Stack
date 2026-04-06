@@ -139,7 +139,8 @@ export default function App() {
           { label: 'Best For', getValue: (tool: any) => tool.bestFor || '—' },
           { label: 'Category', getValue: (tool: any) => getPrimaryCategory(tool) },
           { label: 'Has Learning Resources', getValue: (tool: any) => tool.helpUrls?.length ? '✓' : '—' },
-          { label: 'Marked as New', getValue: (tool: any) => tool.isNew ? '✓' : '—' }
+          { label: 'Marked as New', getValue: (tool: any) => tool.isNew ? '✓' : '—' },
+          { label: 'Historical Model', getValue: (tool: any) => tool.isHistoricalModel ? '✓' : '—' }
         ]
       },
       {
@@ -547,6 +548,11 @@ export default function App() {
                 {tool.isNew && (
                   <span className="new-badge text-[10px] bg-primary-container/20 text-primary px-2 py-0.5 rounded font-label uppercase tracking-widest shrink-0">
                     New
+                  </span>
+                )}
+                {tool.isHistoricalModel && (
+                  <span className="new-badge text-[10px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-label uppercase tracking-widest shrink-0">
+                    Historical
                   </span>
                 )}
               </div>
