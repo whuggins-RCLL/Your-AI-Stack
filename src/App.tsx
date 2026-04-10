@@ -574,7 +574,7 @@ export default function App() {
               className={`px-4 py-2 rounded-lg text-xs font-label tracking-widest uppercase transition-colors flex items-center gap-2 ${showOnlySaved ? 'bg-primary text-on-primary' : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high'}`}
             >
               Saved
-              <span className="bg-on-primary/20 text-current text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-sans">
+              <span className="bg-on-primary/20 text-current text-xs w-4 h-4 rounded-full flex items-center justify-center font-sans">
                 {bookmarkedIds.size}
               </span>
             </button>
@@ -641,18 +641,18 @@ export default function App() {
                     <h3 className="tool-name font-headline font-bold text-xl leading-tight truncate">
                       {tool.name}
                     </h3>
-                    <span className="category-badge inline-flex mt-1 px-2 py-0.5 rounded-full text-[10px] font-label tracking-wide uppercase bg-surface-container text-on-surface-variant">
+                    <span className="category-badge inline-flex mt-1 px-2 py-0.5 rounded-full text-xs font-label tracking-wide uppercase bg-surface-container text-on-surface-variant">
                       {getPrimaryCategory(tool)}
                     </span>
                   </div>
                 </div>
                 {tool.isNew && (
-                  <span className="new-badge text-[10px] bg-primary-container/20 text-primary px-2 py-0.5 rounded font-label uppercase tracking-widest shrink-0">
+                  <span className="new-badge text-xs bg-primary-container/20 text-primary px-2 py-0.5 rounded font-label uppercase tracking-widest shrink-0">
                     New
                   </span>
                 )}
                 {tool.isHistoricalModel && (
-                  <span className="new-badge text-[10px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-label uppercase tracking-widest shrink-0">
+                  <span className="new-badge text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-label uppercase tracking-widest shrink-0">
                     Historical
                   </span>
                 )}
@@ -663,14 +663,14 @@ export default function App() {
               </p>
 
               <div className="card-footer flex flex-wrap items-center gap-2 mb-6">
-                <span className="pricing-tag px-2 py-0.5 bg-[#F5F0EB] text-[#6B6B6B] text-[10px] font-label tracking-wider uppercase rounded-md">
+                <span className="pricing-tag px-2 py-0.5 bg-[#F5F0EB] text-[#5C5C5C] text-xs font-label tracking-wider uppercase rounded-md">
                   {tool.tier}
                 </span>
-                <span className="skill-tag px-2 py-0.5 bg-surface-container text-on-surface-variant text-[10px] font-label tracking-wider uppercase rounded-md">
+                <span className="skill-tag px-2 py-0.5 bg-surface-container text-on-surface-variant text-xs font-label tracking-wider uppercase rounded-md">
                   {tool.tags[1] || 'General'}
                 </span>
                 {tool.tier.toLowerCase() === 'stanford licensed' && (
-                  <span className="stanford-badge px-2 py-0.5 bg-primary/10 text-primary text-[10px] font-semibold rounded-md">
+                  <span className="stanford-badge px-2 py-0.5 bg-primary/10 text-primary text-xs font-semibold rounded-md">
                     🌲 Stanford Approved
                   </span>
                 )}
