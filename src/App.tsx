@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { ArrowRight, ArrowLeftRight, Plus, Download, Layers, Compass, Bookmark, FileDown, X, Sparkles, Check, ExternalLink } from 'lucide-react';
 import { tools } from './data';
 import FilterBar, { filterTools } from './components/FilterBar';
@@ -11,6 +11,7 @@ import DiscontinuedAiPage from './components/DiscontinuedAiPage';
 import { inferCategories } from './utils/toolCategories';
 
 export default function App() {
+  const disclaimerDialogRef = useRef<HTMLDivElement | null>(null);
   const visibleTools = useMemo(() => {
     const seen = new Set<string>();
     return tools.filter((tool) => {
@@ -56,6 +57,75 @@ export default function App() {
       window.removeEventListener('popstate', syncDiscontinuedRoute);
     };
   }, []);
+
+  useEffect(() => {
+    if (!showDisclaimer) return;
+
+    const dialogEl = disclaimerDialogRef.current;
+    if (!dialogEl) return;
+
+    const previousFocusedEl = document.activeElement as HTMLElement | null;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const getFocusableElements = () => {
+      const selector = [
+        'a[href]',
+        'button:not([disabled])',
+        'textarea:not([disabled])',
+        'input:not([disabled])',
+        'select:not([disabled])',
+        '[tabindex]:not([tabindex="-1"])'
+      ].join(',');
+      return Array.from(dialogEl.querySelectorAll<HTMLElement>(selector)).filter(
+        (element) => !element.hasAttribute('disabled') && element.getAttribute('aria-hidden') !== 'true'
+      );
+    };
+
+    const focusable = getFocusableElements();
+    if (focusable.length > 0) {
+      focusable[0].focus();
+    } else {
+      dialogEl.focus();
+    }
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        setShowDisclaimer(false);
+        return;
+      }
+
+      if (event.key !== 'Tab') return;
+
+      const focusTargets = getFocusableElements();
+      if (focusTargets.length === 0) {
+        event.preventDefault();
+        dialogEl.focus();
+        return;
+      }
+
+      const first = focusTargets[0];
+      const last = focusTargets[focusTargets.length - 1];
+      const active = document.activeElement as HTMLElement | null;
+
+      if (event.shiftKey && active === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && active === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener('keydown', onKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+      document.body.style.overflow = previousOverflow;
+      previousFocusedEl?.focus();
+    };
+  }, [showDisclaimer]);
 
   if (isDiscontinuedPage) {
     return <DiscontinuedAiPage />;
@@ -236,8 +306,15 @@ export default function App() {
       {/* Disclaimer Modal */}
       {showDisclaimer && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-on-surface/20 backdrop-blur-md p-6">
-          <div className="bg-surface-container-lowest max-w-2xl w-full rounded-2xl shadow-[0_20px_40px_rgba(26,28,27,0.1)] p-8 md:p-12">
-            <h2 className="font-headline text-3xl font-bold mb-6 text-on-surface">
+          <div
+            ref={disclaimerDialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="disclaimer-modal-title"
+            tabIndex={-1}
+            className="bg-surface-container-lowest max-w-2xl w-full rounded-2xl shadow-[0_20px_40px_rgba(26,28,27,0.1)] p-8 md:p-12"
+          >
+            <h2 id="disclaimer-modal-title" className="font-headline text-3xl font-bold mb-6 text-on-surface">
               Disclaimer & Terms of Use
             </h2>
             <div className="space-y-4 font-body text-on-surface-variant leading-relaxed">
