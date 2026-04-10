@@ -160,8 +160,10 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
 
         <section className="space-y-4">
           <div className="relative">
+            <label htmlFor="tool-search-input" className="sr-only">Search tools</label>
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-on-surface/40" />
             <input
+              id="tool-search-input"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onFocus={() => setShowSuggestions(true)}

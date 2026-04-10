@@ -601,10 +601,11 @@ export default function App() {
           <div className="flex flex-col md:flex-row justify-between items-end md:items-center gap-4">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
-                <span className="text-xs font-label tracking-widest text-on-surface-variant uppercase">
+                <label htmlFor="sort-tools-select" className="text-xs font-label tracking-widest text-on-surface-variant uppercase">
                   Sort By:
-                </span>
+                </label>
                 <select
+                  id="sort-tools-select"
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as 'A-Z' | 'Category' | 'Recently Added')}
                   className="bg-transparent border-none text-sm font-semibold focus:outline-none cursor-pointer"
