@@ -33,6 +33,11 @@ export default function App() {
   const [mobileDetailView, setMobileDetailView] = useState(false);
   const [showOnlyDifferences, setShowOnlyDifferences] = useState(false);
   const [activeCompareToolId, setActiveCompareToolId] = useState<string | null>(null);
+  const [isExportingPdf, setIsExportingPdf] = useState(false);
+  const [exportPdfMessage, setExportPdfMessage] = useState<{
+    type: 'success' | 'error';
+    text: string;
+  } | null>(null);
   const [filters, setFilters] = useState({
     categories: ['All'],
     search: '',
@@ -126,6 +131,12 @@ export default function App() {
       previousFocusedEl?.focus();
     };
   }, [showDisclaimer]);
+
+  useEffect(() => {
+    if (!exportPdfMessage) return;
+    const timer = window.setTimeout(() => setExportPdfMessage(null), 4000);
+    return () => window.clearTimeout(timer);
+  }, [exportPdfMessage]);
 
   if (isDiscontinuedPage) {
     return <DiscontinuedAiPage />;
@@ -270,11 +281,17 @@ export default function App() {
   }, [comparisonTools, showOnlyDifferences]);
 
   const handleExportPDF = async () => {
+    setIsExportingPdf(true);
+    setExportPdfMessage(null);
+
     try {
       // @ts-ignore
       const html2pdf = (await import('html2pdf.js')).default;
       const element = document.getElementById('pdf-export-content');
-      if (!element) return;
+      if (!element) {
+        setExportPdfMessage({ type: 'error', text: 'Could not find export content. Please refresh and try again.' });
+        return;
+      }
       
       // Temporarily make it visible for html2pdf
       element.classList.remove('hidden');
@@ -290,6 +307,7 @@ export default function App() {
       };
 
       await html2pdf().set(opt).from(element).save();
+      setExportPdfMessage({ type: 'success', text: 'PDF exported successfully.' });
       
       // Restore classes
       element.style.display = '';
@@ -297,6 +315,9 @@ export default function App() {
       element.classList.add('print:block');
     } catch (error) {
       console.error('Failed to export PDF:', error);
+      setExportPdfMessage({ type: 'error', text: 'PDF export failed. Please try again.' });
+    } finally {
+      setIsExportingPdf(false);
     }
   };
 
@@ -581,13 +602,23 @@ export default function App() {
             {bookmarkedIds.size > 0 && (
               <button
                 onClick={handleExportPDF}
-                className="flex items-center gap-2 bg-primary text-on-primary px-4 py-2 rounded-lg text-xs font-label tracking-widest uppercase hover:opacity-90 transition-opacity shadow-sm"
+                disabled={isExportingPdf}
+                className="flex items-center gap-2 bg-primary text-on-primary px-4 py-2 rounded-lg text-xs font-label tracking-widest uppercase hover:opacity-90 transition-opacity shadow-sm disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 <Download className="w-3.5 h-3.5" />
-                Export PDF
+                {isExportingPdf ? 'Exporting…' : 'Export PDF'}
               </button>
             )}
           </div>
+          {exportPdfMessage && (
+            <p
+              className={`text-sm ${exportPdfMessage.type === 'error' ? 'text-error' : 'text-primary'}`}
+              role="status"
+              aria-live="polite"
+            >
+              {exportPdfMessage.text}
+            </p>
+          )}
 
           <FilterBar
             tools={visibleTools}
