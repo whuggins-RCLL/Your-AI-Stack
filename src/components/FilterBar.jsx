@@ -37,6 +37,7 @@ const removeOption = (currentValues, option) => {
 
 export default function FilterBar({ tools, filters, onFiltersChange, resultCount, totalCount, discontinuedPageHref = '#discontinued-ai' }) {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const [draftFilters, setDraftFilters] = useState(filters);
   const [inputValue, setInputValue] = useState(filters.search || '');
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -85,6 +86,7 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
   ];
 
   const applyQuickFilter = (quickFilterId) => {
+    setIsMobileSearchOpen(false);
     setInputValue('');
     onFiltersChange({
       ...filters,
@@ -132,13 +134,61 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
 
   return (
     <div className="space-y-4">
-      <button
-        onClick={() => setIsMobileOpen(true)}
-        className="md:hidden inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container-low text-on-surface-variant"
-      >
-        <SlidersHorizontal className="w-4 h-4" />
-        Filters
-      </button>
+      <div className="md:hidden space-y-3">
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setIsMobileOpen(true)}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container-low text-on-surface-variant"
+          >
+            <SlidersHorizontal className="w-4 h-4" />
+            Filters
+          </button>
+          <button
+            onClick={() => setIsMobileSearchOpen((open) => !open)}
+            aria-label={isMobileSearchOpen ? 'Close search' : 'Open search'}
+            className="ml-auto inline-flex items-center justify-center w-10 h-10 rounded-lg bg-surface-container-low text-on-surface-variant"
+          >
+            {isMobileSearchOpen ? <X className="w-4 h-4" /> : <Search className="w-4 h-4" />}
+          </button>
+        </div>
+
+        {isMobileSearchOpen && (
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-on-surface/40" />
+            <input
+              autoFocus
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onFocus={() => setShowSuggestions(true)}
+              onBlur={() => setTimeout(() => setShowSuggestions(false), 100)}
+              placeholder="Search tools, descriptions, and tags..."
+              className="w-full rounded-xl bg-surface-container-low border border-outline-variant/40 py-3 pl-10 pr-10 focus:outline-none focus:border-primary"
+            />
+            {!!inputValue && (
+              <button
+                onClick={() => setInputValue('')}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface/50"
+                aria-label="Clear search"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
+            {showSuggestions && suggestions.length > 0 && (
+              <div className="absolute z-20 mt-1 w-full rounded-xl border border-outline-variant/30 bg-white shadow-lg overflow-hidden">
+                {suggestions.map((suggestion) => (
+                  <button
+                    key={`mobile-suggestion-${suggestion}`}
+                    onMouseDown={() => setInputValue(suggestion)}
+                    className="w-full text-left px-3 py-2 text-sm hover:bg-surface-container-low"
+                  >
+                    {suggestion}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
 
       <div className="hidden md:grid grid-cols-[240px_minmax(0,1fr)_280px] gap-6 items-start">
         <aside className="bg-surface-container-low rounded-xl p-4">
