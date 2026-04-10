@@ -291,7 +291,9 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
           <div className="w-full bg-surface rounded-t-2xl p-4 space-y-4 max-h-[85vh] overflow-auto">
             <div className="flex items-center justify-between">
               <h3 className="font-semibold">Filters</h3>
-              <button onClick={() => setIsMobileOpen(false)}><X className="w-5 h-5" /></button>
+              <button onClick={() => setIsMobileOpen(false)} aria-label="Close filters">
+                <X className="w-5 h-5" />
+              </button>
             </div>
             <button onClick={applyDraft} className="w-full bg-primary text-on-primary py-3 rounded-xl font-semibold">
               Apply ({filterTools(tools, { ...draftFilters, search: inputValue }).length} results)

@@ -721,7 +721,10 @@ export default function App() {
       </main>
 
       {/* FAB for mobile */}
-      <button className="md:hidden fixed bottom-6 right-6 w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center active:scale-90 transition-transform z-[60]">
+      <button
+        className="md:hidden fixed bottom-6 right-6 w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center active:scale-90 transition-transform z-[60]"
+        aria-label="Add tool"
+      >
         <Plus className="w-6 h-6" />
       </button>
       {/* Detail View */}
@@ -736,7 +739,11 @@ export default function App() {
                   <p className="text-sm text-on-surface-variant">{selectedTool.bestFor}</p>
                 </div>
               </div>
-              <button onClick={() => setSelectedToolId(null)} className="p-2 rounded-full hover:bg-surface-container">
+              <button
+                onClick={() => setSelectedToolId(null)}
+                className="p-2 rounded-full hover:bg-surface-container"
+                aria-label="Close tool details"
+              >
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -857,7 +864,13 @@ export default function App() {
               <h2 className="font-headline text-3xl font-bold">Tool Comparison</h2>
               <div className="flex items-center gap-2">
                 <button onClick={() => setShowOnlyDifferences((prev) => !prev)} className={`px-3 py-1.5 rounded-lg text-xs font-semibold ${showOnlyDifferences ? 'bg-primary text-on-primary' : 'border border-outline-variant'}`}>Highlight Differences</button>
-                <button onClick={() => setShowCompare(false)} className="p-2 rounded-full hover:bg-surface-container"><X className="w-5 h-5" /></button>
+                <button
+                  onClick={() => setShowCompare(false)}
+                  className="p-2 rounded-full hover:bg-surface-container"
+                  aria-label="Close comparison view"
+                >
+                  <X className="w-5 h-5" />
+                </button>
               </div>
             </div>
 
