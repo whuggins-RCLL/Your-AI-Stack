@@ -161,7 +161,7 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
         <section className="space-y-4">
           <div className="relative">
             <label htmlFor="tool-search-input" className="sr-only">Search tools</label>
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-on-surface/40" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-on-surface/70" />
             <input
               id="tool-search-input"
               value={inputValue}
@@ -213,7 +213,7 @@ export default function FilterBar({ tools, filters, onFiltersChange, resultCount
               <p className="text-xs text-on-surface-variant mt-1 line-clamp-2">{tool.bestFor}</p>
               <div className="mt-2 flex flex-wrap gap-1">
                 {inferCategories(tool).slice(0, 2).map((category) => (
-                  <span key={category} className="text-[10px] px-2 py-0.5 rounded-full bg-primary/10 text-primary">
+                  <span key={category} className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary">
                     {category}
                   </span>
                 ))}
